@@ -1,0 +1,15 @@
+D:\DEV\VC++\skyr-2.0.0.5\contrib\testgen\gen_base58_test_vectors.py
+
+правильные значения по chainparams.cpp
+# key types
+PUBKEY_ADDRESS = 55
+
+SCRIPT_ADDRESS = 117
+
+PUBKEY_ADDRESS_TEST = 139
+
+SCRIPT_ADDRESS_TEST = 19
+
+PRIVKEY = 118
+
+PRIVKEY_TEST = 239

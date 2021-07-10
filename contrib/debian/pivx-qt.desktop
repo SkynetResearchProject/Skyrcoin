@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=Skyrcoin
+Comment= SKYR P2P Cryptocurrency
+Comment[fr]= SKYR, monnaie virtuelle cryptographique pair à pair
+Comment[tr]= SKYR, eşten eşe kriptografik sanal para birimi
+Exec=skyrcoin-qt %u
+Terminal=false
+Type=Application
+Icon=pivx128
+MimeType=x-scheme-handler/pivx;
+Categories=Office;Finance;
+StartupWMClass=skyrcoin-qt
