@@ -1617,9 +1617,9 @@ NODES</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-        https://discord.gg/UXGTjfsBFe</source>
+        https://t.me/Skynet_Research_coin</source>
         <translation>Taal ontbreekt of vertaling onvolledig? Help om bij te dragen aan vertalingen:
-        https://discord.gg/UXGTjfsBFe</translation>
+        https://t.me/Skynet_Research_coin</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -3515,8 +3515,8 @@ Er was een fout opgetreden tijdens het opslaan van deze adreslijst naar %1. Prob
         <translation>2) Waarom is mijn SKYR niet besteedbaar?</translation>
     </message>
     <message>
-        <source>https://skyrcoin.io/</source>
-        <translation>https://skyrcoin.io/</translation>
+        <source>https://skynresearch.ru/</source>
+        <translation>https://skynresearch.ru/</translation>
     </message>
     <message>
         <source>1</source>
@@ -3616,15 +3616,15 @@ Er was een fout opgetreden tijdens het opslaan van deze adreslijst naar %1. Prob
         <source>
                            &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
                            We have support channels in most of our official chat groups, for example
-                           &lt;a style='color: #b088ff' href='https://discord.gg/UXGTjfsBFe'&gt;
-                           #support in our Discord&lt;/a&gt;.
+                           &lt;a style='color: #b088ff' href='https://t.me/Skynet_Research_coin'&gt;
+                           #support in our Telegram&lt;/a&gt;.
                            &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                          </source>
         <translation>
                            &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
                            We hebben ondersteuningskanalen in de meeste van onze officiële chatgroepen, bijvoorbeeld
-                           &lt;a style='color: #b088ff' href='https://discord.gg/UXGTjfsBFe'&gt;
-                           #support in onze Discord&lt;/a&gt;.
+                           &lt;a style='color: #b088ff' href='https://t.me/Skynet_Research_coin'&gt;
+                           #support in onze Telegram&lt;/a&gt;.
                            &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                          </translation>
     </message>

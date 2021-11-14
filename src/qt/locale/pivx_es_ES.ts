@@ -1564,9 +1564,9 @@ MAESTROS</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-        https://discord.gg/UXGTjfsBFe</source>
+        https://t.me/Skynet_Research_coin</source>
         <translation>¿Falta su lenguaje o la traducción está incompleta? Contribuya con las traducciones aquí:
-        https://discord.gg/UXGTjfsBFe</translation>
+        https://t.me/Skynet_Research_coin</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>

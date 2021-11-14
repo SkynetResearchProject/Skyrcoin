@@ -1611,9 +1611,9 @@ MAESTROS</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-        https://discord.gg/UXGTjfsBFe</source>
+        https://t.me/Skynet_Research_coin</source>
         <translation>¿Falta su lenguaje o la traducción está incompleta? Contribuya con las traducciones aquí:
-        https://discord.gg/UXGTjfsBFe</translation>
+        https://t.me/Skynet_Research_coin</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -3512,8 +3512,8 @@ Ha habido un error al tratar de guardar la libreta de direcciones en %1. Por fav
         <translation>2) ¿Por qué mis SKYR no se pueden gastar?</translation>
     </message>
     <message>
-        <source>https://skyrcoin.io/</source>
-        <translation>https://skyrcoin.io/</translation>
+        <source>https://skynresearch.ru/</source>
+        <translation>https://skynresearch.ru/</translation>
     </message>
     <message>
         <source>1</source>

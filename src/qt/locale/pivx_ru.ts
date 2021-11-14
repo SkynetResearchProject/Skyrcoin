@@ -1611,9 +1611,9 @@ NODES</source>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-        https://discord.gg/UXGTjfsBFe</source>
+        https://t.me/Skynet_Research_coin</source>
         <translation>Отсутствует ваш язык или заметили незавершенный перевод? Вы можете помочь нам стать лучше:
-        https://discord.gg/UXGTjfsBFe</translation>
+        https://t.me/Skynet_Research_coin</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -3509,8 +3509,8 @@ There was an error trying to save the address list to %1. Please try again.</sou
         <translation>2) Почему мои SKYR невозможно потратить?</translation>
     </message>
     <message>
-        <source>https://skyrcoin.io/</source>
-        <translation>https://skyrcoin.io/</translation>
+        <source>https://skynresearch.ru/</source>
+        <translation>https://skynresearch.ru/</translation>
     </message>
     <message>
         <source>1</source>

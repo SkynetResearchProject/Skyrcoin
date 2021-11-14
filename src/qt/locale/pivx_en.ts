@@ -1981,7 +1981,7 @@ NODES</source>
     <message>
         <location line="+21"/>
         <source>Language missing or translation incomplete? Help contributing translations here:
-        https://discord.gg/UXGTjfsBFe</source>
+        https://t.me/Skynet_Research_coin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4395,7 +4395,7 @@ There was an error trying to save the address list to %1. Please try again.</sou
     </message>
     <message>
         <location line="+148"/>
-        <source>https://skyrcoin.io/</source>
+        <source>https://skynresearch.ru/</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4440,8 +4440,8 @@ There was an error trying to save the address list to %1. Please try again.</sou
         <location line="+26"/>
         <source>
                            &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;
-                           Newly received SKYR requires 6 confirmations on the network
-                           to become eligible for spending which can take ~6 minutes.
+                           Newly received SKYR requires 7 confirmations on the network
+                           to become eligible for spending which can take ~7 minutes.
                            &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
                            Your SKYR wallet also needs to be completely synchronized
                            to see and spend balances on the network.
@@ -4489,8 +4489,8 @@ There was an error trying to save the address list to %1. Please try again.</sou
         <source>
                            &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;
                            We have support channels in most of our official chat groups, for example
-                           &lt;a style=&apos;color: #b088ff&apos; href=&apos;https://discord.gg/UXGTjfsBFe&apos;&gt;
-                           #support in our Discord&lt;/a&gt;.
+                           &lt;a style=&apos;color: #b088ff&apos; href=&apos;https://t.me/Skynet_Research_coin;&gt;
+                           #support in our Telegram&lt;/a&gt;.
                            &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                          </source>
         <translation type="unfinished"></translation>

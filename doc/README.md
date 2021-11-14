@@ -3,7 +3,7 @@ Skyrcoin Core
 
 Setup
 ---------------------
-[Skyrcoin Core]https://skyrcoin.io/) is the original skyrcoin client and it builds the backbone of the network. However, it downloads and stores the entire history of skyrcoin transactions; depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more. Thankfully you only have to do this once.
+[Skyrcoin Core]https://skynresearch.ru/) is the original skyrcoin client and it builds the backbone of the network. However, it downloads and stores the entire history of skyrcoin transactions; depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more. Thankfully you only have to do this once.
 
 Running
 ---------------------
@@ -55,7 +55,7 @@ The skyrcoin repo's [root README](/README.md) contains relevant information on t
 - [Dnsseed Policy](dnsseed-policy.md)
 
 ### Resources
-* Discuss on the [skyrcoin Homepage]https://skyrcoin.io/).
+* Discuss on the [skyrcoin Homepage]https://skynresearch.ru/).
 * Join the [skyrcoin Discord](https://discord.gg/).
 
 ### Miscellaneous

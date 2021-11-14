@@ -325,10 +325,16 @@ CAmount CMasternode::GetMasternodeNodeCollateral(int nHeight)
     } else if (nHeight > 100000 && nHeight <= 200000) {
         return 300000 * COIN;
     } else if (nHeight > 200000 && nHeight <= 300000) {
-        return 500000 * COIN;
+        return 400000 * COIN;
     } else if (nHeight > 300000 && nHeight <= 400000) {
+        return 500000 * COIN;
+    } else if (nHeight > 400000 && nHeight <= 500000) {
+        return 600000 * COIN;
+    } else if (nHeight > 500000 && nHeight <= 600000) {
         return 700000 * COIN;
-    } else if (nHeight > 400000) {
+    } else if (nHeight > 600000 && nHeight <= 700000) {
+        return 800000 * COIN;
+    } else if (nHeight > 800000) {
         return 1000000 * COIN;
     }
 }
@@ -347,10 +353,12 @@ CAmount CMasternode::GetBlockValue(int nHeight)
         nSubsidy = 280000000 * COIN; // SKYR coin supply (13:00 of 25/06/2021 UTC)
     } else if (nHeight <= 100000) {
         nSubsidy = 5 * COIN;
-    } else if (nHeight > 100000 && nHeight <= 200000) {
+    } else if (nHeight > 100000 && nHeight <= 144000) {
         nSubsidy = 12 * COIN;
+    } else if (nHeight > 144000 && nHeight <= 200000) {
+        nSubsidy = 14 * COIN;
     } else if (nHeight > 200000 && nHeight <= 300000) {
-        nSubsidy = 25 * COIN;
+        nSubsidy = 18 * COIN;
     } else if (nHeight > 300000 && nHeight <= 400000) {
         nSubsidy = 40 * COIN;
     } else if (nHeight > 400000 && nHeight <= 500000) {
