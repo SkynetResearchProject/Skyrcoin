@@ -899,6 +899,16 @@ for staking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location line="+422"/>
+        <source>Rewards Chart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+143"/>
+        <source>Amount of SKYR earned via Stacking and Masternodes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+143"/>
         <source>Staking statistics</source>
         <translation type="unfinished"></translation>
@@ -936,6 +946,66 @@ for staking</source>
     <message>
         <location line="+31"/>
         <source>Filter by</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../pivx/dashboardwidget.cpp" line="-507"/>
+        <source>Jan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Feb</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Mar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Apr</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>May</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Jun</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Jul</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Aug</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Sep</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Oct</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Nov</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Dec</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1606,7 +1676,7 @@ Please wait few more minutes (masternode collaterals require %1 confirmations).<
     </message>
     <message>
         <location line="+118"/>
-        <source>Not enough balance to create a masternode, 10,000 %1 required.</source>
+        <source>Not enough balance to create a masternode, 200,000 (or more) %1 required.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2470,7 +2540,6 @@ Address: %4
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+SKYR"/>
         <source>%1 d</source>
         <translation>%1 d</translation>
     </message>
@@ -2663,66 +2732,6 @@ Address: %4
     <message>
         <location line="+1"/>
         <source>by Date</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../pivx/dashboardwidget.cpp" line="-507"/>
-        <source>Jan</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>Feb</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>Mar</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>Apr</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>May</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>Jun</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>Jul</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>Aug</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Sep</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>Oct</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>Nov</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>Dec</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4384,6 +4393,11 @@ There was an error trying to save the address list to %1. Please try again.</sou
         <translation type="unfinished">Form</translation>
     </message>
     <message>
+        <location line="-856"/>
+        <source>Frequently Asked Questions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+152"/>
         <source>1) What is SKYR?</source>
         <translation type="unfinished"></translation>
@@ -4394,8 +4408,38 @@ There was an error trying to save the address list to %1. Please try again.</sou
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location line="+158"/>
+        <source>3) How do I stake SKYR?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <source>4) Where I should go if I need support?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <source>5) What is a Masternode?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <source>6) What is a Masternode Controller?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+34"/>
+        <source>You can read more here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+148"/>
         <source>https://skynresearch.ru/</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-238"/>
+        <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4446,7 +4490,7 @@ There was an error trying to save the address list to %1. Please try again.</sou
                            Your SKYR wallet also needs to be completely synchronized
                            to see and spend balances on the network.
                            &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                         </source>
+        </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4461,22 +4505,13 @@ There was an error trying to save the address list to %1. Please try again.</sou
     </message>
     <message>
         <location line="+26"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Make sure your wallet is completely synchronized and you are using the latest release. &lt;/li&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You must have a balance of SKYR with a minimum of 600 confirmations. &lt;/li&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Your wallet must stay online and be unlocked for staking purposes. &lt;/li&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Once all those steps are followed staking should be enabled. &lt;/li&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You can see the status of staking in the wallet by mousing over the package icon in the row on the top left of the wallet interface. There package will be lit up and will state &amp;quot;Staking Enabled&amp;quot; to indicate it is staking. Using the command line interface (skyrcoin-cli); the command &lt;span style=&quot; font-style:italic;&quot;&gt;getstakingstatus&lt;/span&gt; will confirm that staking is active. &lt;/li&gt;&lt;/ol&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>
+&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Make sure your wallet is completely synchronized and you are using the latest release. &lt;/li&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You must have a balance of SKYR with a minimum of 600 confirmations. &lt;/li&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Your wallet must stay online and be unlocked for staking purposes. &lt;/li&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Once all those steps are followed staking should be enabled. &lt;/li&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You can see the status of staking in the wallet by mousing over the package icon in the row on the top left of the wallet interface. There package will be lit up and will state &quot;Staking active&quot; to indicate it is staking. Using the command line interface (skyrcoin-cli); the command &lt;span style=&quot; font-style:italic;&quot;&gt;getstakingstatus&lt;/span&gt; will confirm that staking is active. &lt;/li&gt;&lt;/ol&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+46"/>
         <source>4</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+99"/>
-        <source>5</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+131"/>
-        <source>6</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4489,25 +4524,20 @@ There was an error trying to save the address list to %1. Please try again.</sou
         <source>
                            &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;
                            We have support channels in most of our official chat groups, for example
-                           &lt;a style=&apos;color: #b088ff&apos; href=&apos;https://t.me/Skynet_Research_coin;&gt;
-                           #support in our Telegram&lt;/a&gt;.
+                           &lt;a style=&apos;color: #b088ff&apos; href=&apos;https://t.me/Skynet_Research_coin&apos;&gt;
+                           support in our Telegram&lt;/a&gt;.
                            &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                         </source>
+	</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+99"/>
+        <source>5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+73"/>
         <source>What is a Masternode?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+131"/>
-        <source>What is a Masternode Controller?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+26"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;A Masternode Controller wallet is where the collateral can reside during a Controller-Remote masternode setup. It is a wallet that can activate the remote masternode wallet(s) and allows you to keep your collateral coins offline while the remote masternode remains online. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4556,38 +4586,20 @@ There was an error trying to save the address list to %1. Please try again.</sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-856"/>
-        <source>Frequently Asked Questions</source>
+        <location line="+131"/>
+        <source>6</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+158"/>
-        <source>3) How do I stake SKYR?</source>
+        <location line="+131"/>
+        <source>What is a Masternode Controller?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+22"/>
-        <source>4) Where I should go if I need support?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+22"/>
-        <source>5) What is a Masternode?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+22"/>
-        <source>6) What is a Masternode Controller?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+34"/>
-        <source>You can read more here</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-238"/>
-        <source>Exit</source>
+        <location line="+26"/>
+	<source>
+&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;A Masternode Controller wallet is where the collateral can reside during a Controller-Remote masternode setup. It is a wallet that can activate the remote masternode wallet(s) and allows you to keep your collateral coins offline while the remote masternode remains online. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+	</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5375,88 +5387,93 @@ Check one or both of the check boxes to send on stake and/or masternode rewards<
     </message>
     <message>
         <location line="+255"/>
-        <source>Wallet Data</source>
+        <source>.  Wallet Data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+55"/>
         <location line="+321"/>
-        <source>Wallet</source>
-        <translation type="unfinished">Wallet</translation>
+        <source>.     Wallet</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-293"/>
-        <source>Multisend</source>
+        <source>.     Multisend</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+28"/>
-        <source>Export Accounting</source>
+        <source>.     Export Accounting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+55"/>
-        <source>Tools</source>
+        <source>.  Tools</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+55"/>
-        <source>Sign/Verify Message</source>
+        <source>.     Sign/Verify Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+28"/>
-        <source>BIP38 Tool</source>
+        <source>.     BIP38 Tool</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+42"/>
-        <source>Options</source>
-        <translation type="unfinished">Options</translation>
+        <source>.  Options</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+54"/>
-        <source>Main</source>
+        <source>.     Main</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+55"/>
+        <source>.     wallet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+59"/>
-        <source>Display</source>
+        <source>.     Display</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+42"/>
-        <source>Debug</source>
+        <source>.  Debug</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+54"/>
-        <source>Information</source>
-        <translation type="unfinished">Information</translation>
+        <source>.     Information</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+31"/>
-        <source>Console</source>
+        <source>.     Console</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+28"/>
-        <source>Wallet Repair</source>
+        <source>.     Wallet Repair</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+42"/>
-        <source>Help</source>
+        <source>.  Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+54"/>
-        <source>FAQ</source>
+        <source>.     FAQ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+31"/>
-        <source>About SKYR</source>
+        <source>.     About SKYR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5622,6 +5639,47 @@ Are you sure?
         <translation type="unfinished">Form</translation>
     </message>
     <message>
+        <location line="+26"/>
+        <location line="+309"/>
+        <source>Total</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>Locked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>Masternodes %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>(Syncing)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>Collateral</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>Next Collateral</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>In</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>%1 Blocks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+309"/>
         <location filename="../pivx/topbar.cpp" line="+629"/>
         <source>Available</source>
@@ -5659,6 +5717,11 @@ Are you sure?
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location line="+34"/>
+        <source>Debug Console</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+0"/>
         <source>Staking not active</source>
         <translation type="unfinished"></translation>
@@ -5666,10 +5729,7 @@ Are you sure?
     <message numerus="yes">
         <location line="+31"/>
         <source>%n active connection(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+34"/>

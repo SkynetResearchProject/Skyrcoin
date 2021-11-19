@@ -98,7 +98,7 @@ TopBar::TopBar(PIVXGUI* _mainWindow, QWidget* parent) : PWidget(_mainWindow, par
 
     ui->pushButtonConsole->setButtonClassStyle("cssClass", "btn-check-console");
     ui->pushButtonConsole->setButtonText("Debug Console");
-    ui->pushButtonConsole->setChecked(false);
+    //ui->pushButtonConsole->setChecked(false);
 
     ui->pushButtonSync->setButtonClassStyle("cssClass", "btn-check-sync");
     ui->pushButtonSync->setButtonText(tr(" %54 Synchronizing.."));
@@ -609,7 +609,7 @@ void TopBar::refreshMasternodeStatus()
     }
 
     ui->labelMasternodeCount->setText(tr("%1/%2").arg(isSynced ? std::to_string(nMNActive).c_str() : "--").arg(nMNCount));
-    ui->labelMasternodesTitle->setText(tr("Masternodes%1").arg(isSynced ? "" : " (Syncing)"));
+    ui->labelMasternodesTitle->setText(tr("Masternodes %1").arg(isSynced ? "" : tr("(Syncing)")));
 
     if(chainActive.Tip()) {
         auto p = CMasternode::GetNextMasternodeCollateral(chainActive.Tip()->nHeight);

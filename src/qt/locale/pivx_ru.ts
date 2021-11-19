@@ -1,4 +1,6 @@
-<TS language="ru" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="ru">
 <context>
     <name>AddNewAddressDialog</name>
     <message>
@@ -564,8 +566,8 @@ for staking</source>
         <translation>Снять все</translation>
     </message>
     <message>
-        <source>Please switch to "List mode" to use this function.</source>
-        <translation>Для использования этой функции перейдите в "Режим списка"</translation>
+        <source>Please switch to &quot;List mode&quot; to use this function.</source>
+        <translation>Для использования этой функции перейдите в &quot;Режим списка&quot;</translation>
     </message>
     <message>
         <source>Quantity Copied</source>
@@ -672,8 +674,8 @@ for staking</source>
         <translation>Транзакции с высоким приоритетом с большей вероятностью будут включены в блок.</translation>
     </message>
     <message>
-        <source>This label turns red, if the priority is smaller than "medium".</source>
-        <translation>Этот маркер становится красным если приоритет ниже, чем "средний".</translation>
+        <source>This label turns red, if the priority is smaller than &quot;medium&quot;.</source>
+        <translation>Этот маркер становится красным если приоритет ниже, чем &quot;средний&quot;.</translation>
     </message>
     <message>
         <source>This label turns red, if any recipient receives an amount smaller than %1.</source>
@@ -714,11 +716,19 @@ for staking</source>
         <translation>Вознаграждения за стекинг</translation>
     </message>
     <message>
+        <source>Rewards Chart</source>
+        <translation>График вознаграждений</translation>
+    </message>
+    <message>
+        <source>Amount of SKYR earned via Stacking and Masternodes</source>
+        <translation>Количество SKYR, заработанных в стекинге и мастернодами</translation>
+    </message>
+    <message>
         <source>Staking statistics</source>
         <translation>Статистика стекинга</translation>
     </message>
     <message>
-        <source>View your account's history</source>
+        <source>View your account&apos;s history</source>
         <translation>Обзор истории вашего аккаунта</translation>
     </message>
     <message>
@@ -744,6 +754,54 @@ for staking</source>
     <message>
         <source>Filter by</source>
         <translation>Сортировать по</translation>
+    </message>
+    <message>
+        <source>Jan</source>
+        <translation>Январь</translation>
+    </message>
+    <message>
+        <source>Feb</source>
+        <translation>Февраль</translation>
+    </message>
+    <message>
+        <source>Mar</source>
+        <translation>Март</translation>
+    </message>
+    <message>
+        <source>Apr</source>
+        <translation>Апрель</translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation>Май</translation>
+    </message>
+    <message>
+        <source>Jun</source>
+        <translation>Июнь</translation>
+    </message>
+    <message>
+        <source>Jul</source>
+        <translation>Июль</translation>
+    </message>
+    <message>
+        <source>Aug</source>
+        <translation>Август</translation>
+    </message>
+    <message>
+        <source>Sep</source>
+        <translation>Сентябрь</translation>
+    </message>
+    <message>
+        <source>Oct</source>
+        <translation>Октябрь</translation>
+    </message>
+    <message>
+        <source>Nov</source>
+        <translation>Ноябрь</translation>
+    </message>
+    <message>
+        <source>Dec</source>
+        <translation>Декабрь</translation>
     </message>
     <message>
         <source>Amount of SKYR and zSKYR staked.</source>
@@ -842,12 +900,12 @@ It will start automatically as soon as the wallet has enough confirmations on an
         <translation>Изменить адрес отправки</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid SKYR address.</source>
-        <translation>Введенный адрес "%1" не является SKYR адресом.</translation>
+        <source>The entered address &quot;%1&quot; is not a valid SKYR address.</source>
+        <translation>Введенный адрес &quot;%1&quot; не является SKYR адресом.</translation>
     </message>
     <message>
-        <source>The entered address "%1" is already in the address book.</source>
-        <translation>Введенный адрес "%1" уже находится в записной книге.</translation>
+        <source>The entered address &quot;%1&quot; is already in the address book.</source>
+        <translation>Введенный адрес &quot;%1&quot; уже находится в записной книге.</translation>
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -935,8 +993,8 @@ It will start automatically as soon as the wallet has enough confirmations on an
         <translation>Скрыть график стекинга QT при запуске (по умолчанию: %u)</translation>
     </message>
     <message>
-        <source>Set language, for example "de_DE" (default: system locale)</source>
-        <translation>Задайте язык, например "de_DE"(по умолчанию: язык системы)</translation>
+        <source>Set language, for example &quot;de_DE&quot; (default: system locale)</source>
+        <translation>Задайте язык, например &quot;de_DE&quot;(по умолчанию: язык системы)</translation>
     </message>
     <message>
         <source>Start minimized</source>
@@ -990,8 +1048,8 @@ It will start automatically as soon as the wallet has enough confirmations on an
         <translation>Skyrcoin</translation>
     </message>
     <message>
-        <source>Error: Specified data directory "%1" cannot be created.</source>
-        <translation>Ошибка: Невозможно создать указанный каталог данных "%1" </translation>
+        <source>Error: Specified data directory &quot;%1&quot; cannot be created.</source>
+        <translation>Ошибка: Невозможно создать указанный каталог данных &quot;%1&quot; </translation>
     </message>
     <message>
         <source>Error</source>
@@ -1110,8 +1168,8 @@ It will start automatically as soon as the wallet has enough confirmations on an
         <translation>Убедитесь, что у вас есть такое количество монет.</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A transaction of collateral amount will be made&lt;/p&gt;&lt;p&gt;to a new empty address in your wallet.&lt;/p&gt;&lt;p&gt;The Address is labeled under the master node's name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;На новый пустой адрес в вашем кошельке&lt;/p&gt;&lt;p&gt; будет сделана транзакция в 10 000 SKYR. &lt;/p&gt;&lt;p&gt;Адрес отмечен под именем мастерноды.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A transaction of collateral amount will be made&lt;/p&gt;&lt;p&gt;to a new empty address in your wallet.&lt;/p&gt;&lt;p&gt;The Address is labeled under the master node&apos;s name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;На новый пустой адрес в вашем кошельке&lt;/p&gt;&lt;p&gt; будет сделана транзакция в 200 000 (300 000 и более монет, см. спецификацию) SKYR. &lt;/p&gt;&lt;p&gt;Адрес отмечен под именем мастерноды.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Address of the node that must always be online running the actual master node.</source>
@@ -1184,7 +1242,7 @@ It will start automatically as soon as the wallet has enough confirmations on an
         <translation>Ошибка разбора файла masternode.conf</translation>
     </message>
     <message>
-        <source>masternode.conf file doesn't exists</source>
+        <source>masternode.conf file doesn&apos;t exists</source>
         <translation>Файла masternode.cong не существует</translation>
     </message>
 </context>
@@ -1288,8 +1346,8 @@ Please wait few more minutes (masternode collaterals require %1 confirmations).<
         <translation>Данные Мастерноды скопированы в буфер обмена.</translation>
     </message>
     <message>
-        <source>Not enough balance to create a masternode, 10,000 %1 required.</source>
-        <translation>Недостаточно баланса для создания мастерноды, требуется 10000 %1.</translation>
+        <source>Not enough balance to create a masternode, look new collateral.</source>
+        <translation>Недостаточно баланса для создания мастерноды, см. новый залог.</translation>
     </message>
     <message>
         <source>Remote Masternode Data</source>
@@ -1318,7 +1376,7 @@ on a remote server to your clipboard.
 
 You will only have to paste the data in the skyrcoin.conf file
 of your remote server and start it, then start the Masternode using
-this controller wallet (select the Masternode in the list and press "start").
+this controller wallet (select the Masternode in the list and press &quot;start&quot;).
 </source>
         <translation>Вы собираетесь экспортировать необходимые данные для запуска мастерноды
 на удаленном сервере в буфер обмена.
@@ -1352,7 +1410,7 @@ Are you sure?</source>
         <translation>Ошибка разбора файла masternode.conf</translation>
     </message>
     <message>
-        <source>masternode.conf file doesn't exists</source>
+        <source>masternode.conf file doesn&apos;t exists</source>
         <translation>Файла masternode.cong не существует</translation>
     </message>
     <message>
@@ -1508,8 +1566,8 @@ NODES</source>
         <translation>Проанализированные данные слишком большие</translation>
     </message>
     <message>
-        <source>Invalid URI, not starting with "skyrcoin" prefix</source>
-        <translation>Неверный URI, не начинается с префикса "skyrcoin"</translation>
+        <source>Invalid URI, not starting with &quot;skyrcoin&quot; prefix</source>
+        <translation>Неверный URI, не начинается с префикса &quot;skyrcoin&quot;</translation>
     </message>
 </context>
 <context>
@@ -1611,9 +1669,9 @@ NODES</source>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-        https://t.me/Skynet_Research_coin</source>
+        https://discord.gg/UXGTjfsBFe</source>
         <translation>Отсутствует ваш язык или заметили незавершенный перевод? Вы можете помочь нам стать лучше:
-        https://t.me/Skynet_Research_coin</translation>
+        https://discord.gg/UXGTjfsBFe</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1733,7 +1791,7 @@ NODES</source>
     </message>
     <message>
         <source>Third party URLs (e.g. a block explorer) that appear in the transactions tab as context menu items. %s in the URL is replaced by transaction hash. Multiple URLs are separated by vertical bar |.</source>
-        <translation>Сторониие ссылки (такие как block exporer), которые отображаются в закладке "транзакции" как контекстное меню. %s в ссыле будет замещено хэшем транзакции. Ссылки отделяются друг от друга вертикальной чертой |.</translation>
+        <translation>Сторониие ссылки (такие как block exporer), которые отображаются в закладке &quot;транзакции&quot; как контекстное меню. %s в ссыле будет замещено хэшем транзакции. Ссылки отделяются друг от друга вертикальной чертой |.</translation>
     </message>
     <message>
         <source>Third party transaction URLs</source>
@@ -1914,7 +1972,7 @@ Address: %4
         <translation>Запрос на оплату отклонен</translation>
     </message>
     <message>
-        <source>Payment request network doesn't match client network.</source>
+        <source>Payment request network doesn&apos;t match client network.</source>
         <translation>Сеть запроса на оплату отличается от сети клиента.</translation>
     </message>
     <message>
@@ -1980,7 +2038,7 @@ Address: %4
         <source>Ping Time</source>
         <translation>Время отклика</translation>
     </message>
-    </context>
+</context>
 <context>
     <name>QObject</name>
     <message>
@@ -2040,8 +2098,8 @@ Address: %4
         <translation>Skyrcoin</translation>
     </message>
     <message>
-        <source>Error: Specified data directory "%1" does not exist.</source>
-        <translation>Ошибка: указанного каталогп данных "%1" не существует.</translation>
+        <source>Error: Specified data directory &quot;%1&quot; does not exist.</source>
+        <translation>Ошибка: указанного каталога данных &quot;%1&quot; не существует.</translation>
     </message>
     <message>
         <source>Error: Cannot parse configuration file: %1. Only use key=value syntax.</source>
@@ -2056,7 +2114,7 @@ Address: %4
         <translation>Ошибка чтения файла конфигурации мастерноды: %1</translation>
     </message>
     <message>
-        <source>Skyrcoin didn't yet exit safely...</source>
+        <source>Skyrcoin didn&apos;t yet exit safely...</source>
         <translation>Skyrcoin еще не вышел безопасно...</translation>
     </message>
     <message>
@@ -2113,7 +2171,7 @@ Address: %4
     </message>
     <message>
         <source>Mined</source>
-        <translation>заминированный</translation>
+        <translation>Намайнено</translation>
     </message>
     <message>
         <source>Minted</source>
@@ -2142,54 +2200,6 @@ Address: %4
     <message>
         <source>by Date</source>
         <translation>по дате</translation>
-    </message>
-    <message>
-        <source>Jan</source>
-        <translation>Январь</translation>
-    </message>
-    <message>
-        <source>Feb</source>
-        <translation>Февраль</translation>
-    </message>
-    <message>
-        <source>Mar</source>
-        <translation>Март</translation>
-    </message>
-    <message>
-        <source>Apr</source>
-        <translation>Апрель</translation>
-    </message>
-    <message>
-        <source>May</source>
-        <translation>Май</translation>
-    </message>
-    <message>
-        <source>Jun</source>
-        <translation>Июнь</translation>
-    </message>
-    <message>
-        <source>Jul</source>
-        <translation>Июль</translation>
-    </message>
-    <message>
-        <source>Aug</source>
-        <translation>Август</translation>
-    </message>
-    <message>
-        <source>Sep</source>
-        <translation>Сентябрь</translation>
-    </message>
-    <message>
-        <source>Oct</source>
-        <translation>Октябрь</translation>
-    </message>
-    <message>
-        <source>Nov</source>
-        <translation>Ноябрь</translation>
-    </message>
-    <message>
-        <source>Dec</source>
-        <translation>Декабрь</translation>
     </message>
     <message>
         <source>Address with no label</source>
@@ -2847,7 +2857,7 @@ Address: %4
         <translation>Смена адреса</translation>
     </message>
     <message>
-        <source>The remainder of the value resultant from the inputs minus the outputs value goes to the "change" SKYR address</source>
+        <source>The remainder of the value resultant from the inputs minus the outputs value goes to the &quot;change&quot; SKYR address</source>
         <translation>Остаточная часть значения, полученного от значения входов минус выходов, идет на «изменение» адреса SKYR</translation>
     </message>
     <message>
@@ -2952,7 +2962,7 @@ Address: %4
         <translation>Предупреждение!</translation>
     </message>
     <message>
-        <source>The change address doesn't belong to this wallet.
+        <source>The change address doesn&apos;t belong to this wallet.
 
 Do you want to continue?</source>
         <translation>Смена адреса не относится к этому кошельку.
@@ -3036,7 +3046,7 @@ Do you want to continue?</source>
         <translation>Остается разблокированным</translation>
     </message>
     <message>
-        <source>You don't have any %1 to select.</source>
+        <source>You don&apos;t have any %1 to select.</source>
         <translation>У вас нет %1 для выбора.</translation>
     </message>
     <message>
@@ -3403,7 +3413,7 @@ Verify that you have installed a predetermined text editor.</source>
         <translation>Экспорт учета</translation>
     </message>
     <message>
-        <source>Export your wallet's accounting data to a csv file.</source>
+        <source>Export your wallet&apos;s accounting data to a csv file.</source>
         <translation>Экспорт учетных данных вашего кошелька в CSV-файл.</translation>
     </message>
     <message>
@@ -3501,183 +3511,16 @@ There was an error trying to save the address list to %1. Please try again.</sou
         <translation>Вид</translation>
     </message>
     <message>
+        <source>Frequently Asked Questions</source>
+        <translation>Часто задаваемые вопросы</translation>
+    </message>
+    <message>
         <source>1) What is SKYR?</source>
         <translation>1) Что такое SKYR?</translation>
     </message>
     <message>
         <source>2) Why are my SKYR unspendable?</source>
         <translation>2) Почему мои SKYR невозможно потратить?</translation>
-    </message>
-    <message>
-        <source>https://skynresearch.ru/</source>
-        <translation>https://skynresearch.ru/</translation>
-    </message>
-    <message>
-        <source>1</source>
-        <translation>1</translation>
-    </message>
-    <message>
-        <source>What is SKYR?</source>
-        <translation>Что такое SKYR?</translation>
-    </message>
-    <message>
-        <source>
-                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-                           SKYR is a form of digital online money using blockchain technology
-                           that can be easily transferred globally, instantly, and with near
-                           zero fees.  SKYR incorporates market leading security &amp;
-                           privacy and is also the first PoS (Proof of Stake) Cryptocurrency
-                           to implement ZeroCoin(zSKYR) and Zerocoin staking.
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-                           SKYR utilizes a Proof of Stake (PoS) consensus system algorithm,
-                           allowing all owners of SKYR to participate in earning block rewards
-                           while securing the network with full node wallets, as well as to
-                           run Masternodes to create and vote on proposals.
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                         </source>
-        <translation>
-&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-SKYR - это форма цифровых онлайн-денег, использующая технологию блокчейн,
-которая может быть легко переведена по всему миру, мгновенно и с практически
-нулевой комиссией. SKYR включает в себя лидирующую на рынке защиту и
-«конфиденциальность», а также является первой PoS криптовалютой (Proof of Stake),
-в которой реализована система стекинга ZeroCoin (zSKYR) и Zerocoin.
-&lt;/p&gt;&lt;p align="justify"&gt;
-SKYR использует консенсус PoS (Proof of Stake), позволяя всем владельцам SKYR участвовать в заработке вознаграждений
-при этом обеспечивая безопасность сети с помощью кошельков с полными узлами, а также позволяет
-запускать мастерноды для создания предложений и голосования по ним.
-&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>2</source>
-        <translation>2</translation>
-    </message>
-    <message>
-        <source>Why are my SKYR unspendable?</source>
-        <translation>Почему мои SKYR невозможно потратить?</translation>
-    </message>
-    <message>
-        <source>
-                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-                           Newly received SKYR requires 6 confirmations on the network
-                           to become eligible for spending which can take ~6 minutes.
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-                           Your SKYR wallet also needs to be completely synchronized
-                           to see and spend balances on the network.
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                         </source>
-        <translation>
-&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-Недавно полученным SKYR требуется 6 подтверждений в сети,
-чтобы получить право быть расходуемыми. Это может занять примерно 6 минут.
-&lt;/p&gt;&lt;p align="justify"&gt;
-Ваш кошелек SKYR также должен быть полностью синхронизирован,
-чтобы видеть баланс и расходовать его в сети.
- &lt;/p&gt;&lt;/body&gt;&lt;/html&gt; </translation>
-    </message>
-    <message>
-        <source>3</source>
-        <translation>3</translation>
-    </message>
-    <message>
-        <source>How do I stake SKYR?</source>
-        <translation>Как мне запустить стекинг SKYR?</translation>
-    </message>
-    <message>
-        <source>4</source>
-        <translation>4</translation>
-    </message>
-    <message>
-        <source>5</source>
-        <translation>5</translation>
-    </message>
-    <message>
-        <source>6</source>
-        <translation>6</translation>
-    </message>
-    <message>
-        <source>Where should I go if I need support?</source>
-        <translation>Куда мне обратиться, если мне нужна поддержка?</translation>
-    </message>
-    <message>
-        <source>What is a Masternode?</source>
-        <translation>Что такое мастернода?</translation>
-    </message>
-    <message>
-        <source>What is a Masternode Controller?</source>
-        <translation>Что такое контроллер Мастерноды?
-
- </translation>
-    </message>
-    <message>
-        <source>
-                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-                           A masternode is a computer running a full node SKYR wallet with a
-                           required amount of secured collateral to provide extra services
-                           to the network and in return, receive a portion of the block reward
-                           regularly.  These services include:
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-
-                           &lt;ul&gt;
-                           &lt;li&gt;A decentralized governance (Proposal Voting)&lt;/li&gt;
-                           &lt;li&gt;A decentralized budgeting system (Treasury)&lt;/li&gt;
-                           &lt;li&gt;Validation of transactions within each block&lt;/li&gt;
-                           &lt;li&gt;Act as an additional full node in the network&lt;/li&gt;
-                           &lt;/ul&gt;
-
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-                           For providing such services, masternodes are also paid a certain portion
-                           of reward for each block. This can serve as a passive income to the
-                           masternode owners minus their running cost.
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-
-                           Masternode Perks:
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-                           &lt;ul&gt;
-                           &lt;li&gt;Participate in SKYR Governance&lt;/li&gt;
-                           &lt;li&gt;Earn Masternode Rewards&lt;/li&gt;
-                           &lt;li&gt;Commodity option for future sale&lt;/li&gt;
-                           &lt;li&gt;Help secure the SKYR network&lt;/li&gt;
-                           &lt;/ul&gt;
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-
-                           Requirements:
-                           &lt;/p&gt;&lt;p align="justify"&gt;
-                           &lt;ul&gt;
-                           &lt;li&gt;Enough collateral balance per single Masternode instance&lt;/li&gt;
-                           &lt;li&gt;Must be stored in a core wallet&lt;/li&gt;
-                           &lt;li&gt;Need dedicated IP address&lt;/li&gt;
-                           &lt;li&gt;Masternode wallet to remain online&lt;/li&gt;
-                           &lt;/ul&gt;
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                         </source>
-        <translation>
-Мастернода - это компьютер, на котором запущен базовый кошелек SKYR с полным узлом и для которого требуется обеспечение в 10000 SKYR для обеспечения дополнительных услуг сети и, в свою очередь, регулярного получения части вознаграждения за блок. Эти услуги в себя включают:
-
-Децентрализованное управление (Голосование по предложениям)
-Децентрализованная система бюджетирования (Казначейство)
-Проверка транзакций в каждом блоке.
-Выступление в качестве дополнительного полного узла в сети.
-
-Для предоставления таких услуг мастернодам также выплачивается определенная часть вознаграждений за каждый блок. Это может служить пассивным доходом для владельцев мастернод за вычетом их эксплуатационных расходов.
-
-Привилегии мастерноды:
-
-Участие в управлении SKYR
-Получение вознаграждений за мастерноду
-Товарные опционы для будущей продажи
-Помощь в защите сети SKYR
-
-Требования:
-
-10 000 SKYR для каждой мастерноды
-Должен храниться в основном кошельке
-Требуется выделенный IP-адрес
-Кошелек мастерноды должен оставаться в сети</translation>
-    </message>
-    <message>
-        <source>Frequently Asked Questions</source>
-        <translation>Часто задаваемые вопросы</translation>
     </message>
     <message>
         <source>3) How do I stake SKYR?</source>
@@ -3700,8 +3543,208 @@ SKYR использует консенсус PoS (Proof of Stake), позвол�
         <translation>Вы можете прочитать подробнее здесь</translation>
     </message>
     <message>
+        <source>https://skynresearch.ru/</source>
+        <translation>https://skynresearch.ru/</translation>
+    </message>
+    <message>
         <source>Exit</source>
         <translation>Выход</translation>
+    </message>
+    <message>
+        <location line="+135"/>
+        <source>1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;
+                           SKYR is a form of digital online money using blockchain technology
+                           that can be easily transferred globally, instantly, and with near
+                           zero fees.  SKYR incorporates market leading security &amp;
+                           privacy and is also the first PoS (Proof of Stake) Cryptocurrency
+                           to implement ZeroCoin(zSKYR) and Zerocoin staking.
+                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
+                           SKYR utilizes a Proof of Stake (PoS) consensus system algorithm,
+                           allowing all owners of SKYR to participate in earning block rewards
+                           while securing the network with full node wallets, as well as to
+                           run Masternodes to create and vote on proposals.
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </source>
+        <translation>
+&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;
+SKYR - это форма цифровых онлайн-денег, использующая технологию блокчейн,
+которая может быть легко переведена по всему миру, мгновенно и с практически
+нулевой комиссией. SKYR включает в себя лидирующую на рынке защиту и
+«конфиденциальность», а также является первой PoS криптовалютой (Proof of Stake),
+в которой реализована система стекинга ZeroCoin (zSKYR) и Zerocoin.
+&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
+SKYR использует консенсус PoS (Proof of Stake), позволяя всем владельцам SKYR участвовать в заработке вознаграждений
+при этом обеспечивая безопасность сети с помощью кошельков с полными узлами, а также позволяет
+запускать мастерноды для создания предложений и голосования по ним.
+&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+	</translation>
+    </message>
+    <message>
+        <location line="+59"/>
+        <source>2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Why are my SKYR unspendable?</source>
+        <translation>Почему мои SKYR невозможно потратить?</translation>
+    </message>
+    <message>
+        <source>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;
+                           Newly received SKYR requires 7 confirmations on the network
+                           to become eligible for spending which can take ~7 minutes.
+                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
+                           Your SKYR wallet also needs to be completely synchronized
+                           to see and spend balances on the network.
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+        </source>
+        <translation>
+&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;
+Недавно полученным SKYR требуется 7 подтверждений в сети,
+чтобы получить право быть расходуемыми. Это может занять примерно 7 минут.
+&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
+Ваш кошелек SKYR также должен быть полностью синхронизирован,
+чтобы видеть баланс и расходовать его в сети.
+ &lt;/p&gt;&lt;/body&gt;&lt;/html&gt; 
+	</translation>
+    </message>
+    <message>
+        <location line="+54"/>
+        <source>3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>How do I stake SKYR?</source>
+        <translation>Как мне запустить стекинг SKYR?</translation>
+    </message>
+    <message>
+        <source>
+&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Make sure your wallet is completely synchronized and you are using the latest release. &lt;/li&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You must have a balance of SKYR with a minimum of 600 confirmations. &lt;/li&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Your wallet must stay online and be unlocked for staking purposes. &lt;/li&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Once all those steps are followed staking should be enabled. &lt;/li&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You can see the status of staking in the wallet by mousing over the package icon in the row on the top left of the wallet interface. There package will be lit up and will state &quot;Staking active&quot; to indicate it is staking. Using the command line interface (skyrcoin-cli); the command &lt;span style=&quot; font-style:italic;&quot;&gt;getstakingstatus&lt;/span&gt; will confirm that staking is active. &lt;/li&gt;&lt;/ol&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>
+&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Убедитесь, что ваш кошелёк полностью синхронизирован, и вы используете его последнюю версию.&lt;/li&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Ваш баланс монет SKYR должен иметь минимум 600 подтверждений. &lt;/li&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Ваш кошелёк должен оставаться в сети и быть разблокирован только для стекинга. &lt;/li&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Стекинг начнется, как только будут выполнены все предыдущие требования. &lt;/li&gt;&lt;li align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Вы можете увидеть статус стекинга, если наведете указатель мыши на второй значок слева на панели в верхнем левом углу кошелька. Этот значок будет подсвечен, и на нем будет указано &quot;Стекинг активен&quot; для индикации того, что стекинг запущен. Если вы применяете интерфейс командной строки (skyrcoin-cli), то команда &lt;span style=&quot; font-style:italic;&quot;&gt;getstakingstatus&lt;/span&gt; подтвердит, что стекинг активен. &lt;/li&gt;&lt;/ol&gt;&lt;/body&gt;&lt;/html&gt;
+	</translation>
+    </message>
+    <message>
+        <location line="+46"/>
+        <source>4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Where should I go if I need support?</source>
+        <translation>Куда мне обратиться, если мне нужна поддержка?</translation>
+    </message>
+    <message>
+        <source>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;
+                           We have support channels in most of our official chat groups, for example
+                           &lt;a style=&apos;color: #b088ff&apos; href=&apos;https://t.me/Skynet_Research_coin&apos;&gt;
+                           support in our Telegram&lt;/a&gt;.
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+	</source>
+	<translation>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;
+                           Мы имеем службу поддержки в большинстве официальных чат-группах, например,
+                           &lt;a style=&apos;color: #b088ff&apos; href=&apos;https://t.me/Skynet_Research_coin&apos;&gt;
+                           наша поддержка в Тelegram (в Discord пока нет)&lt;/a&gt;.
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+        </translation>
+    </message>
+    <message>
+        <location line="+99"/>
+        <source>5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>What is a Masternode?</source>
+        <translation>Что такое мастернода?</translation>
+    </message>
+    <message>
+        <source>
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;
+                           A masternode is a computer running a full node SKYR wallet with a
+                           required amount of secured collateral to provide extra services
+                           to the network and in return, receive a portion of the block reward
+                           regularly.  These services include:
+                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
+
+                           &lt;ul&gt;
+                           &lt;li&gt;A decentralized governance (Proposal Voting)&lt;/li&gt;
+                           &lt;li&gt;A decentralized budgeting system (Treasury)&lt;/li&gt;
+                           &lt;li&gt;Validation of transactions within each block&lt;/li&gt;
+                           &lt;li&gt;Act as an additional full node in the network&lt;/li&gt;
+                           &lt;/ul&gt;
+
+                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
+                           For providing such services, masternodes are also paid a certain portion
+                           of reward for each block. This can serve as a passive income to the
+                           masternode owners minus their running cost.
+                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
+
+                           Masternode Perks:
+                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
+                           &lt;ul&gt;
+                           &lt;li&gt;Participate in SKYR Governance&lt;/li&gt;
+                           &lt;li&gt;Earn Masternode Rewards&lt;/li&gt;
+                           &lt;li&gt;Commodity option for future sale&lt;/li&gt;
+                           &lt;li&gt;Help secure the SKYR network&lt;/li&gt;
+                           &lt;/ul&gt;
+                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
+
+                           Requirements:
+                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
+                           &lt;ul&gt;
+                           &lt;li&gt;Enough collateral balance per single Masternode instance&lt;/li&gt;
+                           &lt;li&gt;Must be stored in a core wallet&lt;/li&gt;
+                           &lt;li&gt;Need dedicated IP address&lt;/li&gt;
+                           &lt;li&gt;Masternode wallet to remain online&lt;/li&gt;
+                           &lt;/ul&gt;
+                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                         </source>
+        <translation>
+Мастернода - это компьютер, на котором запущен базовый кошелек SKYR с полным узлом и для которого требуется обеспечение в 300000, 400000, ... SKYR (см. спецификацию) для обеспечения дополнительных услуг сети и, в свою очередь, регулярного получения части вознаграждения за блок. Эти услуги в себя включают:
+
+Децентрализованное управление (Голосование по предложениям)
+Децентрализованная система бюджетирования (Казначейство)
+Проверка транзакций в каждом блоке.
+Выступление в качестве дополнительного полного узла в сети.
+
+Для предоставления таких услуг мастернодам также выплачивается определенная часть вознаграждений за каждый блок. Это может служить пассивным доходом для владельцев мастернод за вычетом их эксплуатационных расходов.
+
+Привилегии мастерноды:
+
+Участие в управлении SKYR
+Получение вознаграждений за мастерноду
+Товарные опционы для будущей продажи
+Помощь в защите сети SKYR
+
+Требования:
+
+200 000, 300 000 или более монет SKYR для каждой мастерноды
+должно храниться в основном кошельке (см. спецификацию).
+Требуется выделенный IP-адрес
+Кошелек мастерноды должен оставаться в сети</translation>
+    </message>
+    <message>
+        <location line="+131"/>
+        <source>6</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>What is a Masternode Controller?</source>
+        <translation>Что такое контроллер Мастерноды?</translation>
+    </message>
+    <message>
+	<source>
+&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;A Masternode Controller wallet is where the collateral can reside during a Controller-Remote masternode setup. It is a wallet that can activate the remote masternode wallet(s) and allows you to keep your collateral coins offline while the remote masternode remains online. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+	</source>
+        <translation>
+	    &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;Контроллер мастерноды - это ваш локальный кошелек, где вы размещаете и блокируете сумму залога во время установки мастерноды. Это кошелек, который может активировать мастерноду на удаленном сервере и позволяет держать ваши залоговые монеты в автономном режиме без подключения к сети, пока удаленная мастернода остается в сети (прим.: текст изменен, чтобы было понятнее, о чем речь). &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+	</translation>
     </message>
 </context>
 <context>
@@ -3874,7 +3917,7 @@ SKYR использует консенсус PoS (Proof of Stake), позвол�
         <translation>Сбросить параметры</translation>
     </message>
     <message>
-        <source>You are just about to reset the app's options to the default values.
+        <source>You are just about to reset the app&apos;s options to the default values.
 
 Are you sure?
 </source>
@@ -4330,72 +4373,76 @@ Check one or both of the check boxes to send on stake and/or masternode rewards<
         <translation>Вид</translation>
     </message>
     <message>
-        <source>Wallet Data</source>
-        <translation>Данные кошелька</translation>
+        <source>.  Wallet Data</source>
+        <translation>.  Данные кошелька</translation>
     </message>
     <message>
-        <source>Wallet</source>
-        <translation>Кошелек</translation>
+        <source>.     Wallet</source>
+        <translation type="unfinished">.     Кошелёк</translation>
     </message>
     <message>
-        <source>Multisend</source>
-        <translation>Multisend</translation>
+        <source>.     Multisend</source>
+        <translation type="unfinished">.     Множественная отправка</translation>
     </message>
     <message>
-        <source>Export Accounting</source>
-        <translation>Экспорт учета</translation>
+        <source>.     Export Accounting</source>
+        <translation type="unfinished">.     Экспорт учетной записи</translation>
     </message>
     <message>
-        <source>Tools</source>
-        <translation>Инструменты</translation>
+        <source>.  Tools</source>
+        <translation>.  Инструменты</translation>
     </message>
     <message>
-        <source>Sign/Verify Message</source>
-        <translation>Подписать/верифицировать сообщение</translation>
+        <source>.     Sign/Verify Message</source>
+        <translation>.     Подписать/верифицировать сообщение</translation>
     </message>
     <message>
-        <source>BIP38 Tool</source>
-        <translation>Инструмент BIP38</translation>
+        <source>.     BIP38 Tool</source>
+        <translation>.     Инструмент BIP38</translation>
     </message>
     <message>
-        <source>Options</source>
-        <translation>Настройки</translation>
+        <source>.  Options</source>
+        <translation>.  Настройки</translation>
     </message>
     <message>
-        <source>Main</source>
-        <translation>Главная</translation>
+        <source>.     Main</source>
+        <translation>.     Главная</translation>
     </message>
     <message>
-        <source>Display</source>
-        <translation>Дисплей</translation>
+        <source>.     wallet</source>
+        <translation type="unfinished">.     Кошелька</translation>
     </message>
     <message>
-        <source>Debug</source>
-        <translation>Отладка</translation>
+        <source>.     Display</source>
+        <translation type="unfinished">.     Отображения</translation>
     </message>
     <message>
-        <source>Information</source>
-        <translation>Информация</translation>
+        <source>.  Debug</source>
+        <translation>.  Отладка</translation>
     </message>
     <message>
-        <source>Console</source>
-        <translation>Консоль</translation>
+        <source>.     Information</source>
+        <translation>.     Информация</translation>
     </message>
     <message>
-        <source>Wallet Repair</source>
-        <translation>Ремонт кошелька</translation>
+        <source>.     Console</source>
+        <translation>.     Консоль</translation>
     </message>
     <message>
-        <source>Help</source>
-        <translation>Помощь</translation>
+        <source>.     Wallet Repair</source>
+        <translation>     Ремонт кошелька</translation>
     </message>
     <message>
-        <source>FAQ</source>
-        <translation>ЧаВо</translation>
+        <source>.  Help</source>
+        <translation>.  Помощь</translation>
     </message>
     <message>
-        <source>About SKYR</source>
-        <translation>О SKYR</translation>
+        <source>.     FAQ</source>
+        <translation>.     ЧаВо</translation>
+    </message>
+    <message>
+        <source>.     About SKYR</source>
+        <translation>.     О SKYR</translation>
     </message>
     <message>
         <source>Settings</source>
@@ -4536,6 +4583,38 @@ Are you sure?
         <translation>Вид</translation>
     </message>
     <message>
+        <source>Total</source>
+        <translation>Всего</translation>
+    </message>
+    <message>
+        <source>Locked</source>
+        <translation>Заблокированный</translation>
+    </message>
+    <message>
+        <source>Masternodes %1</source>
+        <translation>Мастерноды %1</translation>
+    </message>
+    <message>
+        <source>(Syncing)</source>
+        <translation>(Синхр-тся)</translation>
+    </message>
+    <message>
+        <source>Collateral</source>
+        <translation>Залог</translation>
+    </message>
+    <message>
+        <source>Next Collateral</source>
+        <translation>Следующий залог</translation>
+    </message>
+    <message>
+        <source>In</source>
+        <translation>Осталось блоков</translation>
+    </message>
+    <message>
+        <source>%1 Blocks</source>
+        <translation>%1</translation>
+    </message>
+    <message>
         <source>Available</source>
         <translation>Доступный</translation>
     </message>
@@ -4572,6 +4651,14 @@ Are you sure?
         <translation>Синхронизировано - Блок: %1</translation>
     </message>
     <message>
+        <source>%n active connection(s)</source>
+        <translation>Активных соединений: %n</translation>
+    </message>
+    <message>
+        <source>Debug Console</source>
+        <translation>Консоль отладки</translation>
+    </message>
+    <message>
         <source>%1 and %2</source>
         <translation>%1 и %2</translation>
     </message>
@@ -4581,7 +4668,7 @@ Are you sure?
     </message>
     <message>
         <source>Upgrading to HD wallet will improve
-the wallet's reliability and security.
+the wallet&apos;s reliability and security.
 
 
 NOTE: after the upgrade, a new
@@ -4783,7 +4870,7 @@ backup will be created.
     </message>
     <message>
         <source>Mined</source>
-        <translation>заминированный</translation>
+        <translation>добыто</translation>
     </message>
     <message>
         <source>Converted %1 to z%1</source>
@@ -5013,7 +5100,7 @@ Select fewer inputs with coin control.</source>
         <translation>Выбрать язык</translation>
     </message>
     <message>
-        <source>Welcome to
+        <source>Welcome to 
 Skyrcoin Wallet</source>
         <translation>Добро пожаловать
 в основной кошелек Skyrcoin</translation>
@@ -5027,7 +5114,7 @@ Skyrcoin Wallet</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Как говорится в нашем манифесте: конфиденциальность является не подлежащим обсуждению основным правом человека; это дает пользователям свободу делиться своими данными в любое время и с кем угодно, ведь SKYR верит в собственный суверенитет.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>The masternode network is SKYR's second layer network on top of the blockchain that enables our DAO to provide decentralized governance and a treasury.</source>
+        <source>The masternode network is SKYR&apos;s second layer network on top of the blockchain that enables our DAO to provide decentralized governance and a treasury.</source>
         <translation>Сеть мастернод - это сеть второго уровня SKYR поверх блокчейна, которая позволяет нашему ДАО обеспечивать децентрализованное управление и казначейство.</translation>
     </message>
     <message>
@@ -5110,7 +5197,7 @@ Skyrcoin Wallet</source>
         <translation>Ошибка: транзакция больше максимально допустимого размера транзакции!</translation>
     </message>
     <message>
-        <source>Error: Unsupported argument -socks found. Setting SOCKS version isn't possible anymore, only SOCKS5 proxies are supported.</source>
+        <source>Error: Unsupported argument -socks found. Setting SOCKS version isn&apos;t possible anymore, only SOCKS5 proxies are supported.</source>
         <translation>Ошибка: обнаружен неподдерживаемый аргумент -socks. Настройка версии SOCKS больше невозможна, поддерживаются только прокси SOCKS5.</translation>
     </message>
     <message>
@@ -5146,8 +5233,8 @@ Skyrcoin Wallet</source>
         <translation>Недостаточно или недостаточно подтвержденных средств, вам может потребоваться несколько минут и повторите попытку.</translation>
     </message>
     <message>
-        <source>Invalid amount for -maxtxfee=&lt;amount&gt;: '%s' (must be at least the minrelay fee of %s to prevent stuck transactions)</source>
-        <translation>Недопустимая сумма для -maxtxfee =&lt;amount&gt;: '%s' (должна быть минимальная плата %s для предотвращения застревания транзакций)</translation>
+        <source>Invalid amount for -maxtxfee=&lt;amount&gt;: &apos;%s&apos; (must be at least the minrelay fee of %s to prevent stuck transactions)</source>
+        <translation>Недопустимая сумма для -maxtxfee =&lt;amount&gt;: &apos;%s&apos; (должна быть минимальная плата %s для предотвращения застревания транзакций)</translation>
     </message>
     <message>
         <source>Log transaction priority and fee per kB when mining blocks (default: %u)</source>
@@ -5214,7 +5301,7 @@ Skyrcoin Wallet</source>
         <translation>Поддержка фильтрации блоков и транзакций с фильтрами цветения (по умолчанию: %u)</translation>
     </message>
     <message>
-        <source>The block database contains a block which appears to be from the future. This may be due to your computer's date and time being set incorrectly. Only rebuild the block database if you are sure that your computer's date and time are correct</source>
+        <source>The block database contains a block which appears to be from the future. This may be due to your computer&apos;s date and time being set incorrectly. Only rebuild the block database if you are sure that your computer&apos;s date and time are correct</source>
         <translation>База данных блоков содержит блок, который показывается, как из будущего. Это может быть связано с неправильной настройкой даты и времени на вашем компьютере. Перестройте базу данных блоков только в том случае, если вы уверены, что дата и время вашего компьютера указаны верно</translation>
     </message>
     <message>
@@ -5242,7 +5329,7 @@ Skyrcoin Wallet</source>
         <translation>Предупреждение: -paytxfee установлен очень высоко! Это комиссия за транзакцию, которую вы заплатите, если вы отправляете транзакцию.</translation>
     </message>
     <message>
-        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong Skyrcoin will not work properly.</source>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Skyrcoin will not work properly.</source>
         <translation>Внимание: проверьте правильность даты и времени вашего компьютера! Если ваши часы ошибочны, Skyrcoin не будет работать должным образом.</translation>
     </message>
     <message>
@@ -5462,12 +5549,12 @@ Skyrcoin Wallet</source>
         <translation>Недостаточно средств.</translation>
     </message>
     <message>
-        <source>Invalid -onion address or hostname: '%s'</source>
-        <translation>Недопустимый -онионный адрес или имя хоста: '%s'</translation>
+        <source>Invalid -onion address or hostname: &apos;%s&apos;</source>
+        <translation>Недопустимый -онионный адрес или имя хоста: &apos;%s&apos;</translation>
     </message>
     <message>
-        <source>Invalid amount for -paytxfee=&lt;amount&gt;: '%s' (must be at least %s)</source>
-        <translation>Invalid amount for -paytxfee=&lt;amount&gt;: '%s' (должен быть не менее%s)</translation>
+        <source>Invalid amount for -paytxfee=&lt;amount&gt;: &apos;%s&apos; (must be at least %s)</source>
+        <translation>Invalid amount for -paytxfee=&lt;amount&gt;: &apos;%s&apos; (должен быть не менее%s)</translation>
     </message>
     <message>
         <source>Invalid amount</source>
@@ -5478,8 +5565,8 @@ Skyrcoin Wallet</source>
         <translation>Недопустимый секретный ключ. См. Документацию.</translation>
     </message>
     <message>
-        <source>Invalid netmask specified in -whitelist: '%s'</source>
-        <translation>Недопустимая сетевая маска, указанная в -whitelist: '%s'</translation>
+        <source>Invalid netmask specified in -whitelist: &apos;%s&apos;</source>
+        <translation>Недопустимая сетевая маска, указанная в -whitelist: &apos;%s&apos;</translation>
     </message>
     <message>
         <source>Recalculating SKYR supply...</source>
@@ -5590,8 +5677,8 @@ Skyrcoin Wallet</source>
         <translation>Не удалось записать серийный номер монеты в кошелек</translation>
     </message>
     <message>
-        <source>Invalid amount for -%s=&lt;amount&gt;: '%s'</source>
-        <translation>Недопустимая сумма для -%s = &lt;amount&gt;: '%s'</translation>
+        <source>Invalid amount for -%s=&lt;amount&gt;: &apos;%s&apos;</source>
+        <translation>Недопустимая сумма для -%s = &lt;amount&gt;: &apos;%s&apos;</translation>
     </message>
     <message>
         <source>Keep at most &lt;n&gt; unconnectable transactions in memory (default: %u)</source>
@@ -5650,8 +5737,8 @@ Skyrcoin Wallet</source>
         <translation>Блокировка masternodes из файла конфигурации masternode (по умолчанию: %u)</translation>
     </message>
     <message>
-        <source>Lookup(): Invalid -proxy address or hostname: '%s'</source>
-        <translation>Lookup (): Invalid -proxy адрес или имя хоста: '%s'</translation>
+        <source>Lookup(): Invalid -proxy address or hostname: &apos;%s&apos;</source>
+        <translation>Lookup (): Invalid -proxy адрес или имя хоста: &apos;%s&apos;</translation>
     </message>
     <message>
         <source>MNs synchronization pending...</source>
@@ -5678,8 +5765,8 @@ Skyrcoin Wallet</source>
         <translation>чеканка не превратила его в блокчейн</translation>
     </message>
     <message>
-        <source>Need to specify a port with -whitebind: '%s'</source>
-        <translation>Необходимо указать порт с -whitebind: '%s'</translation>
+        <source>Need to specify a port with -whitebind: &apos;%s&apos;</source>
+        <translation>Необходимо указать порт с -whitebind: &apos;%s&apos;</translation>
     </message>
     <message>
         <source>Node relay options:</source>
@@ -5730,8 +5817,8 @@ Skyrcoin Wallet</source>
         <translation>Использовать блок спам-фильтр (по умолчанию: %u)</translation>
     </message>
     <message>
-        <source>isValid(): Invalid -proxy address or hostname: '%s'</source>
-        <translation>isValid (): Invalid -proxy адрес или имя хоста: '%s'</translation>
+        <source>isValid(): Invalid -proxy address or hostname: &apos;%s&apos;</source>
+        <translation>isValid (): Invalid -proxy адрес или имя хоста: &apos;%s&apos;</translation>
     </message>
     <message>
         <source>Preparing for resync...</source>
@@ -5774,7 +5861,7 @@ Skyrcoin Wallet</source>
         <translation>Минимальная положительная сумма (в SKYR), разрешенная GUI и RPC для порога разделения стекинга (по умолчанию: %s)</translation>
     </message>
     <message>
-        <source>Please check that your computer's date and time are correct! If your clock is wrong Skyrcoin will not work properly.</source>
+        <source>Please check that your computer&apos;s date and time are correct! If your clock is wrong Skyrcoin will not work properly.</source>
         <translation>Пожалуйста, проверьте правильность даты и времени на вашем компьютере! Если ваши часы не точны, Skyrcoin не будет работать должным образом.</translation>
     </message>
     <message>
@@ -5786,8 +5873,8 @@ Skyrcoin Wallet</source>
         <translation>Укажите местоположение файла журнала отладки: это может быть абсолютный путь или путь относительно каталога данных (по умолчанию: %s)</translation>
     </message>
     <message>
-        <source>WARNING: The transaction has been signed and recorded, so the wallet will try to re-send it. Use 'abandontransaction' to cancel it. (txid: %s)</source>
-        <translation>ВНИМАНИЕ: транзакция была подписана и записана, поэтому кошелек попытается отправить ее повторно. Используйте 'abandontransaction' для ее отмены. (txid: %s)</translation>
+        <source>WARNING: The transaction has been signed and recorded, so the wallet will try to re-send it. Use &apos;abandontransaction&apos; to cancel it. (txid: %s)</source>
+        <translation>ВНИМАНИЕ: транзакция была подписана и записана, поэтому кошелек попытается отправить ее повторно. Используйте &apos;abandontransaction&apos; для ее отмены. (txid: %s)</translation>
     </message>
     <message>
         <source>(must be %d for %s-net)</source>
@@ -5802,12 +5889,12 @@ Skyrcoin Wallet</source>
         <translation>Позволяет использовать устаревшие метод(ы) RPC</translation>
     </message>
     <message>
-        <source>Can't generate a change-address key. Please call keypoolrefill first.</source>
+        <source>Can&apos;t generate a change-address key. Please call keypoolrefill first.</source>
         <translation>Невозможно сгенерировать ключ изменения адреса. Пожалуйста, сначала позвоните в keypoolrefill.</translation>
     </message>
     <message>
-        <source>Cannot resolve -%s address: '%s'</source>
-        <translation>Не удается разрешить -%s адрес: '%s'</translation>
+        <source>Cannot resolve -%s address: &apos;%s&apos;</source>
+        <translation>Не удается разрешить -%s адрес: &apos;%s&apos;</translation>
     </message>
     <message>
         <source>Change index out of range</source>
@@ -6064,8 +6151,8 @@ Skyrcoin Wallet</source>
         <translation>Это предназначено для инструментов тестирования регрессии и разработки приложений.</translation>
     </message>
     <message>
-        <source>This is not a masternode. 'local' option disabled.</source>
-        <translation>Это не мастернода. Опция 'local' отключена.</translation>
+        <source>This is not a masternode. &apos;local&apos; option disabled.</source>
+        <translation>Это не мастернода. Опция &apos;local&apos; отключена.</translation>
     </message>
     <message>
         <source>This is not a masternode.</source>
@@ -6136,8 +6223,8 @@ Skyrcoin Wallet</source>
         <translation>Не удалось запустить HTTP-сервер. Подробнее см. Журнал отладки.</translation>
     </message>
     <message>
-        <source>Unknown network specified in -onlynet: '%s'</source>
-        <translation>Неизвестная сеть, указанная в -onlynet: '%s'</translation>
+        <source>Unknown network specified in -onlynet: &apos;%s&apos;</source>
+        <translation>Неизвестная сеть, указанная в -onlynet: &apos;%s&apos;</translation>
     </message>
     <message>
         <source>Unsupported logging category %s=%s.</source>
@@ -6208,7 +6295,7 @@ Skyrcoin Wallet</source>
         <translation>Предупреждение. Неподдерживаемый аргумент -debugnet игнорируется, используйте -debug = net.</translation>
     </message>
     <message>
-        <source>You don't have enough Zerocoins in your wallet</source>
+        <source>You don&apos;t have enough Zerocoins in your wallet</source>
         <translation>У вас недостаточно Zerocoins в вашем кошельке</translation>
     </message>
     <message>
