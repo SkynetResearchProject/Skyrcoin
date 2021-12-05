@@ -200,7 +200,7 @@ Remember to write it down and store it safely, otherwise you might lose access t
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>40</width>
+            <width>30</width>
             <height>20</height>
            </size>
           </property>
@@ -216,7 +216,7 @@ Remember to write it down and store it safely, otherwise you might lose access t
           </property>
           <property name="maximumSize">
            <size>
-            <width>200</width>
+            <width>300</width>
             <height>50</height>
            </size>
           </property>

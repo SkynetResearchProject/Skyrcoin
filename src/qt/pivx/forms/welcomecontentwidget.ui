@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string></string>
+   <string/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -30,7 +30,7 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="PFBorderImage" name="frame_2" native="true">
+    <widget class="PFBorderImage" name="frame_2">
      <layout class="QVBoxLayout" name="verticalLayout_1">
       <property name="spacing">
        <number>0</number>
@@ -187,7 +187,7 @@
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
-                   <width>140</width>
+                   <width>20</width>
                    <height>20</height>
                   </size>
                  </property>
@@ -395,7 +395,7 @@
                   <property name="bottomMargin">
                    <number>0</number>
                   </property>
-                  <item alignment="Qt::AlignVCenter">
+                  <item>
                    <widget class="QPushButton" name="pushNumber3">
                     <property name="minimumSize">
                      <size>
@@ -525,7 +525,7 @@
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
-                   <width>140</width>
+                   <width>40</width>
                    <height>20</height>
                   </size>
                  </property>
@@ -589,7 +589,7 @@
                     </property>
                     <property name="sizeHint" stdset="0">
                      <size>
-                      <width>96</width>
+                      <width>15</width>
                       <height>20</height>
                      </size>
                     </property>
@@ -605,7 +605,7 @@
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>100</width>
+                      <width>16777215</width>
                       <height>16777215</height>
                      </size>
                     </property>
@@ -633,7 +633,7 @@
                     </property>
                     <property name="sizeHint" stdset="0">
                      <size>
-                      <width>40</width>
+                      <width>10</width>
                       <height>20</height>
                      </size>
                     </property>
@@ -641,15 +641,21 @@
                   </item>
                   <item>
                    <widget class="QPushButton" name="pushName2">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
                     <property name="minimumSize">
                      <size>
-                      <width>110</width>
+                      <width>240</width>
                       <height>0</height>
                      </size>
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>100</width>
+                      <width>16777215</width>
                       <height>16777215</height>
                      </size>
                     </property>
@@ -674,7 +680,7 @@
                     </property>
                     <property name="sizeHint" stdset="0">
                      <size>
-                      <width>40</width>
+                      <width>10</width>
                       <height>20</height>
                      </size>
                     </property>
@@ -684,13 +690,13 @@
                    <widget class="QPushButton" name="pushName3">
                     <property name="minimumSize">
                      <size>
-                      <width>110</width>
+                      <width>240</width>
                       <height>0</height>
                      </size>
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>100</width>
+                      <width>16777215</width>
                       <height>16777215</height>
                      </size>
                     </property>
@@ -725,13 +731,13 @@
                    <widget class="QPushButton" name="pushName4">
                     <property name="minimumSize">
                      <size>
-                      <width>150</width>
+                      <width>180</width>
                       <height>0</height>
                      </size>
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>100</width>
+                      <width>16777215</width>
                       <height>16777215</height>
                      </size>
                     </property>
@@ -759,7 +765,7 @@
                     </property>
                     <property name="sizeHint" stdset="0">
                      <size>
-                      <width>76</width>
+                      <width>5</width>
                       <height>20</height>
                      </size>
                     </property>
@@ -773,6 +779,9 @@
             </item>
             <item>
              <widget class="QStackedWidget" name="stackedWidget">
+              <property name="currentIndex">
+               <number>0</number>
+              </property>
               <widget class="QWidget" name="page_0">
                <layout class="QVBoxLayout" name="verticalLayout_4">
                 <property name="leftMargin">
@@ -962,6 +971,12 @@ Skyrcoin Wallet</string>
                    </item>
                    <item alignment="Qt::AlignHCenter">
                     <widget class="QLabel" name="labelMessage2">
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>0</height>
+                      </size>
+                     </property>
                      <property name="text">
                       <string>SKYR is the world’s most innovative Proof of Stake blockchain based technology. Developed by a team of highly experienced developers and cryptographers.</string>
                      </property>
@@ -1013,6 +1028,9 @@ Skyrcoin Wallet</string>
                   <property name="orientation">
                    <enum>Qt::Vertical</enum>
                   </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Minimum</enum>
+                  </property>
                   <property name="sizeHint" stdset="0">
                    <size>
                     <width>20</width>
@@ -1044,6 +1062,9 @@ Skyrcoin Wallet</string>
                  <spacer name="verticalSpacer_7">
                   <property name="orientation">
                    <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Fixed</enum>
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
@@ -1091,7 +1112,7 @@ Skyrcoin Wallet</string>
                    <enum>Qt::Vertical</enum>
                   </property>
                   <property name="sizeType">
-                   <enum>QSizePolicy::Fixed</enum>
+                   <enum>QSizePolicy::Minimum</enum>
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
@@ -1153,6 +1174,9 @@ Skyrcoin Wallet</string>
                  <spacer name="verticalSpacer_10">
                   <property name="orientation">
                    <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Minimum</enum>
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>

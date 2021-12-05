@@ -97,11 +97,11 @@ TopBar::TopBar(PIVXGUI* _mainWindow, QWidget* parent) : PWidget(_mainWindow, par
     ui->pushButtonMasternodes->setChecked(false);
 
     ui->pushButtonConsole->setButtonClassStyle("cssClass", "btn-check-console");
-    ui->pushButtonConsole->setButtonText("Debug Console");
-    //ui->pushButtonConsole->setChecked(false);
+    ui->pushButtonConsole->setButtonText(tr("Debug Console"));
+    ui->pushButtonConsole->setChecked(false);
 
     ui->pushButtonSync->setButtonClassStyle("cssClass", "btn-check-sync");
-    ui->pushButtonSync->setButtonText(tr(" %54 Synchronizing.."));
+    ui->pushButtonSync->setButtonText(tr("%54 Synchronizing.."));
 
     ui->pushButtonLock->setButtonClassStyle("cssClass", "btn-check-lock");
 
@@ -419,7 +419,8 @@ void TopBar::setNumConnections(int count)
         }
     }
 
-    ui->pushButtonConnection->setButtonText(tr("%n active connection(s)", "", count));
+    //ui->pushButtonConnection->setButtonText(tr("%n active connection(s)", "", count));
+      ui->pushButtonConnection->setButtonText(tr("%1 active connection(s)").arg(QString::number(count)));
 }
 
 void TopBar::setNumBlocks(int count)
@@ -466,7 +467,7 @@ void TopBar::setNumBlocks(int count)
             int progress = nAttempt + (masternodeSync.RequestedMasternodeAssets - 1) * MASTERNODE_SYNC_THRESHOLD;
             if (progress >= 0) {
                 // todo: MN progress..
-                text = strprintf("%s - Block: %d", masternodeSync.GetSyncStatus(), count);
+                text = strprintf(tr("%s - Block: %d").toStdString(), masternodeSync.GetSyncStatus(), count);
                 //progressBar->setMaximum(4 * MASTERNODE_SYNC_THRESHOLD);
                 //progressBar->setValue(progress);
                 needState = false;
@@ -488,18 +489,18 @@ void TopBar::setNumBlocks(int count)
         const int WEEK_IN_SECONDS = 7 * 24 * 60 * 60;
         const int YEAR_IN_SECONDS = 31556952; // Average length of year in Gregorian calendar
         if (secs < 2 * DAY_IN_SECONDS) {
-            timeBehindText = tr("%n hour(s)", "", secs / HOUR_IN_SECONDS);
+            timeBehindText = tr("%1 hour(s)").arg(QString::number(secs / HOUR_IN_SECONDS));
         } else if (secs < 2 * WEEK_IN_SECONDS) {
-            timeBehindText = tr("%n day(s)", "", secs / DAY_IN_SECONDS);
+            timeBehindText = tr("%1 day(s)").arg(QString::number(secs / DAY_IN_SECONDS));
         } else if (secs < YEAR_IN_SECONDS) {
-            timeBehindText = tr("%n week(s)", "", secs / WEEK_IN_SECONDS);
+            timeBehindText = tr("%1 week(s)").arg(QString::number(secs / WEEK_IN_SECONDS));
         } else {
             int years = secs / YEAR_IN_SECONDS;
             int remainder = secs % YEAR_IN_SECONDS;
-            timeBehindText = tr("%1 and %2").arg(tr("%n year(s)", "", years)).arg(tr("%n week(s)", "", remainder / WEEK_IN_SECONDS));
+            timeBehindText = tr("%1 and %2").arg( tr("%1 year(s)").arg(QString::number(years)) ).arg( tr("%1 week(s)").arg(QString::number(remainder / WEEK_IN_SECONDS)));
         }
-        QString timeBehind(" behind. Scanning block ");
-        QString str = timeBehindText + timeBehind + QString::number(count);
+        QString timeBehind(tr("behind. Scanning block"));
+        QString str = timeBehindText + " " + timeBehind + " "  + QString::number(count);
         text = str.toStdString();
 
         progressBar->setMaximum(1000000000);
@@ -507,10 +508,10 @@ void TopBar::setNumBlocks(int count)
     }
 
     if (text.empty()) {
-        text = "No block source available..";
+        text = tr("No block source available..").toStdString();
     }
 
-    ui->pushButtonSync->setButtonText(tr(text.data()));
+    ui->pushButtonSync->setButtonText(text.data());
 }
 
 void TopBar::showUpgradeDialog()

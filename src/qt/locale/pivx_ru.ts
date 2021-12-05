@@ -720,7 +720,7 @@ for staking</source>
         <translation>График вознаграждений</translation>
     </message>
     <message>
-        <source>Amount of SKYR earned via Stacking and Masternodes</source>
+        <source>Amount of SKYR earned via Staking &amp; Masternodes</source>
         <translation>Количество SKYR, заработанных в стекинге и мастернодами</translation>
     </message>
     <message>
@@ -1272,7 +1272,7 @@ and vote on the treasury system receiving a periodic reward.</source>
     </message>
     <message>
         <source>Create Masternode Controller</source>
-        <translation>Создать контроллер мастерноды</translation>
+        <translation>Создать контроллер МН</translation>
     </message>
     <message>
         <source>No active Masternode yet</source>
@@ -3114,7 +3114,7 @@ This option creates a wallet.dat file that can be used to recover your whole bal
         <source>This will decrypt the whole wallet data and encrypt it back with the new passphrase.
 Remember to write it down and store it safely, otherwise you might lose access to your funds</source>
         <translation>Это расшифрует все данные кошелька и зашифрует их с новой парольной фразой.
-Заапишите ее и храните в безопасности, иначе вы можете потерять доступ к своим средствам.</translation>
+Запишите ее и храните в безопасности, иначе вы можете потерять доступ к своим средствам.</translation>
     </message>
     <message>
         <source>Change Passphrase</source>
@@ -3355,7 +3355,7 @@ Verify that you have installed a predetermined text editor.</source>
     </message>
     <message>
         <source>Reset to default</source>
-        <translation>Сбросить настройки по умолчанию</translation>
+        <translation>Сбросить настройки</translation>
     </message>
     <message>
         <source>Discard changes</source>
@@ -3874,7 +3874,7 @@ SKYR использует консенсус PoS (Proof of Stake), позвол�
     </message>
     <message>
         <source>Reset to default</source>
-        <translation>Сбросить настройки по умолчанию</translation>
+        <translation>Сбросить настройки</translation>
     </message>
     <message>
         <source>Discard changes</source>
@@ -4208,7 +4208,7 @@ Check one or both of the check boxes to send on stake and/or masternode rewards<
     </message>
     <message>
         <source>Reset to default</source>
-        <translation>Сбросить настройки по умолчанию</translation>
+        <translation>Сбросить настройки</translation>
     </message>
     <message>
         <source>Discard changes</source>
@@ -4373,76 +4373,76 @@ Check one or both of the check boxes to send on stake and/or masternode rewards<
         <translation>Вид</translation>
     </message>
     <message>
-        <source>.  Wallet Data</source>
-        <translation>.  Данные кошелька</translation>
+        <source>Wallet Data</source>
+        <translation>Данные кошелька</translation>
     </message>
     <message>
-        <source>.     Wallet</source>
-        <translation type="unfinished">.     Кошелёк</translation>
+        <source>Wallet</source>
+        <translation type="unfinished">Кошелёк</translation>
     </message>
     <message>
-        <source>.     Multisend</source>
-        <translation type="unfinished">.     Множественная отправка</translation>
+        <source>Multisend</source>
+        <translation type="unfinished">Множественная отправка</translation>
     </message>
     <message>
-        <source>.     Export Accounting</source>
-        <translation type="unfinished">.     Экспорт учетной записи</translation>
+        <source>Export Accounting</source>
+        <translation type="unfinished">Экспорт учетной записи</translation>
     </message>
     <message>
-        <source>.  Tools</source>
-        <translation>.  Инструменты</translation>
+        <source>Tools</source>
+        <translation>Инструменты</translation>
     </message>
     <message>
-        <source>.     Sign/Verify Message</source>
-        <translation>.     Подписать/верифицировать сообщение</translation>
+        <source>Sign/Verify Message</source>
+        <translation>Подписать/верифицировать сообщение</translation>
     </message>
     <message>
-        <source>.     BIP38 Tool</source>
-        <translation>.     Инструмент BIP38</translation>
+        <source>BIP38 Tool</source>
+        <translation>Инструмент BIP38</translation>
     </message>
     <message>
-        <source>.  Options</source>
-        <translation>.  Настройки</translation>
+        <source>Options</source>
+        <translation>Настройки</translation>
     </message>
     <message>
-        <source>.     Main</source>
-        <translation>.     Главная</translation>
+        <source>Main</source>
+        <translation>Общие</translation>
     </message>
     <message>
-        <source>.     wallet</source>
-        <translation type="unfinished">.     Кошелька</translation>
+        <source>wallet</source>
+        <translation type="unfinished">Кошелёк</translation>
     </message>
     <message>
-        <source>.     Display</source>
-        <translation type="unfinished">.     Отображения</translation>
+        <source>Display</source>
+        <translation type="unfinished">Отображение</translation>
     </message>
     <message>
-        <source>.  Debug</source>
-        <translation>.  Отладка</translation>
+        <source>Debug</source>
+        <translation>Отладка</translation>
     </message>
     <message>
-        <source>.     Information</source>
-        <translation>.     Информация</translation>
+        <source>Information</source>
+        <translation>Информация</translation>
     </message>
     <message>
-        <source>.     Console</source>
-        <translation>.     Консоль</translation>
+        <source>Console</source>
+        <translation>Консоль</translation>
     </message>
     <message>
-        <source>.     Wallet Repair</source>
-        <translation>     Ремонт кошелька</translation>
+        <source>Wallet Repair</source>
+        <translation>Ремонт кошелька</translation>
     </message>
     <message>
-        <source>.  Help</source>
-        <translation>.  Помощь</translation>
+        <source>Help</source>
+        <translation>Помощь</translation>
     </message>
     <message>
-        <source>.     FAQ</source>
-        <translation>.     ЧаВо</translation>
+        <source>FAQ</source>
+        <translation>ЧаВо</translation>
     </message>
     <message>
-        <source>.     About SKYR</source>
-        <translation>.     О SKYR</translation>
+        <source>About SKYR</source>
+        <translation>О SKYR</translation>
     </message>
     <message>
         <source>Settings</source>
@@ -4651,16 +4651,40 @@ Are you sure?
         <translation>Синхронизировано - Блок: %1</translation>
     </message>
     <message>
-        <source>%n active connection(s)</source>
-        <translation>Активных соединений: %n</translation>
+        <source>%1 active connection(s)</source>
+        <translation>Активных соединений: %1</translation>
     </message>
     <message>
         <source>Debug Console</source>
         <translation>Консоль отладки</translation>
     </message>
     <message>
+        <source>%1 hour(s)</source>
+        <translation>Прошло часов: %1 </translation>
+    </message>
+    <message>
+        <source>%1 day(s)</source>
+        <translation>Прошло дней: %1 </translation>
+    </message>
+    <message>
+        <source>%1 week(s)</source>
+        <translation>Прошло недель: %1 </translation>
+    </message>
+    <message>
+        <source>%1 year(s)</source>
+        <translation>Прошло лет: %1 </translation>
+    </message>
+    <message>
+        <source>behind. Scanning block</source>
+        <translation>. Сканируется блок</translation>
+    </message>
+    <message>
         <source>%1 and %2</source>
         <translation>%1 и %2</translation>
+    </message>
+    <message>
+        <source>%s - Block: %d</source>
+        <translation>%s - блок: %d</translation>
     </message>
     <message>
         <source>Wallet Upgrade</source>
@@ -4715,7 +4739,7 @@ backup will be created.
         <translation>Стекинг отключен</translation>
     </message>
     <message>
-        <source> %54 Synchronizing..</source>
+        <source>%54 Synchronizing..</source>
         <translation>Синхронизировано %54.. </translation>
     </message>
     <message>
@@ -5100,10 +5124,8 @@ Select fewer inputs with coin control.</source>
         <translation>Выбрать язык</translation>
     </message>
     <message>
-        <source>Welcome to 
-Skyrcoin Wallet</source>
-        <translation>Добро пожаловать
-в основной кошелек Skyrcoin</translation>
+        <source>Welcome to\nSkyrcoin Wallet</source>
+        <translation>Добро пожаловать\nв основной кошелек Skyrcoin</translation>
     </message>
     <message>
         <source>SKYR is the world’s most innovative Proof of Stake blockchain based technology. Developed by a team of highly experienced developers and cryptographers.</source>
@@ -6363,7 +6385,7 @@ Skyrcoin Wallet</source>
     </message>
     <message>
         <source>Reset to default</source>
-        <translation>Сбросить настройки по умолчанию</translation>
+        <translation>Сбросить настройки</translation>
     </message>
 </context>
 </TS>

@@ -2432,6 +2432,7 @@ QPushButton[cssClass="btn-settings-check"] {
   border-bottom: 1px solid #ececec;
   font-size: 20px;
   color: #262626;
+  padding:0 10px;
   text-align: left;
 }
 
@@ -2443,6 +2444,7 @@ QPushButton[cssClass="btn-settings-check"]:checked {
   border: none;
   font-size: 20px;
   color: #000000;
+  padding:0 10px;
   text-align: left;
 }
 

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>518</width>
+    <width>528</width>
     <height>654</height>
    </rect>
   </property>
@@ -127,13 +127,13 @@
              <number>8</number>
             </property>
             <property name="minimum">
-             <number>0</number>
+             <double>0.000000000000000</double>
             </property>
             <property name="maximum">
-             <number>999999</number>
+             <double>999999.000000000000000</double>
             </property>
             <property name="value">
-             <number>500</number>
+             <double>500.000000000000000</double>
             </property>
            </widget>
           </item>
@@ -435,6 +435,12 @@
           </property>
           <item>
            <widget class="QPushButton" name="pushButtonReset">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="minimumSize">
              <size>
               <width>160</width>
@@ -443,8 +449,8 @@
             </property>
             <property name="maximumSize">
              <size>
-              <width>50</width>
-              <height>16777215</height>
+              <width>250</width>
+              <height>50</height>
              </size>
             </property>
             <property name="focusPolicy">
@@ -457,9 +463,21 @@
           </item>
           <item>
            <widget class="QPushButton" name="pushButtonClean">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="minimumSize">
              <size>
               <width>0</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>250</width>
               <height>50</height>
              </size>
             </property>
@@ -489,6 +507,12 @@
           </item>
           <item>
            <widget class="QPushButton" name="pushButtonSave">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="minimumSize">
              <size>
               <width>200</width>

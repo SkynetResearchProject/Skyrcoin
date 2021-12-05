@@ -905,7 +905,7 @@ for staking</source>
     </message>
     <message>
         <location line="+143"/>
-        <source>Amount of SKYR earned via Stacking and Masternodes</source>
+        <source>Amount of SKYR earned via Staking &amp; Masternodes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5387,93 +5387,93 @@ Check one or both of the check boxes to send on stake and/or masternode rewards<
     </message>
     <message>
         <location line="+255"/>
-        <source>.  Wallet Data</source>
+        <source>Wallet Data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+55"/>
         <location line="+321"/>
-        <source>.     Wallet</source>
+        <source>Wallet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-293"/>
-        <source>.     Multisend</source>
+        <source>Multisend</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+28"/>
-        <source>.     Export Accounting</source>
+        <source>Export Accounting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+55"/>
-        <source>.  Tools</source>
+        <source>Tools</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+55"/>
-        <source>.     Sign/Verify Message</source>
+        <source>Sign/Verify Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+28"/>
-        <source>.     BIP38 Tool</source>
+        <source>BIP38 Tool</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+42"/>
-        <source>.  Options</source>
+        <source>Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+54"/>
-        <source>.     Main</source>
+        <source>Main</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+55"/>
-        <source>.     wallet</source>
+        <source>wallet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+59"/>
-        <source>.     Display</source>
+        <source>Display</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+42"/>
-        <source>.  Debug</source>
+        <source>Debug</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+54"/>
-        <source>.     Information</source>
+        <source>Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+31"/>
-        <source>.     Console</source>
+        <source>Console</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+28"/>
-        <source>.     Wallet Repair</source>
+        <source>Wallet Repair</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+42"/>
-        <source>.  Help</source>
+        <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+54"/>
-        <source>.     FAQ</source>
+        <source>FAQ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+31"/>
-        <source>.     About SKYR</source>
+        <source>About SKYR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5726,9 +5726,9 @@ Are you sure?
         <source>Staking not active</source>
         <translation type="unfinished"></translation>
     </message>
-    <message numerus="yes">
+    <message>
         <location line="+31"/>
-        <source>%n active connection(s)</source>
+        <source>%1 active connection(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5736,43 +5736,46 @@ Are you sure?
         <source>Synchronized - Block: %1</source>
         <translation type="unfinished"></translation>
     </message>
-    <message numerus="yes">
+    <message>
         <location line="+35"/>
-        <source>%n hour(s)</source>
+        <source>%1 hour(s)</source>
         <translation type="unfinished">
-            <numerusform>%n hour</numerusform>
-            <numerusform>%n hours</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location line="+2"/>
-        <source>%n day(s)</source>
+        <source>%1 day(s)</source>
         <translation type="unfinished">
-            <numerusform>%n day</numerusform>
-            <numerusform>%n days</numerusform>
         </translation>
     </message>
-    <message numerus="yes">
+    <message>
         <location line="+2"/>
         <location line="+5"/>
-        <source>%n week(s)</source>
+        <source>%1 week(s)</source>
         <translation type="unfinished">
-            <numerusform>%n week</numerusform>
-            <numerusform>%n weeks</numerusform>
         </translation>
     </message>
     <message>
         <location line="-1"/>
         <source>%1 and %2</source>
-        <translation type="unfinished">%1 and %2</translation>
+        <translation type="unfinished"></translation>
     </message>
-    <message numerus="yes">
+    <message>
         <location line="+0"/>
-        <source>%n year(s)</source>
+        <source>%1 year(s)</source>
         <translation type="unfinished">
-            <numerusform>%n year</numerusform>
-            <numerusform>%n years</numerusform>
         </translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>%s - Block: %d</source>
+        <translation type="unfinished">
+        </translation>
+    </message>
+    <message>
+        <location line="-1"/>
+        <source>behind. Scanning block</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+20"/>
@@ -5833,7 +5836,7 @@ backup will be created.
     </message>
     <message>
         <location line="+3"/>
-        <source> %54 Synchronizing..</source>
+        <source>%54 Synchronizing..</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6330,8 +6333,7 @@ Select fewer inputs with coin control.</source>
     </message>
     <message>
         <location line="+89"/>
-        <source>Welcome to
-Skyrcoin Wallet</source>
+        <source>Welcome to\nSkyrcoin Wallet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
