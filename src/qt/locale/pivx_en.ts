@@ -5739,21 +5739,17 @@ Are you sure?
     <message>
         <location line="+35"/>
         <source>%1 hour(s)</source>
-        <translation type="unfinished">
-        </translation>
-    </message>
-    <message numerus="yes">
-        <location line="+2"/>
-        <source>%1 day(s)</source>
-        <translation type="unfinished">
-        </translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
+        <source>%1 day(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+5"/>
         <source>%1 week(s)</source>
-        <translation type="unfinished">
-        </translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-1"/>
@@ -5763,14 +5759,17 @@ Are you sure?
     <message>
         <location line="+0"/>
         <source>%1 year(s)</source>
-        <translation type="unfinished">
-        </translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+0"/>
         <source>%s - Block: %d</source>
-        <translation type="unfinished">
-        </translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>%1 - Block: %2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-1"/>

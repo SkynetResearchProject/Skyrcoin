@@ -430,7 +430,7 @@ void TopBar::setNumBlocks(int count)
 
     // Acquire current block source
     enum BlockSource blockSource = clientModel->getBlockSource();
-    std::string text = "";
+    QString text = "";
     switch (blockSource) {
     case BLOCK_SOURCE_NETWORK:
         text = "Synchronizing..";
@@ -467,7 +467,7 @@ void TopBar::setNumBlocks(int count)
             int progress = nAttempt + (masternodeSync.RequestedMasternodeAssets - 1) * MASTERNODE_SYNC_THRESHOLD;
             if (progress >= 0) {
                 // todo: MN progress..
-                text = strprintf(tr("%s - Block: %d").toStdString(), masternodeSync.GetSyncStatus(), count);
+		text = tr("%1 - Block: %2").arg(QString::fromStdString(masternodeSync.GetSyncStatus())).arg(QString::number(count));
                 //progressBar->setMaximum(4 * MASTERNODE_SYNC_THRESHOLD);
                 //progressBar->setValue(progress);
                 needState = false;
@@ -500,18 +500,17 @@ void TopBar::setNumBlocks(int count)
             timeBehindText = tr("%1 and %2").arg( tr("%1 year(s)").arg(QString::number(years)) ).arg( tr("%1 week(s)").arg(QString::number(remainder / WEEK_IN_SECONDS)));
         }
         QString timeBehind(tr("behind. Scanning block"));
-        QString str = timeBehindText + " " + timeBehind + " "  + QString::number(count);
-        text = str.toStdString();
+	text = timeBehindText + " " + timeBehind + " "  + QString::number(count);
 
         progressBar->setMaximum(1000000000);
         progressBar->setValue(clientModel->getVerificationProgress() * 1000000000.0 + 0.5);
     }
 
-    if (text.empty()) {
-        text = tr("No block source available..").toStdString();
+    if (text=="") {
+	text = tr("No block source available..");
     }
 
-    ui->pushButtonSync->setButtonText(text.data());
+    ui->pushButtonSync->setButtonText(text);
 }
 
 void TopBar::showUpgradeDialog()
