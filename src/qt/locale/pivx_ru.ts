@@ -4687,6 +4687,11 @@ Are you sure?
         <translation>%s - блок: %d</translation>
     </message>
     <message>
+        <location line="+0"/>
+        <source>%1 - Block: %2</source>
+        <translation>%1 - блок: %2</translation>
+    </message>
+    <message>
         <source>Wallet Upgrade</source>
         <translation>Обновление кошелька</translation>
     </message>

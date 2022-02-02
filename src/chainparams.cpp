@@ -52,11 +52,33 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
  */
 static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
 {
-    const char* pszTimestamp = "New blockchain is presented for swap. Timestamp. 2021-06-17.22:26:51 GMT";
+    //const char* pszTimestamp = "Uniswap flips Bitcoin on daily revenue... and it’s more impressive than you think, 12/05/2021, COINTELEGRAPH";
+    //const CScript genesisOutputScript = CScript() << ParseHex("04f8e575ae6a7fcf97b4cb8b213a74b550ccbdb4cabff3d0bfe9ec15f5b863be758acb3aead94933428425dd5e934dced26f022c0b33682b4ebf5fdce242bbe0f6") << OP_CHECKSIG;
+	
+    const char* pszTimestamp = "New blockchain is presented for swap. Timestamp. 2022-01-31.17:27:08 GMT";
     const CScript genesisOutputScript = CScript() << ParseHex("04cc00d92924dcaf49e3bc507535a60b4596b0f589d32a7b49868754a812653c8abcdeadcb907bff04dd8e4f690f98b98f0c9df02cee2e1f35342ca6fa791efa61") << OP_CHECKSIG;
 	
     return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
 }
+
+
+static CBlock CreateGenesisBlocktest(uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
+{
+    const char* pszTimestamp = "New blockchain is presented for swap. Timestamp. 2022-01-24.03:51:03 GMT";
+    const CScript genesisOutputScript = CScript() << ParseHex("04cc00d92924dcaf49e3bc507535a60b4596b0f589d32a7b49868754a812653c8abcdeadcb907bff04dd8e4f690f98b98f0c9df02cee2e1f35342ca6fa791efa61") << OP_CHECKSIG;
+	
+    return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
+}
+
+
+static CBlock CreateGenesisBlockreg(uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
+{
+    const char* pszTimestamp = "New blockchain is presented for swap. Timestamp. 2022-01-24.03:51:03 GMT";
+    const CScript genesisOutputScript = CScript() << ParseHex("04cc00d92924dcaf49e3bc507535a60b4596b0f589d32a7b49868754a812653c8abcdeadcb907bff04dd8e4f690f98b98f0c9df02cee2e1f35342ca6fa791efa61") << OP_CHECKSIG;
+	
+    return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
+}
+
 
 /**
  * Main network
@@ -70,12 +92,13 @@ static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits
  */
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-    (0, uint256("0x0")) // Genesis
+	(0, uint256S("0x0000067136024464e0622d0ffdac12d98e14a36e78ad27323c3f5c2c98854a75"))     // Genesis
+    //(10, uint256S("00000369ae74370c0132b5ccd379b60967478378af8647751ea4d3a784c3683f"))
 ; 
 
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
-    1620820532, // * UNIX timestamp of last checkpoint block
+    1643673600, // * UNIX timestamp of last checkpoint block  01/02/2022 00:00:00
     1,          // * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the UpdateTip debug.log lines)
     2000        // * estimated number of transactions per day after checkpoint
@@ -87,16 +110,17 @@ static Checkpoints::MapCheckpoints mapCheckpointsTestnet =
 
 static const Checkpoints::CCheckpointData dataTestnet = {
     &mapCheckpointsTestnet,
-    1740710,
+    1642996263,
     0,
     250};
 
 static Checkpoints::MapCheckpoints mapCheckpointsRegtest =
-    boost::assign::map_list_of(0, uint256S("0x0"));
+    boost::assign::map_list_of
+    (0, uint256S("0x0"));
 
 static const Checkpoints::CCheckpointData dataRegtest = {
     &mapCheckpointsRegtest,
-    1454124731,
+    1642996263,
     0,
     100};
 
@@ -156,17 +180,17 @@ public:
 	 //*/
          //exit(0);
 
-         ///////////////////////////////////////////////////////////////////
+         /////////////////////////////////////////////////////////////////// 580458  my=122968
 
 
 
 
 /*
-	//------------------------------------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------------------------------
         //// v1 calc
-        //Epoch timestamp: 1624582800
-        //Обычное время: Fri, 25 Jun 2021 01:00:00 GMT
-        genesis = CreateGenesisBlock(1624582800, 540000, 0x1e0ffff0, 1, 0 * COIN);
+        ////Epoch timestamp: 1643650028
+        ////: Mon, 31 Jan 2022 17:27:08 GMT
+        genesis = CreateGenesisBlock(1643650028, 540000, 0x1e0ffff0, 1, 0 * COIN);
 
 
         // calculate Genesis Block
@@ -212,11 +236,11 @@ public:
 	consensus.hashGenesisBlock = genesis.GetHash();
 
 
-        //main---
-        //  nonce: 3014492
-        //   time: 1624582800
-        //   hash: 000008231258e911da98930502e88054bcbfd1316b11b4e57b091ed79205288d
-        //   merklehash: e788cb0c983ed5de6ced0f87063742b256cffbb57015e190e76fd6a88a1a4d1f
+	//main---
+	//nonce: 798999
+	//time: 1643650028
+	//hash: 0000067136024464e0622d0ffdac12d98e14a36e78ad27323c3f5c2c98854a75
+	//merklehash: dc83aa655857885fd62ea0df12b48d65de1b0f88e11764763c157dc94dc7d878
 	//-------------------------------------------------------------------------------------------------------------------------
 //*/
 
@@ -235,11 +259,12 @@ public:
 
 
 	// v2 mainnet
-        genesis = CreateGenesisBlock(1624582800, 3014492, 0x1e0ffff0, 1, 0 * COIN);   //25.06.2021
+
+        genesis = CreateGenesisBlock(1643650028, 798999, 0x1e0ffff0, 1, 0 * COIN);   //
         consensus.hashGenesisBlock = genesis.GetHash();
-	// from peony
-        //assert(consensus.hashGenesisBlock == uint256S("0x000004c7da0d7f51dfedea7925831315afb00a41ac2fd1cba3ea54e034efd369"));
-        //assert(genesis.hashMerkleRoot == uint256S("0xa5567533e1f5261c38b1b68fcb552f692558d820b338222777893e616bbff4d2"));
+
+        assert(consensus.hashGenesisBlock == uint256S("0x0000067136024464e0622d0ffdac12d98e14a36e78ad27323c3f5c2c98854a75"));
+        assert(genesis.hashMerkleRoot == uint256S("0xdc83aa655857885fd62ea0df12b48d65de1b0f88e11764763c157dc94dc7d878"));
 
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.powLimit   = ~UINT256_ZERO >> 20;   
@@ -289,7 +314,7 @@ public:
         consensus.ZC_MinMintConfirmations = 20;
         consensus.ZC_MinMintFee = 1 * CENT;
         consensus.ZC_MinStakeDepth = 200;
-        consensus.ZC_TimeStart = 1624171800;;        // (GMT): Sun, 20 Jun 2021 06:50:00
+        consensus.ZC_TimeStart = 1642996263;;        // (GMT): 2022-01-24.03:51:03 GMT
         consensus.ZC_WrappedSerialsSupply = 0; //4131563 * COIN;   // zerocoin supply at height_last_ZC_WrappedSerials
 
         // Network upgrades
@@ -380,16 +405,16 @@ public:
 /*
 	//-------------------------------------------------------------------------------------------------------------------------
 	// v1 calc
-	// Sun, 20 Jun 2021 06:50:00 GMT
-        genesis = CreateGenesisBlock(1624171800, 540000, 0x1e0ffff0, 1, 0 * COIN);
+	// Mon,24 Jan 2022,  2022-01-24.03:51:03 GMT
+        genesis = CreateGenesisBlocktest(1642996263, 540000, 0x1e0ffff0, 1, 0 * COIN);
 
         // calculate Genesis Block
         // Reset genesis
         consensus.hashGenesisBlock = uint256S("0x");
-        std::cout << std::string("Begin calculating Mainnet Genesis Block:\n");
+        std::cout << std::string("Begin calculating Testnnet Genesis Block:\n");
 	if (true && (genesis.GetHash() != consensus.hashGenesisBlock)) {
             //LogPrintf("Calculating Mainnet Genesis Block:\n"); //error: segmentation fault error
-	    std::cout << std::string("Calculating Mainnet Genesis Block:\n");
+	    std::cout << std::string("Calculating Testnet Genesis Block:\n");
             arith_uint256 hashTarget = arith_uint256().SetCompact(genesis.nBits);
             uint256 hash;
             genesis.nNonce = 540000; //0;
@@ -429,11 +454,13 @@ public:
 
 	consensus.hashGenesisBlock = genesis.GetHash();
 
-	//Mainnet ---0
-  	//nonce: 713291
-   	//time: 1624171800
-   	//hash: 00000e0a35366ff6aa3248236979bc47cda6b96829138239155dc91d08ae5f7f
-   	//merklehash: e788cb0c983ed5de6ced0f87063742b256cffbb57015e190e76fd6a88a1a4d1f
+	//Testnet ---0
+	// nonce: 958781
+	// time: 1642996263
+	// hash: 00000018d8b262ec1838bd6208766922f463259d627cb3c8032238c34de052fe
+	// merklehash: cb69d3038562ace578527296cdedd1205a4dafd09ffefc30ecc96d3e4576d68e
+ 
+
 	//-------------------------------------------------------------------------------------------------------------------------
 
 	//*/
@@ -444,11 +471,12 @@ public:
 
 
 	// v2 testnet
-	// Sun, 20 Jun 2021 06:50:00 GMT
-        genesis = CreateGenesisBlock(1624171800, 713291, 0x1e0ffff0, 1, 0 * COIN);
+	// Mon,24 Jan 2022,  2022-01-24.03:51:03 GMT
+        genesis = CreateGenesisBlocktest(1642996263, 958781, 0x1e0ffff0, 1, 0 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        //assert(consensus.hashGenesisBlock == uint256S("0x0000041e482b9b9691d98eefb48473405c0b8ec31b76df3797c74a78680ef818"));
-        //assert(genesis.hashMerkleRoot == uint256S("0x1b2ef6e2f28be914103a277377ae7729dcd125dfeb8bf97bd5964ba72b6dc39b"));
+
+        assert(consensus.hashGenesisBlock == uint256S("0x00000018d8b262ec1838bd6208766922f463259d627cb3c8032238c34de052fe"));
+        assert(genesis.hashMerkleRoot == uint256S("0xcb69d3038562ace578527296cdedd1205a4dafd09ffefc30ecc96d3e4576d68e"));
 
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.powLimit   = ~UINT256_ZERO >> 20;   // skyrcoin starting difficulty is 1 / 2^12
@@ -498,7 +526,7 @@ public:
         consensus.ZC_MinMintConfirmations = 20;
         consensus.ZC_MinMintFee = 1 * CENT;
         consensus.ZC_MinStakeDepth = 200;
-        consensus.ZC_TimeStart = 1624171800; //1501776000;
+        consensus.ZC_TimeStart = 1642996263;
         consensus.ZC_WrappedSerialsSupply = 0;   // WrappedSerials only on main net
 
         // Network upgrades
@@ -572,6 +600,9 @@ public:
 };
 static CTestNetParams testNetParams;
 
+
+
+
 /**
  * Regression test
  */
@@ -583,11 +614,20 @@ public:
         networkID = CBaseChainParams::REGTEST;
         strNetworkID = "regtest";
 
-	genesis = CreateGenesisBlock(1624171800, 713291, 0x1e0ffff0, 1, 0 * COIN);
+	// nonce: 958781
+	// time: 1642996263
+	// hash: 00000018d8b262ec1838bd6208766922f463259d627cb3c8032238c34de052fe
+	// merklehash: cb69d3038562ace578527296cdedd1205a4dafd09ffefc30ecc96d3e4576d68e
+ 
+
+	// v2 regtest
+	// Mon,24 Jan 2022,  2022-01-24.03:51:03 GMT
+        genesis = CreateGenesisBlockreg(1642996263, 958781, 0x1e0ffff0, 1, 0 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-	// from peony
-        //assert(consensus.hashGenesisBlock == uint256S("0x0000041e482b9b9691d98eefb48473405c0b8ec31b76df3797c74a78680ef818"));
-        //assert(genesis.hashMerkleRoot == uint256S("0x1b2ef6e2f28be914103a277377ae7729dcd125dfeb8bf97bd5964ba72b6dc39b"));
+
+        assert(consensus.hashGenesisBlock == uint256S("0x00000018d8b262ec1838bd6208766922f463259d627cb3c8032238c34de052fe"));
+        assert(genesis.hashMerkleRoot == uint256S("0xcb69d3038562ace578527296cdedd1205a4dafd09ffefc30ecc96d3e4576d68e"));
+
 
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.powLimit   = ~UINT256_ZERO >> 20;   // skyrcoin starting difficulty is 1 / 2^12

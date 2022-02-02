@@ -321,9 +321,9 @@ bool CMasternode::IsInputAssociatedWithPubkey() const
 CAmount CMasternode::GetMasternodeNodeCollateral(int nHeight) 
 {
     if (nHeight <= 100000) {
-        return 200000 * COIN;
+        return 400000 * COIN;
     } else if (nHeight > 100000 && nHeight <= 200000) {
-        return 300000 * COIN;
+        return 400000 * COIN;
     } else if (nHeight > 200000) {
         return 400000 * COIN;
     } 
@@ -340,18 +340,20 @@ CAmount CMasternode::GetBlockValue(int nHeight)
     CAmount nSubsidy;
 
     if (nHeight == 1) {
-        nSubsidy = 280000000 * COIN; // SKYR coin supply (13:00 of 25/06/2021 UTC)
+        nSubsidy = 15000000 * COIN; // SKYR coin supply
     } else if (nHeight <= 100000) {
         nSubsidy = 5 * COIN;
-    } else if (nHeight > 100000 && nHeight <= 144000) {
-        nSubsidy = 12 * COIN;
-    } else if (nHeight > 144000 && nHeight <= 200000) {
-        nSubsidy = 14 * COIN;
-    } else if (nHeight > 200000 && nHeight <= 500000) {
+    } else if (nHeight > 100000 && nHeight <= 200000) {
+        nSubsidy = 4 * COIN;
+    } else if (nHeight > 200000 && nHeight <= 300000) {
+        nSubsidy = 3 * COIN;
+    } else if (nHeight > 300000 && nHeight <= 400000) {
+        nSubsidy = 2 * COIN;
+    } else if (nHeight > 500000 && nHeight <= 600000) {
         nSubsidy = 1 * COIN;
-    } else if (nHeight > 500000 && nHeight <= 700000) {
+    } else if (nHeight > 600000 && nHeight <= 800000) {
         nSubsidy = 0.5 * COIN;    
-    } else if (nHeight > 700000) {
+    } else if (nHeight > 800000) {
         nSubsidy = 0 * COIN;
     } 
 
