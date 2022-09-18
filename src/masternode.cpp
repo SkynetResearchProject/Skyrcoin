@@ -320,13 +320,13 @@ bool CMasternode::IsInputAssociatedWithPubkey() const
 
 CAmount CMasternode::GetMasternodeNodeCollateral(int nHeight) 
 {
-    if (nHeight <= 100000) {
+    //if (nHeight <= 100000) {
+    //    return 400000 * COIN;
+    //} else if (nHeight > 100000 && nHeight <= 200000) {
+    //    return 400000 * COIN;
+    //} else if (nHeight > 200000) {
         return 400000 * COIN;
-    } else if (nHeight > 100000 && nHeight <= 200000) {
-        return 400000 * COIN;
-    } else if (nHeight > 200000) {
-        return 400000 * COIN;
-    } 
+    //} 
 }
 
 CAmount CMasternode::GetBlockValue(int nHeight)
@@ -337,24 +337,32 @@ CAmount CMasternode::GetBlockValue(int nHeight)
         return 0;
     }
 
-    CAmount nSubsidy;
+    CAmount nSubsidy=0;
 
     if (nHeight == 1) {
         nSubsidy = 15000000 * COIN; // SKYR coin supply
     } else if (nHeight <= 100000) {
         nSubsidy = 5 * COIN;
-    } else if (nHeight > 100000 && nHeight <= 200000) {
+    } else if (nHeight > 100000 && nHeight < 200001) {
         nSubsidy = 4 * COIN;
-    } else if (nHeight > 200000 && nHeight <= 300000) {
+    } else if (nHeight > 200000 && nHeight < 300001) {
         nSubsidy = 3 * COIN;
-    } else if (nHeight > 300000 && nHeight <= 400000) {
+    } else if (nHeight > 300000 && nHeight < 400000) {
         nSubsidy = 2 * COIN;
-    } else if (nHeight > 500000 && nHeight <= 600000) {
+    } else if (nHeight == 400000) {
+        nSubsidy = 100 * COIN;
+    } else if (nHeight > 400000 && nHeight < 500000) {
+        nSubsidy = 2 * COIN;
+    } else if (nHeight == 500000) {
+        nSubsidy = 100 * COIN;
+    } else if (nHeight > 500000 && nHeight < 600000) {
         nSubsidy = 1 * COIN;
-    } else if (nHeight > 600000 && nHeight <= 800000) {
+    } else if (nHeight == 600000) {
+        nSubsidy = 100 * COIN;
+    } else if (nHeight > 600000 && nHeight < 800001) {
         nSubsidy = 0.5 * COIN;    
     } else if (nHeight > 800000) {
-        nSubsidy = 0 * COIN;
+        nSubsidy = 0.5 * COIN;
     } 
 
     if(nMoneySupply + nSubsidy > maxMoneyOut) {
