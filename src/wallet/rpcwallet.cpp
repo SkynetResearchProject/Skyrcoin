@@ -493,6 +493,83 @@ UniValue getnewstakingaddress(const JSONRPCRequest& request)
     return EncodeDestination(GetNewAddressFromLabel("coldstaking", request.params, CChainParams::STAKING_ADDRESS), CChainParams::STAKING_ADDRESS);
 }
 
+UniValue delegatoradd(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() < 1 || request.params.size() > 2)
+        throw std::runtime_error(
+            "delegatoradd \"addr\" ( \"label\" )\n"
+            "\nAdd the provided address <addr> into the allowed delegators AddressBook.\n"
+            "This enables the staking of coins delegated to this wallet, owned by <addr>\n"
+
+            "\nArguments:\n"
+            "1. \"addr\"        (string, required) The address to whitelist\n"
+            "2. \"label\"       (string, optional) A label for the address to whitelist\n"
+
+            "\nResult:\n"
+            "true|false           (boolean) true if successful.\n"
+
+            "\nExamples:\n" +
+            HelpExampleCli("delegatoradd", "DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6") +
+            HelpExampleRpc("delegatoradd", "\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\"") +
+            HelpExampleRpc("delegatoradd", "\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\" \"myPaperWallet\""));
+
+
+    bool isStakingAddress = false;
+    CTxDestination dest = DecodeDestination(request.params[0].get_str(), isStakingAddress);
+    if (!IsValidDestination(dest) || isStakingAddress)
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid SKYR address");
+
+    const std::string strLabel = (request.params.size() > 1 ? request.params[1].get_str() : "");
+
+    CKeyID keyID = boost::get<CKeyID>(DecodeDestination(request.params[0].get_str()));
+    if (!keyID)
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Unable to get KeyID from SKYR address");
+
+    return pwalletMain->SetAddressBook(keyID, strLabel, AddressBook::AddressBookPurpose::DELEGATOR);
+}
+
+UniValue delegatorremove(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() != 1)
+        throw std::runtime_error(
+            "delegatorremove \"addr\"\n"
+            "\nUpdates the provided address <addr> from the allowed delegators keystore to a \"delegable\" status.\n"
+            "This disables the staking of coins delegated to this wallet, owned by <addr>\n"
+
+            "\nArguments:\n"
+            "1. \"addr\"        (string, required) The address to blacklist\n"
+
+            "\nResult:\n"
+            "true|false           (boolean) true if successful.\n"
+
+            "\nExamples:\n" +
+            HelpExampleCli("delegatorremove", "DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6") +
+            HelpExampleRpc("delegatorremove", "\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\""));
+
+    bool isStakingAddress = false;
+    CTxDestination dest = DecodeDestination(request.params[0].get_str(), isStakingAddress);
+    if (!IsValidDestination(dest) || isStakingAddress)
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid SKYR address");
+
+    CKeyID keyID = *boost::get<CKeyID>(&dest);
+    if (!keyID)
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Unable to get KeyID from SKYR address");
+
+    if (!pwalletMain->HasAddressBook(keyID))
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Unable to get SKYR address from addressBook");
+
+    std::string label = "";
+    {
+        LOCK(pwalletMain->cs_wallet);
+        std::map<CTxDestination, AddressBook::CAddressBookData>::iterator mi = pwalletMain->mapAddressBook.find(dest);
+        if (mi != pwalletMain->mapAddressBook.end()) {
+            label = mi->second.name;
+        }
+    }
+
+    return pwalletMain->SetAddressBook(keyID, label, AddressBook::AddressBookPurpose::DELEGABLE);
+}
+
 UniValue ListaddressesForPurpose(const std::string strPurpose)
 {
        const CChainParams::Base58Type addrType = (
@@ -513,6 +590,37 @@ UniValue ListaddressesForPurpose(const std::string strPurpose)
 
     return ret;
 }
+
+UniValue listdelegators(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() > 1)
+        throw std::runtime_error(
+            "listdelegators ( fBlacklist )\n"
+            "\nShows the list of allowed delegator addresses for cold staking.\n"
+
+            "\nArguments:\n"
+            "1. fBlacklist             (boolean, optional, default = false) Show addresses removed\n"
+            "                          from the delegators whitelist\n"
+
+            "\nResult:\n"
+            "[\n"
+            "   {\n"
+            "   \"label\": \"yyy\",    (string) Address label\n"
+            "   \"address\": \"xxx\",  (string) SKYR address string\n"
+            "   }\n"
+            "  ...\n"
+            "]\n"
+
+            "\nExamples:\n" +
+            HelpExampleCli("listdelegators" , "") +
+            HelpExampleRpc("listdelegators", ""));
+
+    const bool fBlacklist = (request.params.size() > 0 ? request.params[0].get_bool() : false);
+    return (fBlacklist ?
+            ListaddressesForPurpose(AddressBook::AddressBookPurpose::DELEGABLE) :
+            ListaddressesForPurpose(AddressBook::AddressBookPurpose::DELEGATOR));
+}
+
 
 UniValue liststakingaddresses(const JSONRPCRequest& request)
 {
@@ -4445,6 +4553,7 @@ const CRPCCommand vWalletRPCCommands[] =
         { "wallet",             "keypoolrefill",            &keypoolrefill,            true  },
         { "wallet",             "listaddressgroupings",     &listaddressgroupings,     false },
 
+        { "wallet",             "listdelegators",           &listdelegators,           false },
         { "wallet",             "liststakingaddresses",     &liststakingaddresses,     false },
         { "wallet",             "listlockunspent",          &listlockunspent,          false },
         { "wallet",             "listreceivedbyaddress",    &listreceivedbyaddress,    false },
@@ -4459,7 +4568,9 @@ const CRPCCommand vWalletRPCCommands[] =
         { "wallet",             "signmessage",              &signmessage,              true  },
         { "wallet",             "walletlock",               &walletlock,               true  },
         { "wallet",             "walletpassphrasechange",   &walletpassphrasechange,   true  },
-        { "wallet",             "walletpassphrase",         &walletpassphrase,         true  },
+        { "wallet",             "walletpassphrase",         &walletpassphrase,         true  },        
+        { "wallet",             "delegatoradd",             &delegatoradd,             true  },
+        { "wallet",             "delegatorremove",          &delegatorremove,          true  },
 
         /** Account functions (deprecated) */
         { "wallet",             "getaccountaddress",        &getaccountaddress,        true  },
