@@ -472,8 +472,33 @@ UniValue getnewaddress(const JSONRPCRequest& request)
     return EncodeDestination(GetNewAddressFromLabel(AddressBook::AddressBookPurpose::RECEIVE, request.params));
 }
 
+UniValue getnewstakingaddress(const JSONRPCRequest& request)
+{
+
+    if (request.fHelp || request.params.size() > 1)
+        throw std::runtime_error(
+            "getnewstakingaddress ( \"label\" )\n"
+            "\nReturns a new SKYR cold staking address for receiving delegated cold stakes.\n"
+
+            "\nArguments:\n"
+            "1. \"label\"        (string, optional) The label name for the address to be linked to. if not provided, the default label \"\" is used. It can also be set to the empty string \"\" to represent the default label. The label does not need to exist, it will be created if there is no label by the given name.\n"
+
+
+            "\nResult:\n"
+            "\"skyrcoinaddress\"    (string) The new pivx address\n"
+
+            "\nExamples:\n" +
+            HelpExampleCli("getnewstakingaddress", "") + HelpExampleRpc("getnewstakingaddress", ""));
+
+    return EncodeDestination(GetNewAddressFromLabel("coldstaking", request.params, CChainParams::STAKING_ADDRESS), CChainParams::STAKING_ADDRESS);
+}
+
 UniValue ListaddressesForPurpose(const std::string strPurpose)
 {
+       const CChainParams::Base58Type addrType = (
+            AddressBook::IsColdStakingPurpose(strPurpose) ?
+                    CChainParams::STAKING_ADDRESS :
+                    CChainParams::PUBKEY_ADDRESS);
     UniValue ret(UniValue::VARR);
     {
         LOCK(pwalletMain->cs_wallet);
@@ -481,12 +506,35 @@ UniValue ListaddressesForPurpose(const std::string strPurpose)
             if (addr.second.purpose != strPurpose) continue;
             UniValue entry(UniValue::VOBJ);
             entry.push_back(Pair("label", addr.second.name));
-            entry.push_back(Pair("address", EncodeDestination(addr.first)));
+            entry.push_back(Pair("address", EncodeDestination(addr.first,addrType)));
             ret.push_back(entry);
         }
     }
 
     return ret;
+}
+
+UniValue liststakingaddresses(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() != 0)
+        throw std::runtime_error(
+            "liststakingaddresses \"addr\"\n"
+            "\nShows the list of staking addresses for this wallet.\n"
+
+            "\nResult:\n"
+            "[\n"
+            "   {\n"
+            "   \"label\": \"yyy\",  (string) Address label\n"
+            "   \"address\": \"xxx\",  (string) SKYR address string\n"
+            "   }\n"
+            "  ...\n"
+            "]\n"
+
+            "\nExamples:\n" +
+            HelpExampleCli("liststakingaddresses" , "") +
+            HelpExampleRpc("liststakingaddresses", ""));
+
+    return ListaddressesForPurpose(AddressBook::AddressBookPurpose::COLD_STAKING);
 }
 
 CTxDestination GetLabelDestination(CWallet* const pwallet, const std::string& label, bool bForceNew = false)
@@ -4380,7 +4428,10 @@ const CRPCCommand vWalletRPCCommands[] =
         { "wallet",             "getbalance",               &getbalance,               false },
         { "wallet",             "upgradewallet",            &upgradewallet,            true  },
         { "wallet",             "sethdseed",                &sethdseed,                true  },
+
         { "wallet",             "getnewaddress",            &getnewaddress,            true  },
+        { "wallet",             "getnewstakingaddress",     &getnewstakingaddress,     true  },
+
         { "wallet",             "getrawchangeaddress",      &getrawchangeaddress,      true  },
         { "wallet",             "getreceivedbyaddress",     &getreceivedbyaddress,     false },
         { "wallet",             "gettransaction",           &gettransaction,           false },
@@ -4393,6 +4444,8 @@ const CRPCCommand vWalletRPCCommands[] =
         { "wallet",             "importpubkey",             &importpubkey,             true  },
         { "wallet",             "keypoolrefill",            &keypoolrefill,            true  },
         { "wallet",             "listaddressgroupings",     &listaddressgroupings,     false },
+
+        { "wallet",             "liststakingaddresses",     &liststakingaddresses,     false },
         { "wallet",             "listlockunspent",          &listlockunspent,          false },
         { "wallet",             "listreceivedbyaddress",    &listreceivedbyaddress,    false },
         { "wallet",             "listsinceblock",           &listsinceblock,           false },

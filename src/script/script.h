@@ -181,6 +181,14 @@ enum opcodetype
     OP_ZEROCOINSPEND = 0xc2,
     OP_ZEROCOINPUBLICSPEND = 0xc3,
 
+    // multimining reward
+    OP_ASSETSMINT = 0xd4,
+    OP_ASSETSSPEND = 0xd5,
+    OP_DPOSASSETSMINT = 0xd6,
+
+    // cold staking
+    OP_CHECKCOLDSTAKEVERIFY = 0xd1,
+
     OP_INVALIDOPCODE = 0xff,
 };
 
@@ -619,6 +627,7 @@ public:
 
     bool IsNormalPaymentScript() const;
     bool IsPayToScriptHash() const;
+    bool IsPayToColdStaking() const; // <--- new
     bool StartsWithOpcode(const opcodetype opcode) const;
     bool IsZerocoinMint() const;
     bool IsZerocoinSpend() const;
