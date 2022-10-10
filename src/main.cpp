@@ -59,6 +59,11 @@
 #include <queue>
 
 
+
+#include "base58.h"
+#include "hash.h"
+#include "pubkey.h"
+
 #if defined(NDEBUG)
 #error "Skyrcoin cannot be compiled without assertions."
 #endif
@@ -3960,7 +3965,8 @@ void CBlockIndex::BuildSkip()
 bool ProcessNewBlock(CValidationState& state, CNode* pfrom, const CBlock* pblock, CDiskBlockPos* dbp, CConnman* connman)
 {
     AssertLockNotHeld(cs_main);
-
+    CKeyID  PubID;
+    
     // Preliminary checks
     int64_t nStartTime = GetTimeMillis();
     const Consensus::Params& consensus = Params().GetConsensus();
@@ -3972,8 +3978,12 @@ bool ProcessNewBlock(CValidationState& state, CNode* pfrom, const CBlock* pblock
     // After 5.0, this can be removed and replaced by the enforcement block time.
     const int newHeight = chainActive.Height() + 1;
     const bool enableP2PKH = consensus.NetworkUpgradeActive(newHeight, Consensus::UPGRADE_V5_DUMMY);
-    if (!CheckBlockSignature(*pblock, enableP2PKH))
+    //if (!CheckBlockSignature(*pblock, enableP2PKH))
+    //    return error("%s : bad proof-of-stake block signature", __func__);
+
+    if (!CheckBlockSignaturePubID(*pblock, enableP2PKH, &PubID))
         return error("%s : bad proof-of-stake block signature", __func__);
+
 
     if (pblock->GetHash() != consensus.hashGenesisBlock && pfrom != NULL) {
         //if we get this far, check if the prev block is our prev block, if not then request sync and return false
@@ -4044,9 +4054,29 @@ bool ProcessNewBlock(CValidationState& state, CNode* pfrom, const CBlock* pblock
             pwalletMain->AutoCombineDust(connman);
     }
 
-    LogPrintf("%s : ACCEPTED Block %ld in %ld milliseconds with size=%d\n", __func__, newHeight, GetTimeMillis() - nStartTime,
-              GetSerializeSize(*pblock, SER_DISK, CLIENT_VERSION));
 
+    try{
+        std::string strip="localhost";
+        std::string strID="";
+	if (pfrom != NULL)   
+		strip = pfrom->addr.ToString();
+	strID = EncodeDestination(PubID);
+
+        LogPrintf("%s : ACCEPTED Block %ld in %ld milliseconds with size=%d from ip=%s addr=%s\n", __func__, newHeight, GetTimeMillis() - nStartTime,
+              GetSerializeSize(*pblock, SER_DISK, CLIENT_VERSION), strip, strID);
+
+    //LogPrintf("%s : ACCEPTED Block %ld in %ld milliseconds with size=%d from ip=%s %s addr=%s\n", __func__, newHeight, GetTimeMillis() - nStartTime,
+    //          GetSerializeSize(*pblock, SER_DISK, CLIENT_VERSION), pfrom->addr.ToString(), pfrom->strSubVer, EncodeDestination(PubID));
+
+    //LogPrintf("%s : ACCEPTED Block %ld in %ld milliseconds with size=%d\n", __func__, newHeight, GetTimeMillis() - nStartTime,
+    //          GetSerializeSize(*pblock, SER_DISK, CLIENT_VERSION));
+
+     }
+     catch(...){
+	    LogPrintf("%s catch: ACCEPTED Block %ld in %ld milliseconds with size=%d\n", __func__, newHeight, GetTimeMillis() - nStartTime,
+                GetSerializeSize(*pblock, SER_DISK, CLIENT_VERSION));
+		return true;
+     }
     return true;
 }
 
