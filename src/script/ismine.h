@@ -16,16 +16,44 @@ class CKeyStore;
 class CScript;
 
 /** IsMine() return codes */
+//enum isminetype {
+//    ISMINE_NO = 0,
+//    ISMINE_WATCH_ONLY = 1 << 0,
+//    ISMINE_SPENDABLE  = 1 << 1,
+//    ISMINE_SPENDABLE_ALL = ISMINE_SPENDABLE,
+//    ISMINE_ALL = ISMINE_WATCH_ONLY | ISMINE_SPENDABLE,
+//    ISMINE_ENUM_ELEMENTS
+//};
+/** used for bitflags of isminetype */
+//typedef uint8_t isminefilter;
+
+/** IsMine() return codes */
 enum isminetype {
-    ISMINE_NO = 0,
-    ISMINE_WATCH_ONLY = 1 << 0,
-    ISMINE_SPENDABLE  = 1 << 1,
-    ISMINE_SPENDABLE_ALL = ISMINE_SPENDABLE,
-    ISMINE_ALL = ISMINE_WATCH_ONLY | ISMINE_SPENDABLE,
+    ISMINE_NO = 0, //0000
+    ISMINE_WATCH_ONLY = 1 << 0, // 0000 0001
+    ISMINE_SPENDABLE  = 1 << 1, // 0000 0010
+    //! Indicates that we have the staking key of a P2CS
+    ISMINE_COLD = 1 << 2, // 0000 0100
+    //! Indicates that we have the spending key of a P2CS
+    ISMINE_SPENDABLE_DELEGATED = 1 << 3, //0000 1000
+    //! Indicates that we don't have the spending key of a shielded spend/output
+    //ISMINE_WATCH_ONLY_SHIELDED = 1 << 4, // 0001 0000
+    //! Indicates that we have the spending key of a shielded spend/output.
+    //ISMINE_SPENDABLE_SHIELDED = 1 << 5, // 0010 0000
+    //ISMINE_SPENDABLE_ASSETS = 1 << 6, // 0100 0000
+    //ISMINE_DPOS_ASSETS = 1 << 7, // 1000 0000
+    ISMINE_SPENDABLE_TRANSPARENT = ISMINE_SPENDABLE_DELEGATED | ISMINE_SPENDABLE,
+    //ISMINE_SPENDABLE_NO_DELEGATED =  ISMINE_SPENDABLE | ISMINE_SPENDABLE_SHIELDED,
+    ISMINE_SPENDABLE_ALL = ISMINE_SPENDABLE_DELEGATED | ISMINE_SPENDABLE, //| ISMINE_SPENDABLE_SHIELDED | ISMINE_SPENDABLE_ASSETS | ISMINE_DPOS_ASSETS,
+    //ISMINE_WATCH_ONLY_ALL = ISMINE_WATCH_ONLY | ISMINE_WATCH_ONLY_SHIELDED,
+    ISMINE_SPENDABLE_STAKEABLE = ISMINE_SPENDABLE_DELEGATED | ISMINE_COLD,
+    ISMINE_ALL = ISMINE_WATCH_ONLY | ISMINE_SPENDABLE | ISMINE_COLD | ISMINE_SPENDABLE_DELEGATED, // | ISMINE_SPENDABLE_SHIELDED | ISMINE_WATCH_ONLY_SHIELDED | ISMINE_SPENDABLE_ASSETS | ISMINE_DPOS_ASSETS,
+    //! enum elements
     ISMINE_ENUM_ELEMENTS
 };
 /** used for bitflags of isminetype */
 typedef uint8_t isminefilter;
+
 
 isminetype IsMine(const CKeyStore& keystore, const CScript& scriptPubKey);
 isminetype IsMine(const CKeyStore& keystore, const CTxDestination& dest);

@@ -377,6 +377,8 @@ public:
     //! >> Available coins (generic)
     bool AvailableCoins(std::vector<COutput>* pCoins,   // --> populates when != nullptr
                         const CCoinControl* coinControl = nullptr,
+                        bool fIncludeDelegated          = true,
+                        bool fIncludeColdStaking        = false,
                         AvailableCoinsType nCoinType    = ALL_COINS,
                         bool fOnlyConfirmed             = true
                         ) const;
@@ -473,9 +475,17 @@ public:
     void ResendWalletTransactions(CConnman* connman);
 
     CAmount loopTxsBalance(std::function<void(const uint256&, const CWalletTx&, CAmount&)>method) const;
-    CAmount GetAvailableBalance() const;
+    /////CAmount GetAvailableBalance() const;
+    CAmount GetAvailableBalance(bool fIncludeDelegated = true) const;
     CAmount GetAvailableBalance(isminefilter& filter, bool useCache = false, int minDepth = 1) const;
-    CAmount GetStakingBalance() const;
+    /////CAmount GetStakingBalance() const;
+    //<--- new
+    CAmount GetColdStakingBalance() const;  // delegated coins for which we have the staking key
+    CAmount GetImmatureColdStakingBalance() const;
+    CAmount GetStakingBalance(const bool fIncludeColdStaking = true) const;
+    CAmount GetDelegatedBalance() const;    // delegated coins for which we have the spending key
+    CAmount GetImmatureDelegatedBalance() const;
+    //<---
     CAmount GetLockedCoins() const;
     CAmount GetUnconfirmedBalance() const;
     CAmount GetImmatureBalance() const;
@@ -498,8 +508,11 @@ public:
         const CCoinControl* coinControl = NULL,
         AvailableCoinsType coin_type = ALL_COINS,
         bool sign = true,
-        CAmount nFeePay = 0);
-    bool CreateTransaction(CScript scriptPubKey, const CAmount& nValue, CWalletTx& wtxNew, CReserveKey& reservekey, CAmount& nFeeRet, std::string& strFailReason, const CCoinControl* coinControl = NULL, AvailableCoinsType coin_type = ALL_COINS, CAmount nFeePay = 0);
+        CAmount nFeePay = 0,
+        bool fIncludeDelelegated = false);
+    bool CreateTransaction(CScript scriptPubKey, const CAmount& nValue, CWalletTx& wtxNew, CReserveKey& reservekey, CAmount& nFeeRet,
+                           std::string& strFailReason, const CCoinControl* coinControl = NULL, AvailableCoinsType coin_type = ALL_COINS,
+                           CAmount nFeePay = 0, bool fIncludeDelelegated = false);
 
     // enumeration for CommitResult (return status of CommitTransaction)
     enum CommitStatus
@@ -567,7 +580,7 @@ public:
     /** should probably be renamed to IsRelevantToMe */
     bool IsFromMe(const CTransaction& tx) const;
     CAmount GetDebit(const CTransaction& tx, const isminefilter& filter) const;
-    CAmount GetCredit(const CTransaction& tx, const isminefilter& filter) const;
+    CAmount GetCredit(const CTransaction& tx, const isminefilter& filter, const bool fUnspent = false) const;
     CAmount GetChange(const CTransaction& tx) const;
     void SetBestChain(const CBlockLocator& loc);
 
@@ -579,6 +592,7 @@ public:
     bool SetAddressBook(const CTxDestination& address, const std::string& strName, const std::string& purpose);
     bool DelAddressBook(const CTxDestination& address, const CChainParams::Base58Type addrType = CChainParams::PUBKEY_ADDRESS);
     bool HasAddressBook(const CTxDestination& address) const;
+    bool HasDelegator(const CTxOut& out) const;
 
     std::string purposeForAddress(const CTxDestination& address) const;
     const std::string& GetAccountName(const CScript& scriptPubKey) const;
@@ -842,6 +856,8 @@ public:
     CAmount GetCachableAmount(AmountType type, const isminefilter& filter, bool recalculate = false) const;
     bool IsAmountCached(AmountType type, const isminefilter& filter) const; // Only used in unit tests
     mutable CachableAmount m_amounts[AMOUNTTYPE_ENUM_ELEMENTS];
+
+    mutable bool fStakeDelegationVoided;
     mutable bool fChangeCached;
     mutable CAmount nChangeCached;
 
@@ -904,6 +920,7 @@ public:
     //! filter decides which addresses will count towards the debit
     CAmount GetDebit(const isminefilter& filter) const;
     CAmount GetCredit(const isminefilter& filter, bool recalculate = false) const;
+    CAmount GetUnspentCredit(const isminefilter& filter) const;
     CAmount GetImmatureCredit(bool fUseCache = true, const isminefilter& filter = ISMINE_SPENDABLE_ALL) const;
     CAmount GetAvailableCredit(bool fUseCache = true, const isminefilter& filter=ISMINE_SPENDABLE) const;
     // Return sum of locked coins
@@ -911,6 +928,12 @@ public:
     CAmount GetImmatureWatchOnlyCredit(const bool& fUseCache = true) const;
     CAmount GetAvailableWatchOnlyCredit(const bool& fUseCache = true) const;
     CAmount GetChange() const;
+
+    // Cold staking contracts credit/debit
+    CAmount GetColdStakingCredit(bool fUseCache = true) const;
+    CAmount GetColdStakingDebit(bool fUseCache = true) const;
+    CAmount GetStakeDelegationCredit(bool fUseCache = true) const;
+    CAmount GetStakeDelegationDebit(bool fUseCache = true) const;
 
     void GetAmounts(std::list<COutputEntry>& listReceived,
         std::list<COutputEntry>& listSent,

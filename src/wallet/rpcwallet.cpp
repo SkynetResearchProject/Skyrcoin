@@ -451,6 +451,148 @@ UniValue sethdseed(const JSONRPCRequest& request)
     return NullUniValue;
 }
 
+UniValue CreateColdStakeDelegation(const UniValue& params, CWalletTx& txNew, CReserveKey& reservekey)
+{
+    LOCK2(cs_main, pwalletMain->cs_wallet);
+
+    // Check that Cold Staking has been enforced or fForceNotEnabled = true
+    bool fForceNotEnabled = false;
+    if (params.size() > 6 && !params[6].isNull())
+        fForceNotEnabled = params[6].get_bool();
+
+    //if (sporkManager.IsSporkActive(SPORK_19_COLDSTAKING_MAINTENANCE) && !fForceNotEnabled) {
+    //    std::string errMsg = "Cold Staking temporarily disabled with SPORK 19.\n"
+    //            "You may force the stake delegation setting fForceNotEnabled to true.\n"
+    //            "WARNING: If relayed before activation, this tx will be rejected resulting in a ban.\n";
+    //    throw JSONRPCError(RPC_WALLET_ERROR, errMsg);
+    //}
+
+    // Get Staking Address
+    bool isStaking = false;
+    CTxDestination stakeAddr = DecodeDestination(params[0].get_str(), isStaking);
+    if (!IsValidDestination(stakeAddr) || !isStaking)
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid SKYR staking address");
+
+    CKeyID* stakeKey = boost::get<CKeyID>(&stakeAddr);
+    if (!stakeKey)
+        throw JSONRPCError(RPC_WALLET_ERROR, "Unable to get stake pubkey hash from stakingaddress");
+
+    // Get Amount
+    CAmount nValue = AmountFromValue(params[1]);
+    if (nValue < MIN_COLDSTAKING_AMOUNT)
+        throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("Invalid amount (%d). Min amount: %d",
+                nValue, MIN_COLDSTAKING_AMOUNT));
+
+    // include already delegated coins
+    bool fUseDelegated = false;
+    if (params.size() > 4 && !params[4].isNull())
+        fUseDelegated = params[4].get_bool();
+
+    // Check amount
+    CAmount currBalance = pwalletMain->GetAvailableBalance() + (fUseDelegated ? pwalletMain->GetDelegatedBalance() : 0);
+    if (nValue > currBalance)
+        throw JSONRPCError(RPC_WALLET_INSUFFICIENT_FUNDS, "Insufficient funds");
+
+    std::string strError;
+    EnsureWalletIsUnlocked();
+
+    // Get Owner Address
+    std::string ownerAddressStr;
+    CKeyID ownerKey;
+    if (params.size() > 2 && !params[2].isNull() && !params[2].get_str().empty()) {
+        // Address provided
+        bool isStaking = false;
+        CTxDestination dest = DecodeDestination(params[2].get_str(), isStaking);
+        if (!IsValidDestination(dest) || isStaking)
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid QRAX spending address");
+        ownerKey = *boost::get<CKeyID>(&dest);
+        // Check that the owner address belongs to this wallet, or fForceExternalAddr is true
+        bool fForceExternalAddr = params.size() > 3 && !params[3].isNull() ? params[3].get_bool() : false;
+        if (!fForceExternalAddr && !pwalletMain->HaveKey(ownerKey)) {
+            std::string errMsg = strprintf("The provided owneraddress \"%s\" is not present in this wallet.\n", params[2].get_str());
+            errMsg += "Set 'fExternalOwner' argument to true, in order to force the stake delegation to an external owner address.\n"
+                    "e.g. delegatestake stakingaddress amount owneraddress true.\n"
+                    "WARNING: Only the owner of the key to owneraddress will be allowed to spend these coins after the delegation.";
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, errMsg);
+        }
+        ownerAddressStr = params[2].get_str();
+    } else {
+        // Get new owner address from keypool
+        CTxDestination ownerAddr = GetNewAddressFromLabel("delegated", NullUniValue);
+        CKeyID* pOwnerKey = boost::get<CKeyID>(&ownerAddr);
+        assert(pOwnerKey);
+        ownerKey = *pOwnerKey;
+        ownerAddressStr = EncodeDestination(ownerAddr);
+    }
+
+    // Create the transaction
+    const bool fUseShielded = (params.size() > 5) && params[5].get_bool();
+
+        // Delegate transparent coins
+        CAmount nFeeRequired;
+        CScript scriptPubKey = GetScriptForStakeDelegation(*stakeKey, ownerKey);
+        if (!pwalletMain->CreateTransaction(scriptPubKey, nValue, txNew, reservekey, nFeeRequired, strError, nullptr, ALL_COINS, (CAmount)0, fUseDelegated)) {
+            if (nValue + nFeeRequired > currBalance)
+                strError = strprintf("Error: This transaction requires a transaction fee of at least %s because of its amount, complexity, or use of recently received funds!", FormatMoney(nFeeRequired));
+            LogPrintf("%s : %s\n", __func__, strError);
+            throw JSONRPCError(RPC_WALLET_ERROR, strError);
+        }
+//*/
+    UniValue result(UniValue::VOBJ);
+    result.pushKV("owner_address", ownerAddressStr);
+    result.pushKV("staker_address", EncodeDestination(stakeAddr, true));
+    return result;
+}
+
+UniValue delegatestake(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() < 2 || request.params.size() > 7)
+        throw std::runtime_error(
+            "delegatestake \"stakingaddress\" amount ( \"owneraddress\" fExternalOwner fUseDelegated fFromShield fForceNotEnabled )\n"
+            "\nDelegate an amount to a given address for cold staking. The amount is a real and is rounded to the nearest 0.00000001\n" +
+            HelpRequiringPassphrase() + "\n"
+
+            "\nArguments:\n"
+            "1. \"stakingaddress\"      (string, required) The qrax staking address to delegate.\n"
+            "2. \"amount\"              (numeric, required) The amount in SKYR to delegate for staking. eg 100\n"
+            "3. \"owneraddress\"        (string, optional) The qrax address corresponding to the key that will be able to spend the stake.\n"
+            "                               If not provided, or empty string, a new wallet address is generated.\n"
+            "4. \"fExternalOwner\"      (boolean, optional, default = false) use the provided 'owneraddress' anyway, even if not present in this wallet.\n"
+            "                               WARNING: The owner of the keys to 'owneraddress' will be the only one allowed to spend these coins.\n"
+            "5. \"fUseDelegated\"       (boolean, optional, default = false) include already delegated inputs if needed.\n"
+            "6. \"fFromShield\"         (boolean, optional, default = false) delegate shield funds.\n"
+            "7. \"fForceNotEnabled\"    (boolean, optional, default = false) ONLY FOR TESTING: force the creation even if SPORK_17_NOOP (SPORK 17) is disabled.\n"
+
+            "\nResult:\n"
+            "{\n"
+            "   \"owner_address\": \"xxx\"   (string) The owner (delegator) owneraddress.\n"
+            "   \"staker_address\": \"xxx\"  (string) The cold staker (delegate) stakingaddress.\n"
+            "   \"txid\": \"xxx\"            (string) The stake delegation transaction id.\n"
+            "}\n"
+
+            "\nExamples:\n" +
+            HelpExampleCli("delegatestake", "\"S1t2a3kab9c8c71VA78xxxy4MxZg6vgeS6\" 100") +
+                        HelpExampleCli("delegatestake", "\"S1t2a3kab9c8c71VA78xxxy4MxZg6vgeS6\" 1000 \"QfmdnoFr17gBfLuLju4k16gPGHTXfexZnc\"") +
+                        HelpExampleRpc("delegatestake", "\"S1t2a3kab9c8c71VA78xxxy4MxZg6vgeS6\", 1000, \"QfmdnoFr17gBfLuLju4k16gPGHTXfexZnc\""));
+
+    // Make sure the results are valid at least up to the most recent block
+    // the user could have gotten from another RPC command prior to now
+    ///////pwalletMain->BlockUntilSyncedToCurrentChain();
+
+    LOCK2(cs_main, pwalletMain->cs_wallet);
+
+    CWalletTx wtx;
+    CReserveKey reservekey(pwalletMain);
+    UniValue ret = CreateColdStakeDelegation(request.params, wtx, reservekey);
+
+    const CWallet::CommitResult& res = pwalletMain->CommitTransaction(wtx, reservekey, g_connman.get());
+    if (res.status != CWallet::CommitStatus::OK)
+        throw JSONRPCError(RPC_WALLET_ERROR, res.ToString());
+
+    ret.push_back(Pair("txid", wtx.GetHash().GetHex()));
+    return ret;
+}
+
 UniValue getnewaddress(const JSONRPCRequest& request)
 {
     if (request.fHelp || request.params.size() > 1)
@@ -1176,7 +1318,9 @@ UniValue getbalance(const JSONRPCRequest& request)
             "                    To use this deprecated argument, start skyrcoind with -deprecatedrpc=accounts. Only include transactions confirmed at least this many times.\n"
             "3. includeWatchonly (bool, optional, default=false) DEPRECATED. This argument will be removed in v5.0.\n"
             "                    To use this deprecated argument, start skyrcoind with -deprecatedrpc=accounts. Also include balance in watchonly addresses (see 'importaddress')\n"
-            
+            "4. includeDelegated (bool, optional, default=true) Only available when specifying an account.\n"
+            "                    To use this argument, start pivxd with -deprecatedrpc=accounts. Also include balance delegated to cold stakers\n"
+
             "\nResult:\n"
             "amount              (numeric) The total amount in SKYR received for this account.\n"
 
@@ -1186,7 +1330,14 @@ UniValue getbalance(const JSONRPCRequest& request)
             "\nThe total amount in the wallet, with at least 5 confirmations\n" +
             HelpExampleCli("getbalance", "\"*\" 6") +
             "\nAs a json rpc call\n" +
-            HelpExampleRpc("getbalance", "\"*\", 6"));
+            HelpExampleRpc("getbalance", "\"*\", 6") +
+
+            "\n\nThe total amount in the wallet without accounts\n" +
+            HelpExampleCli("getbalance",  "0 false false"));
+
+    // Make sure the results are valid at least up to the most recent block
+    // the user could have gotten from another RPC command prior to now
+    //pwalletMain->BlockUntilSyncedToCurrentChain();
 
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
@@ -1202,15 +1353,87 @@ UniValue getbalance(const JSONRPCRequest& request)
         isminefilter filter = ISMINE_SPENDABLE;
         if (request.params.size() > 2 && request.params[2].get_bool())
             filter = filter | ISMINE_WATCH_ONLY;
-        
+        if (!(request.params.size() > 3) || request.params[3].get_bool())
+            filter = filter | ISMINE_SPENDABLE_DELEGATED;
+
         return ValueFromAmount(pwalletMain->GetLegacyBalance(filter, nMinDepth, account));
     }
 
-    const int paramsSize = request.params.size();
-    const int nMinDepth = (paramsSize > 0 ? request.params[0].get_int() : 0);
-    isminefilter filter = ISMINE_SPENDABLE | (paramsSize > 1 && request.params[1].get_bool() ? ISMINE_WATCH_ONLY : ISMINE_NO);
+    //const int nMinDepth = paramsSize > 0 ? request.params[0].get_int() : 0;
+    //bool fIncludeWatchOnly = paramsSize > 1 && request.params[1].get_bool();
+    //bool fIncludeDelegated = paramsSize > 2 && request.params[2].get_bool();
 
+    bool fIncludeDelegated = false;
+    bool fIncludeWatchOnly = false;
+    const int paramsSize = request.params.size();
+    int nMinDepth = 1;
+    if (paramsSize > 0){
+        //nMinDepth = request.params[0].get_int(); //err not integer, see typ
+        nMinDepth = std::stoi(request.params[0].get_str());
+    }
+    if (paramsSize > 1)
+        fIncludeWatchOnly = request.params[1].get_bool();
+    if (paramsSize > 2)
+        fIncludeDelegated = request.params[2].get_bool();
+
+    isminefilter filter = ISMINE_SPENDABLE | (fIncludeWatchOnly ? ISMINE_WATCH_ONLY : ISMINE_NO);
+    filter |= fIncludeDelegated ? ISMINE_SPENDABLE_DELEGATED : ISMINE_NO;
     return ValueFromAmount(pwalletMain->GetAvailableBalance(filter, true, nMinDepth));
+}
+
+UniValue getcoldstakingbalance(const JSONRPCRequest& request)
+{
+    if (request.fHelp || (request.params.size() != 0))
+        throw std::runtime_error(
+            "getcoldstakingbalance\n"
+            "\nReturns the server's total available cold balance.\n"
+
+            "\nResult:\n"
+            "amount              (numeric) The total amount in SKYR received for this wallet in P2CS contracts.\n"
+
+            "\nExamples:\n"
+            "\nThe total amount in the wallet\n" +
+            HelpExampleCli("getcoldstakingbalance", "") +
+            "\nAs a json rpc call\n" +
+            HelpExampleRpc("getcoldstakingbalance", "\"*\""));
+
+    // Make sure the results are valid at least up to the most recent block
+    // the user could have gotten from another RPC command prior to now
+    //pwalletMain->BlockUntilSyncedToCurrentChain();
+
+    LOCK2(cs_main, pwalletMain->cs_wallet);
+
+    return ValueFromAmount(pwalletMain->GetColdStakingBalance());
+    //isminefilter filter = ISMINE_COLD;
+    //return ValueFromAmount(pwalletMain->GetAvailableBalance(filter, true, 0));
+}
+
+UniValue getdelegatedbalance(const JSONRPCRequest& request)
+{
+    if (request.fHelp || (request.params.size() != 0))
+        throw std::runtime_error(
+            "getdelegatedbalance\n"
+            "\nReturns the server's total available delegated balance (sum of all utxos delegated\n"
+            "to a cold staking address to stake on behalf of addresses of this wallet).\n"
+
+            "\nResult:\n"
+            "amount              (numeric) The total amount in SKYR received for this wallet in P2CS contracts.\n"
+
+            "\nExamples:\n"
+            "\nThe total amount in the wallet\n" +
+            HelpExampleCli("getdelegatedbalance", "") +
+            "\nAs a json rpc call\n" +
+            HelpExampleRpc("getdelegatedbalance", "\"*\""));
+
+    // Make sure the results are valid at least up to the most recent block
+    // the user could have gotten from another RPC command prior to now
+    //pwalletMain->BlockUntilSyncedToCurrentChain();
+
+    LOCK2(cs_main, pwalletMain->cs_wallet);
+
+    return ValueFromAmount(pwalletMain->GetDelegatedBalance());
+    //isminefilter filter = ISMINE_SPENDABLE_DELEGATED;
+    //return ValueFromAmount(pwalletMain->GetAvailableBalance(filter, true, 0));
 }
 
 UniValue getunconfirmedbalance(const JSONRPCRequest& request)
@@ -1784,6 +2007,79 @@ UniValue listreceivedbylabel(const JSONRPCRequest& request)
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
     return ListReceived(request.params, true);
+}
+
+UniValue listcoldutxos(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() > 1)
+        throw std::runtime_error(
+            "listcoldutxos ( nonWhitelistedOnly )\n"
+            "\nList P2CS unspent outputs received by this wallet as cold-staker-\n"
+
+            "\nArguments:\n"
+            "1. nonWhitelistedOnly   (boolean, optional, default=false) Whether to exclude P2CS from whitelisted delegators.\n"
+
+            "\nResult:\n"
+            "[\n"
+            "  {\n"
+            "    \"txid\" : \"true\",            (string) The transaction id of the P2CS utxo\n"
+            "    \"txidn\" : \"accountname\",    (string) The output number of the P2CS utxo\n"
+            "    \"amount\" : x.xxx,             (numeric) The amount of the P2CS utxo\n"
+            "    \"confirmations\" : n           (numeric) The number of confirmations of the P2CS utxo\n"
+            "    \"cold-staker\" : n             (string) The cold-staker address of the P2CS utxo\n"
+            "    \"coin-owner\" : n              (string) The coin-owner address of the P2CS utxo\n"
+            "    \"whitelisted\" : n             (string) \"true\"/\"false\" coin-owner in delegator whitelist\n"
+            "  }\n"
+            "  ,...\n"
+            "]\n"
+
+            "\nExamples:\n" +
+            HelpExampleCli("listcoldutxos", "") + HelpExampleCli("listcoldutxos", "true"));
+
+    LOCK2(cs_main, pwalletMain->cs_wallet);
+
+    bool fExcludeWhitelisted = false;
+    if (request.params.size() > 0)
+        fExcludeWhitelisted = request.params[0].get_bool();
+    UniValue results(UniValue::VARR);
+
+    for (std::map<uint256, CWalletTx>::const_iterator it =
+            pwalletMain->mapWallet.begin(); it != pwalletMain->mapWallet.end(); ++it) {
+        const uint256& wtxid = it->first;
+        const CWalletTx* pcoin = &(*it).second;
+        if (!CheckFinalTx(*pcoin) || !pcoin->IsTrusted())
+            continue;
+
+        // if this tx has no unspent P2CS outputs for us, skip it
+        if(pcoin->GetColdStakingCredit() == 0 && pcoin->GetStakeDelegationCredit() == 0)
+            continue;
+
+        for (unsigned int i = 0; i < pcoin->vout.size(); i++) {
+            const CTxOut& out = pcoin->vout[i];
+            isminetype mine = pwalletMain->IsMine(out);
+            if (!bool(mine & ISMINE_COLD) && !bool(mine & ISMINE_SPENDABLE_DELEGATED))
+                continue;
+            txnouttype type;
+            std::vector<CTxDestination> addresses;
+            int nRequired;
+            if (!ExtractDestinations(out.scriptPubKey, type, addresses, nRequired))
+                continue;
+            const bool fWhitelisted = pwalletMain->mapAddressBook.count(addresses[1]) > 0;
+            if (fExcludeWhitelisted && fWhitelisted)
+                continue;
+            UniValue entry(UniValue::VOBJ);
+            entry.push_back(Pair("txid", wtxid.GetHex()));
+            entry.push_back(Pair("txidn", (int)i));
+            entry.push_back(Pair("amount", ValueFromAmount(out.nValue)));
+            entry.push_back(Pair("confirmations", pcoin->GetDepthInMainChain(false)));
+            entry.push_back(Pair("cold-staker", EncodeDestination(addresses[0], CChainParams::STAKING_ADDRESS)));
+            entry.push_back(Pair("coin-owner", EncodeDestination(addresses[1])));
+            entry.push_back(Pair("whitelisted", fWhitelisted ? "true" : "false"));
+            results.push_back(entry);
+        }
+    }
+
+    return results;
 }
 
 static void MaybePushAddress(UniValue & entry, const CTxDestination &dest)
@@ -2946,6 +3242,8 @@ UniValue getwalletinfo(const JSONRPCRequest& request)
             "{\n"
             "  \"walletversion\": xxxxx,                  (numeric) the wallet version\n"
             "  \"balance\": xxxxxxx,                      (numeric) the total SKYR balance of the wallet\n"
+            "  \"delegated_balance\": xxxxx,              (numeric) the SKYR balance held in P2CS (cold staking) contracts\n"
+            "  \"cold_staking_balance\": xx,              (numeric) the SKYR balance held in cold staking addresses\n"
             "  \"unconfirmed_balance\": xxx,              (numeric) the total unconfirmed balance of the wallet in SKYR\n"
             "  \"immature_balance\": xxxxxx,              (numeric) the total immature balance of the wallet in SKYR\n"
             "  \"txcount\": xxxxxxx,                      (numeric) the total number of transactions in the wallet\n"
@@ -2965,9 +3263,13 @@ UniValue getwalletinfo(const JSONRPCRequest& request)
 
     UniValue obj(UniValue::VOBJ);
     obj.push_back(Pair("walletversion", pwalletMain->GetVersion()));
-    obj.push_back(Pair("balance", ValueFromAmount(pwalletMain->GetAvailableBalance())));
+    obj.push_back(Pair("balance", ValueFromAmount(pwalletMain->GetAvailableBalance(false)))); //no delegated
+    obj.push_back(Pair("delegated_balance", ValueFromAmount(pwalletMain->GetDelegatedBalance())));
+    obj.push_back(Pair("cold_staking_balance", ValueFromAmount(pwalletMain->GetColdStakingBalance())));
     obj.push_back(Pair("unconfirmed_balance", ValueFromAmount(pwalletMain->GetUnconfirmedBalance())));
     obj.push_back(Pair("immature_balance",    ValueFromAmount(pwalletMain->GetImmatureBalance())));
+    obj.push_back(Pair("immature_delegated_balance",    ValueFromAmount(pwalletMain->GetImmatureDelegatedBalance())));
+    obj.push_back(Pair("immature_cold_staking_balance",    ValueFromAmount(pwalletMain->GetImmatureColdStakingBalance())));
     obj.push_back(Pair("txcount", (int)pwalletMain->mapWallet.size()));
     obj.push_back(Pair("keypoololdest", pwalletMain->GetOldestKeyPoolTime()));
 
@@ -4532,14 +4834,19 @@ const CRPCCommand vWalletRPCCommands[] =
         { "wallet",             "backupwallet",             &backupwallet,             true  },
         { "wallet",             "dumpprivkey",              &dumpprivkey,              true  },
         { "wallet",             "dumpwallet",               &dumpwallet,               true  },
+
+        { "wallet",             "delegatestake",            &delegatestake,            false },
         { "wallet",             "encryptwallet",            &encryptwallet,            true  },
+
+        { "wallet",             "getcoldstakingbalance",    &getcoldstakingbalance,    false },
+        { "wallet",             "getdelegatedbalance",      &getdelegatedbalance,      false },
         { "wallet",             "getbalance",               &getbalance,               false },
-        { "wallet",             "upgradewallet",            &upgradewallet,            true  },
-        { "wallet",             "sethdseed",                &sethdseed,                true  },
 
         { "wallet",             "getnewaddress",            &getnewaddress,            true  },
         { "wallet",             "getnewstakingaddress",     &getnewstakingaddress,     true  },
 
+        { "wallet",             "upgradewallet",            &upgradewallet,            true  },
+        { "wallet",             "sethdseed",                &sethdseed,                true  },
         { "wallet",             "getrawchangeaddress",      &getrawchangeaddress,      true  },
         { "wallet",             "getreceivedbyaddress",     &getreceivedbyaddress,     false },
         { "wallet",             "gettransaction",           &gettransaction,           false },
@@ -4555,6 +4862,8 @@ const CRPCCommand vWalletRPCCommands[] =
 
         { "wallet",             "listdelegators",           &listdelegators,           false },
         { "wallet",             "liststakingaddresses",     &liststakingaddresses,     false },
+        { "wallet",             "listcoldutxos",            &listcoldutxos,            false },
+
         { "wallet",             "listlockunspent",          &listlockunspent,          false },
         { "wallet",             "listreceivedbyaddress",    &listreceivedbyaddress,    false },
         { "wallet",             "listsinceblock",           &listsinceblock,           false },
