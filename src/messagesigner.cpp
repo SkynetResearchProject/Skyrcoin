@@ -81,7 +81,8 @@ bool CSignedMessage::Sign(const CKey& key, const CPubKey& pubKey)
 {
     std::string strError = "";
 
-    if (Params().GetConsensus().NetworkUpgradeActive(chainActive.Height(), Consensus::UPGRADE_V3_4)) {
+    if (Params().GetConsensus().NetworkUpgradeActive(chainActive.Height(), Consensus::UPGRADE_V3_4))
+    {
         nMessVersion = MessageVersion::MESS_VER_HASH;
         uint256 hash = GetSignatureHash();
 
@@ -92,7 +93,8 @@ bool CSignedMessage::Sign(const CKey& key, const CPubKey& pubKey)
         if (!CHashSigner::VerifyHash(hash, pubKey, vchSig, strError)) {
             return error("%s : VerifyHash() failed, error: %s", __func__, strError);
         }
-    } else {
+    } else
+    {
         nMessVersion = MessageVersion::MESS_VER_STRMESS;
         std::string strMessage = GetStrMessage();
 
@@ -116,6 +118,8 @@ bool CSignedMessage::Sign(const std::string strSignKey)
     if (!CMessageSigner::GetKeysFromSecret(strSignKey, key, pubkey)) {
         return error("%s : Invalid strSignKey", __func__);
     }
+
+    //std::cout << HexStr(key) <<"\n"<< HexStr(pubkey) <<"\n";
 
     return Sign(key, pubkey);
 }

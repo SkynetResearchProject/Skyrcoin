@@ -50,6 +50,11 @@ public:
     static const QString Send;    /**< Specifies send address */
     static const QString Receive; /**< Specifies receive address */
     static const QString Zerocoin; /**< Specifies stealth address */
+    static const QString Delegator; /**< Specifies cold staking addresses which delegated tokens to this wallet and ARE being staked */
+    static const QString Delegable; /**< Specifies cold staking addresses which delegated tokens to this wallet*/
+    static const QString ColdStaking; /**< Specifies cold staking own addresses */
+    static const QString ColdStakingSend; /**< Specifies send cold staking addresses (simil 'contacts')*/
+
     
     /** @name Methods overridden from QAbstractTableModel
         @{*/
@@ -57,6 +62,8 @@ public:
     int columnCount(const QModelIndex& parent) const;
     int sizeSend() const;
     int sizeRecv() const;
+    int sizeDell() const;
+    int sizeColdSend() const;
     void notifyChange(const QModelIndex &index);
     QVariant data(const QModelIndex& index, int role) const;
     bool setData(const QModelIndex& index, const QVariant& value, int role);
@@ -84,6 +91,11 @@ public:
      * Look up purpose for address in address book, if not found return empty string
      */
     std::string purposeForAddress(const std::string& address) const;
+
+    /**
+     * Checks if the address is whitelisted
+     */
+    bool isWhitelisted(const std::string& address) const;
 
     /**
      * Return last unused address

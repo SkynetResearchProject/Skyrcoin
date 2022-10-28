@@ -2988,8 +2988,8 @@ bu sayede SKYR sahipleri blok ödülü kazanımına katılabilmektedir
     <message>
         <source>
                            &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-                           Newly received SKYR requires 6 confirmations on the network
-                           to become eligible for spending which can take ~6 minutes.
+                           Newly received SKYR requires 7 confirmations on the network
+                           to become eligible for spending which can take ~7 minutes.
                            &lt;/p&gt;&lt;p align="justify"&gt;
                            Your SKYR wallet also needs to be completely synchronized
                            to see and spend balances on the network.
@@ -2997,8 +2997,8 @@ bu sayede SKYR sahipleri blok ödülü kazanımına katılabilmektedir
                          </source>
         <translation>
                            &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-                           Yeni alınmış SKYR'lerin harcanabilr hale gelmesi için ağdan 6 onay
-                           alması gerekmektedir, bu işlem yaklaşık olarak 6 dakika sürer.
+                           Yeni alınmış SKYR'lerin harcanabilr hale gelmesi için ağdan 7 onay
+                           alması gerekmektedir, bu işlem yaklaşık olarak 7 dakika sürer.
                            &lt;/p&gt;&lt;p align="justify"&gt;
                            SKYR cüzdanınızın ağdaki bakiyesini görebilmesi ve harcayabilmesi
                            için tamamen senkronize olması gerekmektedir.

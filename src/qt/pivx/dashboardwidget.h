@@ -45,6 +45,22 @@ namespace Ui {
 class DashboardWidget;
 }
 
+class SortEdit : public QLineEdit{
+    Q_OBJECT
+public:
+    explicit SortEdit(QWidget* parent = nullptr) : QLineEdit(parent){}
+
+    inline void mousePressEvent(QMouseEvent *) override{
+        Q_EMIT Mouse_Pressed();
+    }
+
+    ~SortEdit() override{}
+
+Q_SIGNALS:
+    void Mouse_Pressed();
+
+};
+
 enum SortTx {
     DATE_DESC = 0,
     DATE_ASC = 1,
@@ -107,7 +123,7 @@ private Q_SLOTS:
     void onSortTypeChanged(const QString& value);
     void updateDisplayUnit();
     void showList();
-    void onTxArrived(const QString& hash, const bool& isCoinStake);
+    void onTxArrived(const QString& hash, const bool& isCoinStake, const bool& isCSAnyType);
 
 #ifdef USE_QTCHARTS
     void windowResizeEvent(QResizeEvent* event);

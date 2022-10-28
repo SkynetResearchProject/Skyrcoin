@@ -283,7 +283,7 @@ UniValue getaddressesbylabel(const JSONRPCRequest& request)
     UniValue ret(UniValue::VOBJ);
     for (const std::pair<CTxDestination, AddressBook::CAddressBookData>& item : pwallet->mapAddressBook) {
         if (item.second.name == label) {
-            ret.pushKV(EncodeDestination(item.first), AddressBookDataToJSON(item.second, false));
+            ret.pushKV(EncodeDestination(item.first, AddressBook::IsColdStakingPurpose(item.second.purpose)), AddressBookDataToJSON(item.second, false));
         }
     }
 
@@ -307,7 +307,7 @@ UniValue listlabels(const JSONRPCRequest& request)
             "\nReturns the list of all labels, or labels that are assigned to addresses with a specific purpose.\n"
 
             "\nArguments:\n"
-            "1. \"purpose\"    (string, optional) Address purpose to list labels for ('send','receive'). An empty string is the same as not providing this argument.\n"
+            "1. \"purpose\"    (string, optional) Address purpose to list labels for ('send','receive', 'delegable', 'delegator', 'coldstaking', 'coldstaking_send', 'refund'). An empty string is the same as not providing this argument.\n"
 
             "\nResult:\n"
             "[               (json array of string)\n"
@@ -369,6 +369,7 @@ UniValue upgradewallet(const JSONRPCRequest& request)
                                  "Bump the wallet features to the latest supported version. Non-HD wallets will be upgraded to HD wallet functionality. "
                                  "Marking all the previous keys as pre-split keys and managing them separately. Once the last key in the pre-split keypool gets marked as used (received balance), the wallet will automatically start using the HD generated keys.\n"
                                  "The upgraded HD wallet will have a new HD seed set so that new keys added to the keypool will be derived from this new seed.\n"
+                                 "Wallets that are already runnning the latest HD version will not be upgraded\n"
                                  "\nNote that you will need to MAKE A NEW BACKUP of your wallet after upgrade it.\n"
                                  + HelpExampleCli("upgradewallet", "") + HelpExampleRpc("upgradewallet", "")
         );
@@ -377,6 +378,11 @@ UniValue upgradewallet(const JSONRPCRequest& request)
     EnsureWalletIsUnlocked();
 
     LOCK2(cs_main, pwalletMain->cs_wallet);
+
+    // Do not do anything to non-HD wallets
+    if (pwalletMain->IsHDEnabled()) {
+        throw JSONRPCError(RPC_WALLET_ERROR, "Cannot upgrade the wallet. The wallet is already running the latest version");
+    }
 
     // Get version
     int prev_version = pwalletMain->GetVersion();
@@ -460,12 +466,12 @@ UniValue CreateColdStakeDelegation(const UniValue& params, CWalletTx& txNew, CRe
     if (params.size() > 6 && !params[6].isNull())
         fForceNotEnabled = params[6].get_bool();
 
-    //if (sporkManager.IsSporkActive(SPORK_19_COLDSTAKING_MAINTENANCE) && !fForceNotEnabled) {
-    //    std::string errMsg = "Cold Staking temporarily disabled with SPORK 19.\n"
-    //            "You may force the stake delegation setting fForceNotEnabled to true.\n"
-    //            "WARNING: If relayed before activation, this tx will be rejected resulting in a ban.\n";
-    //    throw JSONRPCError(RPC_WALLET_ERROR, errMsg);
-    //}
+    if (!sporkManager.IsSporkActive(SPORK_17_NOOP) && !fForceNotEnabled) {
+        std::string errMsg = "Cold Staking disabled with SPORK 17.\n"
+                "You may force the stake delegation setting fForceNotEnabled to true.\n"
+                "WARNING: If relayed before activation, this tx will be rejected resulting in a ban.\n";
+        throw JSONRPCError(RPC_WALLET_ERROR, errMsg);
+    }
 
     // Get Staking Address
     bool isStaking = false;
@@ -561,7 +567,7 @@ UniValue delegatestake(const JSONRPCRequest& request)
             "                               WARNING: The owner of the keys to 'owneraddress' will be the only one allowed to spend these coins.\n"
             "5. \"fUseDelegated\"       (boolean, optional, default = false) include already delegated inputs if needed.\n"
             "6. \"fFromShield\"         (boolean, optional, default = false) delegate shield funds.\n"
-            "7. \"fForceNotEnabled\"    (boolean, optional, default = false) ONLY FOR TESTING: force the creation even if SPORK_17_NOOP (SPORK 17) is disabled.\n"
+            "7. \"fForceNotEnabled\"    (boolean, optional, default = false) ONLY FOR TESTING: force the creation even if SPORK_17_NOOP is disabled.\n"
 
             "\nResult:\n"
             "{\n"
@@ -572,8 +578,8 @@ UniValue delegatestake(const JSONRPCRequest& request)
 
             "\nExamples:\n" +
             HelpExampleCli("delegatestake", "\"S1t2a3kab9c8c71VA78xxxy4MxZg6vgeS6\" 100") +
-                        HelpExampleCli("delegatestake", "\"S1t2a3kab9c8c71VA78xxxy4MxZg6vgeS6\" 1000 \"QfmdnoFr17gBfLuLju4k16gPGHTXfexZnc\"") +
-                        HelpExampleRpc("delegatestake", "\"S1t2a3kab9c8c71VA78xxxy4MxZg6vgeS6\", 1000, \"QfmdnoFr17gBfLuLju4k16gPGHTXfexZnc\""));
+			HelpExampleCli("delegatestake", "\"S1t2a3kab9c8c71VA78xxxy4MxZg6vgeS6\" 1000 \"QfmdnoFr17gBfLuLju4k16gPGHTXfexZnc\"") +
+			HelpExampleRpc("delegatestake", "\"S1t2a3kab9c8c71VA78xxxy4MxZg6vgeS6\", 1000, \"QfmdnoFr17gBfLuLju4k16gPGHTXfexZnc\""));
 
     // Make sure the results are valid at least up to the most recent block
     // the user could have gotten from another RPC command prior to now
@@ -714,7 +720,7 @@ UniValue delegatorremove(const JSONRPCRequest& request)
 
 UniValue ListaddressesForPurpose(const std::string strPurpose)
 {
-       const CChainParams::Base58Type addrType = (
+    const CChainParams::Base58Type addrType = (
             AddressBook::IsColdStakingPurpose(strPurpose) ?
                     CChainParams::STAKING_ADDRESS :
                     CChainParams::PUBKEY_ADDRESS);
@@ -725,7 +731,7 @@ UniValue ListaddressesForPurpose(const std::string strPurpose)
             if (addr.second.purpose != strPurpose) continue;
             UniValue entry(UniValue::VOBJ);
             entry.push_back(Pair("label", addr.second.name));
-            entry.push_back(Pair("address", EncodeDestination(addr.first,addrType)));
+            entry.push_back(Pair("address", EncodeDestination(addr.first, addrType)));
             ret.push_back(entry);
         }
     }
@@ -762,7 +768,6 @@ UniValue listdelegators(const JSONRPCRequest& request)
             ListaddressesForPurpose(AddressBook::AddressBookPurpose::DELEGABLE) :
             ListaddressesForPurpose(AddressBook::AddressBookPurpose::DELEGATOR));
 }
-
 
 UniValue liststakingaddresses(const JSONRPCRequest& request)
 {
@@ -943,7 +948,6 @@ UniValue getaccount(const JSONRPCRequest& request)
             "\nExamples:\n" +
             HelpExampleCli("getaccount", "\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\"") + HelpExampleRpc("getaccount", "\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\""));
 
-
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
     CTxDestination address = DecodeDestination(request.params[0].get_str());
@@ -1061,8 +1065,9 @@ UniValue sendtoaddress(const JSONRPCRequest& request)
 
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
-    CTxDestination address = DecodeDestination(request.params[0].get_str());
-    if (!IsValidDestination(address))
+    bool isStaking = false;
+    CTxDestination address = DecodeDestination(request.params[0].get_str(), isStaking);
+    if (!IsValidDestination(address) || isStaking)
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid SKYR address");
 
     // Amount
@@ -1552,6 +1557,7 @@ UniValue sendfrom(const JSONRPCRequest& request)
             "6. \"comment-to\"        (string, optional) An optional comment to store the name of the person or organization \n"
             "                                     to which you're sending the transaction. This is not part of the transaction, \n"
             "                                     it is just kept in your wallet.\n"
+            "7. includeDelegated     (bool, optional, default=false) Also include balance delegated to cold stakers\n"
             
             "\nResult:\n"
             "\"transactionid\"        (string) The transaction id.\n"
@@ -1567,7 +1573,9 @@ UniValue sendfrom(const JSONRPCRequest& request)
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
     std::string strAccount = LabelFromValue(request.params[0]);
-    CTxDestination address = DecodeDestination(request.params[1].get_str());
+
+    bool isStaking = false;
+    CTxDestination address = DecodeDestination(request.params[1].get_str(), isStaking);
     if (!IsValidDestination(address))
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid SKYR address");
     CAmount nAmount = AmountFromValue(request.params[2]);
@@ -1583,7 +1591,9 @@ UniValue sendfrom(const JSONRPCRequest& request)
         wtx.mapValue["to"] = request.params[5].get_str();
 
     isminefilter filter = ISMINE_SPENDABLE;
-    
+    if ( request.params.size() > 6 && request.params[6].get_bool() )
+            filter = filter | ISMINE_SPENDABLE_DELEGATED;
+
     EnsureWalletIsUnlocked();
 
     // Check funds
@@ -1620,6 +1630,7 @@ UniValue sendmany(const JSONRPCRequest& request)
             "\nResult:\n"
             "\"transactionid\"          (string) The transaction id for the send. Only 1 transaction is created regardless of \n"
             "                                    the number of addresses.\n"
+            "5. includeDelegated        (bool, optional, default=false) Also include balance delegated to cold stakers\n"
 
             "\nExamples:\n"
             "\nSend two amounts to two different addresses:\n" +
@@ -1629,8 +1640,8 @@ UniValue sendmany(const JSONRPCRequest& request)
             "\nAs a json rpc call\n" +
             HelpExampleRpc("sendmany", "\"\", \"{\\\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\\\":0.01,\\\"DAD3Y6ivr8nPQLT1NEPX84DxGCw9jz9Jvg\\\":0.02}\", 6, \"testing\"");
     } else {
-        help_text = "sendmany \"fromaccount\" {\"address\":amount,...} ( minconf \"comment\" )\n"
-            "sendmany \"fromaccount\" {\"address\":amount,...} ( minconf \"comment\" )\n"
+        help_text = "sendmany \"fromaccount\" {\"address\":amount,...} ( minconf \"comment\" includeDelegated)\n"
+            "sendmany \"fromaccount\" {\"address\":amount,...} ( minconf \"comment\" includeDelegated)\n"
             "\nSend multiple times. Amounts are double-precision floating point numbers." +
             HelpRequiringPassphrase() + "\n"
 
@@ -1643,7 +1654,8 @@ UniValue sendmany(const JSONRPCRequest& request)
             "    }\n"
             "3. minconf                 (numeric, optional, default=1) Only use the balance confirmed at least this many times.\n"
             "4. \"comment\"             (string, optional) A comment\n"
-            
+            "5. includeDelegated        (bool, optional, default=false) Also include balance delegated to cold stakers\n"
+
             "\nResult:\n"
             "\"transactionid\"          (string) The transaction id for the send. Only 1 transaction is created regardless of \n"
             "                                    the number of addresses.\n"
@@ -1684,8 +1696,9 @@ UniValue sendmany(const JSONRPCRequest& request)
     CAmount totalAmount = 0;
     std::vector<std::string> keys = sendTo.getKeys();
     for (const std::string& name_ : keys) {
-        CTxDestination dest = DecodeDestination(name_);
-        if (!IsValidDestination(dest))
+        bool isStaking = false;
+        CTxDestination dest = DecodeDestination(name_,isStaking);
+        if (!IsValidDestination(dest) || isStaking)
             throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Invalid SKYR address: ")+name_);
 
         if (setAddress.count(dest))
@@ -1700,6 +1713,8 @@ UniValue sendmany(const JSONRPCRequest& request)
     }
 
     isminefilter filter = ISMINE_SPENDABLE;
+    if ( request.params.size() > 5 && request.params[5].get_bool() )
+            filter = filter | ISMINE_SPENDABLE_DELEGATED;
     
     EnsureWalletIsUnlocked();
 
@@ -1894,7 +1909,7 @@ UniValue ListReceived(const UniValue& params, bool by_label)
             UniValue obj(UniValue::VOBJ);
             if (fIsWatchonly)
                 obj.push_back(Pair("involvesWatchonly", true));
-            obj.push_back(Pair("address", EncodeDestination(address)));
+            obj.push_back(Pair("address", EncodeDestination(address, AddressBook::IsColdStakingPurpose(label))));
             obj.push_back(Pair("account", label));
             obj.push_back(Pair("amount", ValueFromAmount(nAmount)));
             obj.push_back(Pair("confirmations", (nConf == std::numeric_limits<int>::max() ? 0 : nConf)));
@@ -2107,8 +2122,12 @@ void ListTransactions(const CWalletTx& wtx, const std::string& strAccount, int n
             if (involvesWatchonly || (::IsMine(*pwalletMain, s.destination) & ISMINE_WATCH_ONLY))
                 entry.push_back(Pair("involvesWatchonly", true));
             if (IsDeprecatedRPCEnabled("accounts")) entry.push_back(Pair("account", strSentAccount));
-            MaybePushAddress(entry, s.destination);
-            entry.push_back(Pair("category", "send"));
+            if (wtx.HasP2CSOutputs()) {
+                entry.push_back(Pair("category", "coldstake"));
+            } else {
+                MaybePushAddress(entry, s.destination);
+                entry.push_back(Pair("category", "send"));
+            }
             entry.push_back(Pair("amount", ValueFromAmount(-s.amount)));
             if (pwalletMain->mapAddressBook.count(s.destination)) {
                 entry.push_back(Pair("label", pwalletMain->mapAddressBook[s.destination].name));
@@ -2185,6 +2204,8 @@ UniValue listtransactions(const JSONRPCRequest& request)
             "2. count          (numeric, optional, default=10) The number of transactions to return\n"
             "3. from           (numeric, optional, default=0) The number of transactions to skip\n"
             "4. includeWatchonly (bool, optional, default=false) Include transactions to watchonly addresses (see 'importaddress')\n"
+            "5. includeDelegated     (bool, optional, default=true) Also include balance delegated to cold stakers\n"
+            "6. includeCold     (bool, optional, default=true) Also include delegated balance received as cold-staker by this node\n"
             
             "\nResult:\n"
             "[\n"
@@ -2228,7 +2249,7 @@ UniValue listtransactions(const JSONRPCRequest& request)
             "\nAs a json rpc call\n" +
             HelpExampleRpc("listtransactions", "\"*\", 20, 100");
     } else {
-        help_text = "listtransactions ( \"account\" count from includeWatchonly )\n"
+        help_text = "listtransactions ( \"account\" count from includeWatchonly includeDelegated )\n"
             "\nReturns up to 'count' most recent transactions skipping the first 'from' transactions for account 'account'.\n"
 
             "\nArguments:\n"
@@ -2236,6 +2257,8 @@ UniValue listtransactions(const JSONRPCRequest& request)
             "2. count          (numeric, optional, default=10) The number of transactions to return\n"
             "3. from           (numeric, optional, default=0) The number of transactions to skip\n"
             "4. includeWatchonly (bool, optional, default=false) Include transactions to watchonly addresses (see 'importaddress')\n"
+            "5. includeDelegated     (bool, optional, default=true) Also include balance delegated to cold stakers\n"
+            "6. includeCold     (bool, optional, default=true) Also include delegated balance received as cold-staker by this node\n"
             
             "\nResult:\n"
             "[\n"
@@ -2305,7 +2328,11 @@ UniValue listtransactions(const JSONRPCRequest& request)
     isminefilter filter = ISMINE_SPENDABLE;
     if ( request.params.size() > 3 && request.params[3].get_bool() )
             filter = filter | ISMINE_WATCH_ONLY;
-    
+    if ( !(request.params.size() > 4) || request.params[4].get_bool() )
+        filter = filter | ISMINE_SPENDABLE_DELEGATED;
+    if ( !(request.params.size() > 5) || request.params[5].get_bool() )
+        filter = filter | ISMINE_COLD;
+
     if (nCount < 0)
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Negative count");
     if (nFrom < 0)
@@ -2482,7 +2509,7 @@ UniValue listsinceblock(const JSONRPCRequest& request)
 
     CBlockIndex* pindex = NULL;
     int target_confirms = 1;
-    isminefilter filter = ISMINE_SPENDABLE_ALL;
+    isminefilter filter = ISMINE_SPENDABLE_ALL | ISMINE_COLD;
 
     if (request.params.size() > 0) {
         uint256 blockId;
@@ -2570,7 +2597,7 @@ UniValue gettransaction(const JSONRPCRequest& request)
     uint256 hash;
     hash.SetHex(request.params[0].get_str());
 
-    isminefilter filter = ISMINE_SPENDABLE_ALL;
+    isminefilter filter = ISMINE_SPENDABLE_ALL | ISMINE_COLD;
     if (request.params.size() > 1)
         if (request.params[1].get_bool())
             filter = filter | ISMINE_WATCH_ONLY;
@@ -2991,8 +3018,11 @@ UniValue listunspent(const JSONRPCRequest& request)
     LOCK2(cs_main, pwalletMain->cs_wallet);
     pwalletMain->AvailableCoins(&vecOutputs,
                                 &coinControl,    // coin control
+                                true,       // include delegated
+                                false,      // include cold staking
                                 ALL_COINS,  // coin type
                                 false      // only confirmed
+                                //,nWatchonlyConfig
                                 );
     for (const COutput& out : vecOutputs) {
         if (out.nDepth < nMinDepth || out.nDepth > nMaxDepth)
@@ -3245,6 +3275,8 @@ UniValue getwalletinfo(const JSONRPCRequest& request)
             "  \"delegated_balance\": xxxxx,              (numeric) the SKYR balance held in P2CS (cold staking) contracts\n"
             "  \"cold_staking_balance\": xx,              (numeric) the SKYR balance held in cold staking addresses\n"
             "  \"unconfirmed_balance\": xxx,              (numeric) the total unconfirmed balance of the wallet in SKYR\n"
+            "  \"immature_delegated_balance\": xxxxxx,    (numeric) the delegated immature balance of the wallet in SKYR\n"
+            "  \"immature_cold_staking_balance\": xxxxxx, (numeric) the cold-staking immature balance of the wallet in SKYR\n"
             "  \"immature_balance\": xxxxxx,              (numeric) the total immature balance of the wallet in SKYR\n"
             "  \"txcount\": xxxxxxx,                      (numeric) the total number of transactions in the wallet\n"
             "  \"keypoololdest\": xxxxxx,                 (numeric) the timestamp (seconds since GMT epoch) of the oldest pre-generated key in the key pool\n"
@@ -4064,8 +4096,9 @@ extern UniValue DoZpivSpend(const CAmount nAmount, std::vector<CZerocoinMint>& v
 
     std::list<std::pair<CTxDestination, CAmount>> outputs;
     if(address_str != "") { // Spend to supplied destination address
-        address = DecodeDestination(address_str);
-        if(!IsValidDestination(address))
+        bool isStaking = false;
+        address = DecodeDestination(address_str, isStaking);
+        if(!IsValidDestination(address) || isStaking)
             throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid SKYR address");
         outputs.push_back(std::pair<CTxDestination, CAmount>(address, nAmount));
     }
@@ -4823,6 +4856,7 @@ extern UniValue importaddress(const JSONRPCRequest& request);
 extern UniValue importpubkey(const JSONRPCRequest& request);
 extern UniValue dumpwallet(const JSONRPCRequest& request);
 extern UniValue importwallet(const JSONRPCRequest& request);
+extern UniValue setsporkkey(const JSONRPCRequest& request);
 
 const CRPCCommand vWalletRPCCommands[] =
 {       //  category              name                        actor (function)           okSafeMode
@@ -4835,18 +4869,19 @@ const CRPCCommand vWalletRPCCommands[] =
         { "wallet",             "dumpprivkey",              &dumpprivkey,              true  },
         { "wallet",             "dumpwallet",               &dumpwallet,               true  },
 
+        { "wallet",             "setsporkkey",              &setsporkkey,              true  },
+
         { "wallet",             "delegatestake",            &delegatestake,            false },
         { "wallet",             "encryptwallet",            &encryptwallet,            true  },
 
+        { "wallet",             "getbalance",               &getbalance,               false },
         { "wallet",             "getcoldstakingbalance",    &getcoldstakingbalance,    false },
         { "wallet",             "getdelegatedbalance",      &getdelegatedbalance,      false },
-        { "wallet",             "getbalance",               &getbalance,               false },
-
-        { "wallet",             "getnewaddress",            &getnewaddress,            true  },
-        { "wallet",             "getnewstakingaddress",     &getnewstakingaddress,     true  },
 
         { "wallet",             "upgradewallet",            &upgradewallet,            true  },
         { "wallet",             "sethdseed",                &sethdseed,                true  },
+        { "wallet",             "getnewaddress",            &getnewaddress,            true  },
+        { "wallet",             "getnewstakingaddress",     &getnewstakingaddress,     true  },
         { "wallet",             "getrawchangeaddress",      &getrawchangeaddress,      true  },
         { "wallet",             "getreceivedbyaddress",     &getreceivedbyaddress,     false },
         { "wallet",             "gettransaction",           &gettransaction,           false },
@@ -4877,7 +4912,7 @@ const CRPCCommand vWalletRPCCommands[] =
         { "wallet",             "signmessage",              &signmessage,              true  },
         { "wallet",             "walletlock",               &walletlock,               true  },
         { "wallet",             "walletpassphrasechange",   &walletpassphrasechange,   true  },
-        { "wallet",             "walletpassphrase",         &walletpassphrase,         true  },        
+        { "wallet",             "walletpassphrase",         &walletpassphrase,         true  },
         { "wallet",             "delegatoradd",             &delegatoradd,             true  },
         { "wallet",             "delegatorremove",          &delegatorremove,          true  },
 

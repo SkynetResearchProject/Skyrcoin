@@ -55,7 +55,7 @@ unsigned int GetP2SHSigOpCount(const CTransaction& tx, const CCoinsViewCache& in
     return nSigOps;
 }
 
-bool CheckTransaction(const CTransaction& tx, bool fZerocoinActive, bool fRejectBadUTXO, CValidationState& state, bool fFakeSerialAttack)
+bool CheckTransaction(const CTransaction& tx, bool fZerocoinActive, bool fRejectBadUTXO, CValidationState& state, bool fFakeSerialAttack, bool fColdStakingActive)
 {
     // Basic checks that don't depend on any context
     if (tx.vin.empty())
@@ -82,10 +82,17 @@ bool CheckTransaction(const CTransaction& tx, bool fZerocoinActive, bool fReject
         nValueOut += txout.nValue;
         if (!consensus.MoneyRange(nValueOut))
             return state.DoS(100, false, REJECT_INVALID, "bad-txns-txouttotal-toolarge");
+        // check cold staking enforcement (for delegations) and value out
+        if (txout.scriptPubKey.IsPayToColdStaking()) {
+            if (!fColdStakingActive)
+                return state.DoS(10, false, REJECT_INVALID, "cold-stake-inactive");
+            if (txout.nValue < MIN_COLDSTAKING_AMOUNT)
+                return state.DoS(100, false, REJECT_INVALID, "cold-stake-vout-toosmall");
+        }
     }
 
     std::set<COutPoint> vInOutPoints;
-    std::set<CBigNum> vZerocoinSpendSerials;
+    //std::set<CBigNum> vZerocoinSpendSerials;
     int nZCSpendCount = 0;
 
     for (const CTxIn& txin : tx.vin) {

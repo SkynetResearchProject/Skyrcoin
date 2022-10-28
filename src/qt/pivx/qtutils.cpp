@@ -136,6 +136,11 @@ void setFilterAddressBook(QComboBox* filter)
     filter->addItem(QObject::tr("All"), "");
     filter->addItem(QObject::tr("Receiving"), AddressTableModel::Receive);
     filter->addItem(QObject::tr("Contacts"), AddressTableModel::Send);
+    filter->addItem(QObject::tr("Cold Staking"), AddressTableModel::ColdStaking);
+    filter->addItem(QObject::tr("Delegator"), AddressTableModel::Delegator);
+    filter->addItem(QObject::tr("Delegable"), AddressTableModel::Delegable);
+    filter->addItem(QObject::tr("Staking Contacts"), AddressTableModel::ColdStakingSend);
+
 }
 
 void setSortTx(QComboBox* filter)
@@ -158,6 +163,11 @@ void setSortTxTypeFilter(QComboBox* filter)
     filter->addItem(QObject::tr("Minted"), TransactionFilterProxy::TYPE(TransactionRecord::StakeMint));
     filter->addItem(QObject::tr("MN reward"), TransactionFilterProxy::TYPE(TransactionRecord::MNReward));
     filter->addItem(QObject::tr("To yourself"), TransactionFilterProxy::TYPE(TransactionRecord::SendToSelf));
+    filter->addItem(QObject::tr("Cold stakes"), TransactionFilterProxy::TYPE(TransactionRecord::StakeDelegated));
+    filter->addItem(QObject::tr("Hot stakes"), TransactionFilterProxy::TYPE(TransactionRecord::StakeHot));
+    filter->addItem(QObject::tr("Delegated"), TransactionFilterProxy::TYPE(TransactionRecord::P2CSDelegationSent) | TransactionFilterProxy::TYPE(TransactionRecord::P2CSDelegationSentOwner));
+    filter->addItem(QObject::tr("Delegations"), TransactionFilterProxy::TYPE(TransactionRecord::P2CSDelegation));
+
 }
 
 void setupSettings(QSettings* settings)
@@ -230,6 +240,19 @@ void initComboBox(QComboBox* combo, QString cssClass)
     combo->setView(new QListView());
 }
 
+void initComboBox2(QComboBox* combo, QLineEdit* lineEdit, QString cssClass)
+{
+    setCssProperty(combo, cssClass);
+    combo->setEditable(true);
+    if (lineEdit) {
+        lineEdit->setReadOnly(true);
+        lineEdit->setAlignment(Qt::AlignRight);
+        combo->setLineEdit(lineEdit);
+    }
+    combo->setStyleSheet("selection-background-color:transparent; selection-color:transparent;");
+    combo->setView(new QListView());
+}
+
 void fillAddressSortControls(QComboBox* boxType, QComboBox* boxOrder)
 {
     // Sort Type
@@ -240,6 +263,21 @@ void fillAddressSortControls(QComboBox* boxType, QComboBox* boxOrder)
     boxType->setCurrentIndex(0);
     // Sort Order
     initComboBox(boxOrder, "btn-combo-small");
+    boxOrder->addItem("asc", Qt::AscendingOrder);
+    boxOrder->addItem("desc", Qt::DescendingOrder);
+    boxOrder->setCurrentIndex(0);
+}
+
+void fillAddressSortControls(SortEdit* seType, SortEdit* seOrder, QComboBox* boxType, QComboBox* boxOrder)
+{
+    // Sort Type
+    initComboBox2(boxType, seType, "btn-combo-small");
+    boxType->addItem(QObject::tr("by Label"), AddressTableModel::Label);
+    boxType->addItem(QObject::tr("by Address"), AddressTableModel::Address);
+    boxType->addItem(QObject::tr("by Date"), AddressTableModel::Date);
+    boxType->setCurrentIndex(0);
+    // Sort Order
+    initComboBox2(boxOrder, seOrder, "btn-combo-small");
     boxOrder->addItem("asc", Qt::AscendingOrder);
     boxOrder->addItem("desc", Qt::DescendingOrder);
     boxOrder->setCurrentIndex(0);

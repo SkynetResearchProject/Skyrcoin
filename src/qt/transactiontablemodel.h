@@ -1,6 +1,5 @@
 // Copyright (c) 2011-2013 The Bitcoin developers
 // Copyright (c) 2019 The PIVX developers
-// Copyright (c) 2021 The DECENOMY Core Developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -49,6 +48,8 @@ public:
         WatchonlyRole,
         /** Watch-only icon */
         WatchonlyDecorationRole,
+        ///** Long description (HTML format) */
+        LongDescriptionRole,
         /** Address of transaction */
         AddressRole,
         /** Label of address related to transaction */
@@ -79,7 +80,7 @@ public:
     bool processingQueuedTransactions() { return fProcessingQueuedTransactions; }
 
 Q_SIGNALS:
-    void txArrived(const QString& hash, const bool& isCoinStake);
+    void txArrived(const QString& hash, const bool& isCoinStake, const bool& isCSAnyType);
 
 private:
     CWallet* wallet;

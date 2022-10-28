@@ -88,6 +88,9 @@ TopBar::TopBar(PIVXGUI* _mainWindow, QWidget* parent) : PWidget(_mainWindow, par
     ui->pushButtonStack->setButtonClassStyle("cssClass", "btn-check-stack-inactive");
     ui->pushButtonStack->setButtonText(tr("Staking Disabled"));
 
+    ui->pushButtonColdStaking->setButtonClassStyle("cssClass", "btn-check-cold-staking-inactive");
+    ui->pushButtonColdStaking->setButtonText(tr("Cold Staking Disabled"));
+
     ui->pushButtonConf->setButtonClassStyle("cssClass", "btn-check-conf");
     ui->pushButtonConf->setButtonText("skyrcoin.conf");
     ui->pushButtonConf->setChecked(false);
@@ -133,6 +136,7 @@ TopBar::TopBar(PIVXGUI* _mainWindow, QWidget* parent) : PWidget(_mainWindow, par
     connect(ui->pushButtonLock, &ExpandableButton::Mouse_Pressed, this, &TopBar::onBtnLockClicked);
     connect(ui->pushButtonTheme, &ExpandableButton::Mouse_Pressed, this, &TopBar::onThemeClicked);
     connect(ui->pushButtonFAQ, &ExpandableButton::Mouse_Pressed, [this]() { window->openFAQ(); });
+    connect(ui->pushButtonColdStaking, &ExpandableButton::Mouse_Pressed, this, &TopBar::onColdStakingClicked);
     connect(ui->pushButtonConf, &ExpandableButton::Mouse_Pressed, this, &TopBar::onBtnConfClicked);
     connect(ui->pushButtonMasternodes, &ExpandableButton::Mouse_Pressed, this, &TopBar::onBtnMasternodesClicked);
     connect(ui->pushButtonSync, &ExpandableButton::Mouse_HoverLeave, this, &TopBar::refreshProgressBarSize);
@@ -360,6 +364,34 @@ void TopBar::onBtnMasternodesClicked()
 
     if (!GUIUtil::openMNConfigfile())
         inform(tr("Unable to open masternode.conf with default application"));
+}
+
+void TopBar::onColdStakingClicked()
+{
+    bool isColdStakingEnabled = walletModel->isColdStaking();
+    ui->pushButtonColdStaking->setChecked(isColdStakingEnabled);
+
+    bool show = (isInitializing) ? walletModel->getOptionsModel()->isColdStakingScreenEnabled() :
+            walletModel->getOptionsModel()->invertColdStakingScreenStatus();
+    QString className;
+    QString text;
+
+    if (isColdStakingEnabled) {
+        text = "Cold Staking Active";
+        className = (show) ? "btn-check-cold-staking-checked" : "btn-check-cold-staking-unchecked";
+    } else if (show) {
+        className = "btn-check-cold-staking";
+        text = "Cold Staking Enabled";
+    } else {
+        className = "btn-check-cold-staking-inactive";
+        text = "Cold Staking Disabled";
+    }
+
+    ui->pushButtonColdStaking->setButtonClassStyle("cssClass", className, true);
+    ui->pushButtonColdStaking->setButtonText(text);
+    updateStyle(ui->pushButtonColdStaking);
+
+    Q_EMIT onShowHideColdStakingChanged(show);
 }
 
 TopBar::~TopBar()
@@ -670,11 +702,16 @@ void TopBar::updateBalances(const interfaces::WalletBalances& newBalance)
 {
     // Locked balance. //TODO move this to the signal properly in the future..
     CAmount nLockedBalance = 0;
+    CAmount nDelegatedBalance = 0;
+    CAmount nColdStakedBalance = 0;
+
     if (walletModel) {
         nLockedBalance = walletModel->getLockedBalance();
+        nDelegatedBalance = walletModel->getDelegatedBalance();
+        //nColdStakedBalance = walletModel->getColdStakedBalance();
     }
 
-    CAmount nAvailableBalance = newBalance.balance - nLockedBalance;
+    CAmount nAvailableBalance = newBalance.balance - nLockedBalance - nDelegatedBalance;
 
     // SKYR
     // Top

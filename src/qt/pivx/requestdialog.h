@@ -28,6 +28,7 @@ public:
     ~RequestDialog();
 
     void setWalletModel(WalletModel *model);
+    void setPaymentRequest(bool isPaymentRequest);
     void showEvent(QShowEvent *event) override;
     int res = -1;
 
@@ -39,6 +40,7 @@ private Q_SLOTS:
 private:
     Ui::RequestDialog *ui;
     int pos = 0;
+    bool isPaymentRequest = true;
     WalletModel *walletModel;
     SnackBar *snackBar = nullptr;
     // Cached last address

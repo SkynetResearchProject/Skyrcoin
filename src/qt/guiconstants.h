@@ -30,6 +30,8 @@ static const bool DEFAULT_SPLASHSCREEN = true;
 #define COLOR_BAREADDRESS QColor(140, 140, 140)
 /* Transaction list -- TX status decoration - open until date */
 #define COLOR_TX_STATUS_OPENUNTILDATE QColor(64, 64, 255)
+/* Transaction list -- TX status decoration - offline */
+#define COLOR_TX_STATUS_OFFLINE QColor(192, 192, 192)
 /* Transaction list -- TX status decoration - default color */
 #define COLOR_BLACK QColor(51, 51, 51)
 /* Transaction list -- TX status decoration - conflicted */
@@ -51,8 +53,9 @@ static const int MAX_URI_LENGTH = 255;
 
 
 #define QAPP_ORG_NAME "Skyrcoin"
-#define QAPP_ORG_DOMAIN "skyrcoin.org"
+#define QAPP_ORG_DOMAIN "skynet-coin.com"
 #define QAPP_APP_NAME_DEFAULT "Skyrcoin-Qt"
 #define QAPP_APP_NAME_TESTNET "Skyrcoin-Qt-testnet"
 
 #endif // BITCOIN_QT_GUICONSTANTS_H
+

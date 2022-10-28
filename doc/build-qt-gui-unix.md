@@ -34,7 +34,7 @@ Save changes.
 
 
 Search for string
-	checking for static Qt plugins:
+	checking for static Qt plugins: -lqxcb
 
 Change lines as below:
 
@@ -88,7 +88,10 @@ rm -f core conftest.err conftest.$ac_objext \
 #---------------------------------------------------------------------------------
 
 Save changes.
-	./configure --enable-glibc-back-compat --prefix=$(pwd)/depends/x86_64-pc-linux-gnu LDFLAGS="-static-libstdc++" --enable-cxx --enable-static --disable-shared --disable-debug --disable-tests --disable-bench --with-pic CPPFLAGS="-static -fPIC -O3 --param ggc-min-expand=1 --param ggc-min-heapsize=32768" CXXFLAGS="-static -fPIC -O3 --param ggc-min-expand=1 --param ggc-min-heapsize=32768" CFLAGS="-static "
-	make -j$(echo $CPU_CORES) HOST=x86_64-pc-linux-gnu
+        sudo sh ./configure --enable-glibc-back-compat --prefix=$(pwd)/depends/x86_64-pc-linux-gnu LDFLAGS="-static-libstdc++" --enable-cxx --enable-static --disable-shared --disable-debug --disable-tests --disable-bench --with-pic CPPFLAGS="-static -fPIC -O3 --param ggc-min-expand=1 --param ggc-min-heapsize=32768" CXXFLAGS="-static -fPIC -O3 --param ggc-min-expand=1 --param ggc-min-heapsize=32768" CFLAGS="-static "
 
-	make -j$(echo $CPU_CORES) HOST=x86_64-pc-linux-gnu
+        sudo make -j$(echo $CPU_CORES) HOST=x86_64-pc-linux-gnu
+
+        #where (echo $CPU_CORES)= CPU core number
+Exsample:
+        sudo make -j4 HOST=x86_64-pc-linux-gnu

@@ -112,6 +112,10 @@ PairResult CWallet::getNewAddress(CTxDestination& ret, std::string label){
     return getNewAddress(ret, label, AddressBook::AddressBookPurpose::RECEIVE);
 }
 
+PairResult CWallet::getNewStakingAddress(CTxDestination& ret, std::string label){
+    return getNewAddress(ret, label, AddressBook::AddressBookPurpose::COLD_STAKING, CChainParams::Base58Type::STAKING_ADDRESS);
+}
+
 PairResult CWallet::getNewAddress(CTxDestination& ret, const std::string addressLabel, const std::string purpose,
                                          const CChainParams::Base58Type addrType)
 {
@@ -641,7 +645,7 @@ void CWallet::AddToSpends(const uint256& wtxid)
         AddToSpends(txin.prevout, wtxid);
 }
 
-bool CWallet::GetVinAndKeysFromOutput(COutput out, CTxIn& txinRet, CPubKey& pubKeyRet, CKey& keyRet)
+bool CWallet::GetVinAndKeysFromOutput(COutput out, CTxIn& txinRet, CPubKey& pubKeyRet, CKey& keyRet, bool fColdStake)
 {
     // wait for reindex and/or import to finish
     if (fImporting || fReindex) return false;
@@ -652,7 +656,7 @@ bool CWallet::GetVinAndKeysFromOutput(COutput out, CTxIn& txinRet, CPubKey& pubK
     pubScript = out.tx->vout[out.i].scriptPubKey; // the inputs PubKey
 
     CTxDestination address1;
-    ExtractDestination(pubScript, address1);
+    ExtractDestination(pubScript, address1, fColdStake);
 
     CKeyID* keyID = boost::get<CKeyID>(&address1);
     if (!keyID) {
@@ -1227,6 +1231,16 @@ CAmount CWalletTx::GetDebit(const isminefilter& filter) const
     if (filter & ISMINE_WATCH_ONLY) {
         debit += GetCachableAmount(DEBIT, ISMINE_WATCH_ONLY);
     }
+    if (filter & ISMINE_COLD) {
+        debit += GetCachableAmount(DEBIT, ISMINE_COLD);
+    }
+    if (filter & ISMINE_SPENDABLE_DELEGATED) {
+        debit += GetCachableAmount(DEBIT, ISMINE_SPENDABLE_DELEGATED);
+    }
+    //if (filter & ISMINE_SPENDABLE_SHIELDED) {
+    //    debit += GetCachableAmount(DEBIT, ISMINE_SPENDABLE_SHIELDED);
+    //}
+
     return debit;
 }
 
@@ -1240,6 +1254,15 @@ CAmount CWalletTx::GetCredit(const isminefilter& filter, bool recalculate) const
     if (filter & ISMINE_WATCH_ONLY) {
         credit += GetCachableAmount(CREDIT, ISMINE_WATCH_ONLY, recalculate);
     }
+    if (filter & ISMINE_COLD) {
+        credit += GetCachableAmount(CREDIT, ISMINE_COLD, recalculate);
+    }
+    if (filter & ISMINE_SPENDABLE_DELEGATED) {
+        credit += GetCachableAmount(CREDIT, ISMINE_SPENDABLE_DELEGATED, recalculate);
+    }
+    //if (filter & ISMINE_SPENDABLE_SHIELDED) {
+    //    credit += GetCachableAmount(CREDIT, ISMINE_SPENDABLE_SHIELDED, recalculate);
+    //}
     return credit;
 }
 
@@ -1298,6 +1321,15 @@ CAmount CWalletTx::GetStakeDelegationCredit(bool fUseCache) const
     return GetUnspentCredit(ISMINE_SPENDABLE_DELEGATED);
 }
 
+CAmount CWalletTx::GetColdStakingDebit(bool fUseCache) const
+{
+    return GetCachableAmount(DEBIT, ISMINE_COLD, !fUseCache);
+}
+
+CAmount CWalletTx::GetStakeDelegationDebit(bool fUseCache) const
+{
+    return GetCachableAmount(DEBIT, ISMINE_SPENDABLE_DELEGATED, !fUseCache);
+}
 
 CAmount CWalletTx::GetUnspentCredit(const isminefilter& filter) const
 {
@@ -1337,7 +1369,6 @@ CAmount CWalletTx::GetUnspentCredit(const isminefilter& filter) const
     return nCredit;
 
 }
-
 // <--- new
 
 // Return sum of locked coins
@@ -1705,11 +1736,15 @@ CAmount CWallet::loopTxsBalance(std::function<void(const uint256&, const CWallet
     return nTotal;
 }
 
-//CAmount CWallet::GetAvailableBalance() const
-//{
-//    isminefilter filter = ISMINE_SPENDABLE;
-//    return GetAvailableBalance(filter, true, 0);
-//}
+CAmount CWallet::GetBalance(bool fIncludeDelegated) const // <- new
+{
+    return loopTxsBalance([fIncludeDelegated](const uint256& id, const CWalletTx& pcoin, CAmount& nTotal){
+        if (pcoin.IsTrusted()) {
+            nTotal += pcoin.GetAvailableCredit();
+            if (!fIncludeDelegated) nTotal -= pcoin.GetStakeDelegationCredit();
+        }
+    });
+}
 
 CAmount CWallet::GetAvailableBalance(bool fIncludeDelegated) const
 {
@@ -1892,6 +1927,43 @@ CAmount CWallet::GetLegacyBalance(const isminefilter& filter, int minDepth, cons
 
     return balance;
 }
+
+void CWallet::GetAvailableP2CSCoins(std::vector<COutput>& vCoins) const {
+    vCoins.clear();
+    {
+        LOCK2(cs_main, cs_wallet);
+        for (const auto& it : mapWallet) {
+            const uint256& wtxid = it.first;
+            const CWalletTx* pcoin = &it.second;
+
+            bool fConflicted;
+            int nDepth = pcoin->GetDepthAndMempool(fConflicted);
+
+            if (fConflicted || nDepth < 0)
+                continue;
+
+            if (pcoin->HasP2CSOutputs()) {
+                for (int i = 0; i < (int) pcoin->vout.size(); i++) {
+                    const auto &utxo = pcoin->vout[i];
+
+                    if (IsSpent(wtxid, i))
+                        continue;
+
+                    if (utxo.scriptPubKey.IsPayToColdStaking()) {
+                        isminetype mine = IsMine(utxo);
+                        bool isMineSpendable = mine & ISMINE_SPENDABLE_DELEGATED;
+                        if (mine & ISMINE_COLD || isMineSpendable)
+                            // Depth is not used, no need waste resources and set it for now.
+                            vCoins.emplace_back(COutput(pcoin, i, 0, isMineSpendable, true));
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+
 
 /**
  * Test if the transaction is spendable.
@@ -2076,7 +2148,7 @@ bool CWallet::AvailableCoins(std::vector<COutput>* pCoins,      // --> populates
 
                 // found valid coin
                 if (!pCoins) return true;
-                pCoins->emplace_back(COutput(pcoin, i, nDepth, spendable, solvable));
+                pCoins->emplace_back(pcoin, i, nDepth, spendable, solvable);
             }
         }
         return (pCoins && pCoins->size() > 0);
@@ -2149,10 +2221,12 @@ static void ApproximateBestSubset(std::vector<std::pair<CAmount, std::pair<const
 
 bool CWallet::StakeableCoins(std::vector<COutput>* pCoins)
 {
+    const bool fIncludeCold = (sporkManager.IsSporkActive(SPORK_17_NOOP) &&
+                               GetBoolArg("-coldstaking", true));
     return AvailableCoins(pCoins,
             nullptr,            // coin control
             false,              // IncludeDelegated
-            true,               // IncludeColdStaking
+            fIncludeCold,       // IncludeColdStaking
             STAKEABLE_COINS);   // coin type
     /*
     bool CWallet::AvailableCoins(std::vector<COutput>* pCoins,      // --> populates when != nullptr
@@ -2160,8 +2234,8 @@ bool CWallet::StakeableCoins(std::vector<COutput>* pCoins)
                                  bool fIncludeDelegated,            // Default: true
                                  bool fIncludeColdStaking,          // Default: false
                                  AvailableCoinsType nCoinType,      // Default: ALL_COINS
-                                 bool fOnlyConfirmed               // Default: true
-                                 //int nWatchonlyConfig               // Default: 1
+                                 bool fOnlyConfirmed                // Default: true
+                                 //int nWatchonlyConfig             // Default: 1
                                  ) const
      */
 }
@@ -2727,6 +2801,7 @@ bool CWallet::CreateCoinStake(
             LogPrintf("%s : failed to create output\n", __func__);
             continue;
         }
+        //LogPrintf("%s : output is created\n", __func__);
         txNew.vout.insert(txNew.vout.end(), vout.begin(), vout.end());
 
         // Set output amount
@@ -2764,6 +2839,7 @@ bool CWallet::CreateCoinStake(
 
         break;
     }
+    LogPrintf("STAKING %s: attempted staking %d times\n", __func__, nAttempts);
     LogPrint(BCLog::STAKING, "%s: attempted staking %d times\n", __func__, nAttempts);
 
     if (!fKernelFound)
@@ -2950,7 +3026,10 @@ DBErrors CWallet::ZapWalletTx(std::vector<CWalletTx>& vWtx)
 }
 
 std::string CWallet::ParseIntoAddress(const CTxDestination& dest, const std::string& purpose) {
-    return EncodeDestination(dest, CChainParams::PUBKEY_ADDRESS);
+    const CChainParams::Base58Type addrType =
+            AddressBook::IsColdStakingPurpose(purpose) ?
+            CChainParams::STAKING_ADDRESS : CChainParams::PUBKEY_ADDRESS;
+    return EncodeDestination(dest, addrType);
 }
 
 bool CWallet::SetAddressBook(const CTxDestination& address, const std::string& strName, const std::string& strPurpose)
@@ -4302,6 +4381,11 @@ void CWalletTx::BindWallet(CWallet* pwalletIn)
     MarkDirty();
 }
 
+bool CWalletTx::HasP2CSInputs() const
+{
+    return GetStakeDelegationDebit(true) > 0 || GetColdStakingDebit(true) > 0;
+}
+
 CAmount CWalletTx::GetChange() const
 {
     if (fChangeCached)
@@ -4315,3 +4399,5 @@ bool CWalletTx::IsFromMe(const isminefilter& filter) const
 {
     return (GetDebit(filter) > 0);
 }
+
+

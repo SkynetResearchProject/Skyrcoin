@@ -177,6 +177,7 @@ bool SolveProofOfStake(CBlock* pblock, CBlockIndex* pindexPrev, CWallet* pwallet
     int64_t nTxNewTime = 0;
     if (!pwallet->CreateCoinStake(*pwallet, pindexPrev, pblock->nBits, txCoinStake, nTxNewTime, availableCoins)) {
         LogPrint(BCLog::STAKING, "%s : stake not found\n", __func__);
+        //LogPrintf("%s: stake not found\n", __func__);
         return false;
     }
     // Stake found
@@ -591,6 +592,7 @@ void CheckForCoins(CWallet* pwallet, const int minutes, std::vector<COutput>* av
         fStakeableCoins = pwallet->StakeableCoins(availableCoins);
         fMasternodeSync = sporkManager.IsSporkActive(SPORK_106_STAKING_SKIP_MN_SYNC) || !masternodeSync.NotCompleted();
     }
+    //std::cout << "fStakeableCoins=" << fStakeableCoins <<"\n"; //***
 }
 
 void BitcoinMiner(CWallet* pwallet, bool fProofOfStake)

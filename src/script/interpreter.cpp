@@ -15,6 +15,7 @@
 #include "script/script.h"
 #include "uint256.h"
 
+#include "main.h"
 
 typedef std::vector<unsigned char> valtype;
 
@@ -960,6 +961,15 @@ bool EvalScript(std::vector<std::vector<unsigned char> >& stack, const CScript& 
                 }
                 break;
 
+                case OP_CHECKCOLDSTAKEVERIFY:
+                {
+                    //check it is used in a valid cold stake transaction.
+                    if(!checker.CheckColdStake(script)) {
+                        return set_error(serror, SCRIPT_ERR_CHECKCOLDSTAKEVERIFY);
+                    }
+                }
+                break;
+
                 default:
                     return set_error(serror, SCRIPT_ERR_BAD_OPCODE);
             }
@@ -1254,11 +1264,13 @@ bool VerifyScript(const CScript& scriptSig, const CScript& scriptPubKey, unsigne
     if (!EvalScript(stack, scriptSig, flags, checker, SIGVERSION_BASE, serror))
         // serror is set
         return false;
+
     if (flags & SCRIPT_VERIFY_P2SH)
         stackCopy = stack;
     if (!EvalScript(stack, scriptPubKey, flags, checker, SIGVERSION_BASE, serror))
         // serror is set
         return false;
+
     if (stack.empty())
         return set_error(serror, SCRIPT_ERR_EVAL_FALSE);
 
@@ -1284,6 +1296,7 @@ bool VerifyScript(const CScript& scriptSig, const CScript& scriptPubKey, unsigne
         if (!EvalScript(stackCopy, pubKey2, flags, checker, SIGVERSION_BASE, serror))
             // serror is set
             return false;
+
         if (stackCopy.empty())
             return set_error(serror, SCRIPT_ERR_EVAL_FALSE);
         if (!CastToBool(stackCopy.back()))

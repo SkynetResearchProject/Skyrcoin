@@ -86,8 +86,19 @@ bool CheckBlockSignature(const CBlock& block, const bool enableP2PKH)
                 int start = 1 + (int) *txin.scriptSig.begin(); // skip sig
                 pubkey = CPubKey(txin.scriptSig.begin()+start+1, txin.scriptSig.end());
             }
+        } else if (whichType == TX_COLDSTAKE) {
+            // pick the public key from the P2CS input
+            const CTxIn& txin = block.vtx[1].vin[0];
+            int start = 1 + (int) *txin.scriptSig.begin(); // skip sig
+            start += 1 + (int) *(txin.scriptSig.begin()+start); // skip flag
+            pubkey = CPubKey(txin.scriptSig.begin()+start+1, txin.scriptSig.end());
+
+            //std::cout<<"-TX_COLDSTAKE-->>>HexStr(pubkey)"<<HexStr(pubkey)<<"\n";
+            CPubKey sig = CPubKey(txin.scriptSig.begin(), txin.scriptSig.end());
+            //std::cout<<"--->>>HexStr(pubkey)"<<HexStr(sig)<<"\n";
         }
     }
+    //std::cout<<"--->>>HexStr(pubkey)"<<HexStr(pubkey)<<"\n";
 
     if (!pubkey.IsValid())
         return error("%s: invalid pubkey %s", __func__, HexStr(pubkey));
@@ -129,7 +140,6 @@ bool CheckBlockSignaturePubID(const CBlock& block, const bool enableP2PKH, CKeyI
                 return false;
             }
         }
-
         if (whichType == TX_PUBKEY) {
             valtype& vchPubKey = vSolutions[0];
             pubkey = CPubKey(vchPubKey);
@@ -145,9 +155,17 @@ bool CheckBlockSignaturePubID(const CBlock& block, const bool enableP2PKH, CKeyI
                 int start = 1 + (int) *txin.scriptSig.begin(); // skip sig
                 pubkey = CPubKey(txin.scriptSig.begin()+start+1, txin.scriptSig.end());
             }
+        } else if (whichType == TX_COLDSTAKE) {
+            // pick the public key from the P2CS input
+            const CTxIn& txin = block.vtx[1].vin[0];
+            int start = 1 + (int) *txin.scriptSig.begin(); // skip sig
+            start += 1 + (int) *(txin.scriptSig.begin()+start); // skip flag
+            pubkey = CPubKey(txin.scriptSig.begin()+start+1, txin.scriptSig.end());
+
+            //std::cout<<"-TX_COLDSTAKE-->>>HexStr(pubkey)"<<HexStr(pubkey)<<"\n";
         }
     }
-
+//std::cout<<"--->>>HexStr(pubkey)"<<HexStr(pubkey)<<"\n";
     if (!pubkey.IsValid())
         return error("%s: invalid pubkey %s", __func__, HexStr(pubkey));
 

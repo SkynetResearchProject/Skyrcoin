@@ -1,7 +1,6 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2020 The PIVX developers
-// Copyright (c) 2021 The DECENOMY Core Developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -27,6 +26,7 @@
 
 #include <univalue.h>
 
+#include "messagesigner.h"
 
 std::string static EncodeDumpTime(int64_t nTime)
 {
@@ -75,6 +75,11 @@ std::string DecodeDumpString(const std::string& str)
     return ret.str();
 }
 
+bool IsStakingDerPath(KeyOriginInfo keyOrigin)
+{
+    return keyOrigin.path.size() > 3 && keyOrigin.path[3] == (2 | BIP32_HARDENED_KEY_LIMIT);
+}
+
 UniValue importprivkey(const JSONRPCRequest& request)
 {
     if (request.fHelp || request.params.size() < 1 || request.params.size() > 4)
@@ -87,6 +92,8 @@ UniValue importprivkey(const JSONRPCRequest& request)
             "1. \"skyrcoinprivkey\"      (string, required) The private key (see dumpprivkey)\n"
             "2. \"label\"            (string, optional, default=\"\") An optional label\n"
             "3. rescan               (boolean, optional, default=true) Rescan the wallet for transactions\n"
+            "4. fStakingAddress      (boolean, optional, default=false) Whether this key refers to a (cold) staking address\n"
+
 
             "\nNote: This call can take minutes to complete if rescan is true.\n"
 
@@ -103,6 +110,7 @@ UniValue importprivkey(const JSONRPCRequest& request)
     const std::string strSecret = request.params[0].get_str();
     const std::string strLabel = (request.params.size() > 1 ? request.params[1].get_str() : "");
     const bool fRescan = (request.params.size() > 2 ? request.params[2].get_bool() : true);
+    const bool fStakingAddress = (request.params.size() > 3 ? request.params[3].get_bool() : false);
 
     CKey key = DecodeSecret(strSecret);
     if (!key.IsValid()) throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid private key encoding");
@@ -115,7 +123,10 @@ UniValue importprivkey(const JSONRPCRequest& request)
         EnsureWalletIsUnlocked();
 
         pwalletMain->MarkDirty();
-        pwalletMain->SetAddressBook(vchAddress, strLabel, AddressBook::AddressBookPurpose::RECEIVE);
+        pwalletMain->SetAddressBook(vchAddress, strLabel, (
+                        fStakingAddress ?
+                        AddressBook::AddressBookPurpose::COLD_STAKING :
+                        AddressBook::AddressBookPurpose::RECEIVE));
 
         // Don't throw error in case a key is already there
         if (pwalletMain->HaveKey(vchAddress))
@@ -131,6 +142,10 @@ UniValue importprivkey(const JSONRPCRequest& request)
 
         if (fRescan) {
             CBlockIndex *pindex = chainActive.Genesis();
+            if (fStakingAddress && !Params().IsRegTestNet()) {
+                // cold staking was activated after nBlockTimeProtocolV2 (PIVX v4.0). No need to scan the whole chain
+                pindex = chainActive[Params().GetConsensus().vUpgrades[Consensus::UPGRADE_V4_0].nActivationHeight];
+            }
             pwalletMain->ScanForWalletTransactions(pindex, true);
         }
     }
@@ -199,19 +214,22 @@ UniValue importaddress(const JSONRPCRequest& request)
 
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
-    CTxDestination dest = DecodeDestination(request.params[0].get_str());
+    bool isStakingAddress = false;
+    CTxDestination dest = DecodeDestination(request.params[0].get_str(), isStakingAddress);
 
     if (IsValidDestination(dest)) {
         if (fP2SH)
             throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Cannot use the p2sh flag with an address - use a script instead");
-        ImportAddress(dest, strLabel, AddressBook::AddressBookPurpose::RECEIVE);
+        ImportAddress(dest, strLabel, isStakingAddress ?
+                                        AddressBook::AddressBookPurpose::COLD_STAKING :
+                                        AddressBook::AddressBookPurpose::RECEIVE);
 
     } else if (IsHex(request.params[0].get_str())) {
         std::vector<unsigned char> data(ParseHex(request.params[0].get_str()));
         ImportScript(CScript(data.begin(), data.end()), strLabel, fP2SH);
 
     } else {
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid  address or script");
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid SKYR address or script");
     }
 
     if (fRescan) {
@@ -506,7 +524,9 @@ UniValue dumpwallet(const JSONRPCRequest& request)
         CKey key;
         if (pwalletMain->GetKey(keyid, key)) {
             const CKeyMetadata& metadata = pwalletMain->mapKeyMetadata[keyid];
-            std::string strAddr = EncodeDestination(keyid);
+            std::string strAddr = EncodeDestination(keyid, (metadata.HasKeyOrigin() && IsStakingDerPath(metadata.key_origin) ?
+                                                          CChainParams::STAKING_ADDRESS :
+                                                          CChainParams::PUBKEY_ADDRESS));
 
             file << strprintf("%s %s ", KeyIO::EncodeSecret(key), strTime);
             if (pwalletMain->mapAddressBook.count(keyid)) {
@@ -644,3 +664,37 @@ UniValue bip38decrypt(const JSONRPCRequest& request)
 
     return result;
 }
+
+UniValue setsporkkey(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() < 1 || request.params.size() > 3)
+        throw std::runtime_error(
+            "setsporkkey \"privkey\" ( compressed )\n"
+            "\nSets a spork private key (in hex) onetry.\n"
+            //    + HelpRequiringPassphrase() + "\n"
+            "\nArguments:\n"
+            "1. \"privkey\"          (string, required) The hex-encoded private key\n"
+            "2. compressed           (string, optional, default=true) An optional flag\n"
+            "\nExamples:\n"
+            "\nSet a spork private key \n" +
+            HelpExampleCli("setsporkkey", "\"privkey\"")
+            //+ HelpExampleCli("setsporkkey", "\"privkey\"", false)
+            //+ "\nAs a JSON-RPC call\n"
+            );
+
+    const std::string strSecret = request.params[0].get_str();
+    const bool fcompressed = (request.params.size() > 1 ? request.params[1].get_bool() : true);
+
+    CKey key = DecodeSecret(strSecret);
+    if (!key.IsValid()) throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid private key encoding");
+
+    CPubKey pubkey = key.GetPubKey();
+    assert(key.VerifyPubKey(pubkey));
+    CKeyID vchAddress = pubkey.GetID();
+    {
+        std::string address = EncodeDestination(vchAddress);
+        return address;
+        //return NullUniValue;//
+    }
+}
+

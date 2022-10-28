@@ -288,9 +288,8 @@ public:
         consensus.nTimeSlotLength = 15;
 
         // spork keys addr=BJbx3LbxYCKFfGpSFf7qGyrTAdogWQ9BGi
-        consensus.strSporkPubKey = "02082669fd794cdf741372fd3363700f91bba949e9497c1c7a0f974fc8e17ac07c"; 
-
-        consensus.strSporkPubKeyOld = "";
+        consensus.strSporkPubKey = "02082669fd794cdf741372fd3363700f91bba949e9497c1c7a0f974fc8e17ac07c";
+        consensus.strSporkPubKeyOld = "02082669fd794cdf741372fd3363700f91bba949e9497c1c7a0f974fc8e17ac07c";
         consensus.nTime_EnforceNewSporkKey = 0;
         consensus.nTime_RejectOldSporkKey = 0;
 
@@ -331,6 +330,7 @@ public:
         consensus.vUpgrades[Consensus::UPGRADE_V5_DUMMY].nActivationHeight              = 1741;
         consensus.vUpgrades[Consensus::UPGRADE_STAKE_MIN_DEPTH_V2].nActivationHeight    = 5001;
 
+        /*
         consensus.vUpgrades[Consensus::UPGRADE_ZC].hashActivationBlock                  = uint256S("0x0");
         consensus.vUpgrades[Consensus::UPGRADE_ZC_V2].hashActivationBlock               = uint256S("0x0");
         consensus.vUpgrades[Consensus::UPGRADE_BIP65].hashActivationBlock               = uint256S("0x0");
@@ -339,7 +339,7 @@ public:
         consensus.vUpgrades[Consensus::UPGRADE_V4_0].hashActivationBlock                = uint256S("0x0");
         consensus.vUpgrades[Consensus::UPGRADE_V5_DUMMY].hashActivationBlock            = uint256S("0x0");
         consensus.vUpgrades[Consensus::UPGRADE_STAKE_MIN_DEPTH_V2].hashActivationBlock  = uint256S("0x0");
-
+        */
         /**
          * The message start string is designed to be unlikely to occur in normal data.
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
@@ -502,8 +502,8 @@ public:
 
         // spork keys
         // spork keys addr=mxE7sFPJVpwn4ftnE6iCPkJ25S63dgNvox//skyrcoin
-        consensus.strSporkPubKey = "04a9543289c134e23cf6e393accf8a93b9d5edaff46ec2ec13f87d32ed9d1e34dbd4179531f0bf916a339a75cb03d556f16320874c89e08504df5eb3f34d91d96f";  //skyrcoin
-        consensus.strSporkPubKeyOld = "";
+        consensus.strSporkPubKey = "03a9543289c134e23cf6e393accf8a93b9d5edaff46ec2ec13f87d32ed9d1e34db";  //skyrcoin
+        consensus.strSporkPubKeyOld = "03a9543289c134e23cf6e393accf8a93b9d5edaff46ec2ec13f87d32ed9d1e34db";
         consensus.nTime_EnforceNewSporkKey = 0;
         consensus.nTime_RejectOldSporkKey = 0;
 
@@ -654,8 +654,8 @@ public:
         /* Spork Key for RegTest:
         addr=mkKuf6Bb2MSEbzhLaeCxBifVqZeB2bD1M1
         */
-        consensus.strSporkPubKey = "04b7e691a9166383a2b92a26b15a9b4a61dd4071ca7d4a0e14d6439b4a147a880bc0cf4e63edffb6dceecd852ce65aa75aa7205f447b74c502adb6b9aa8c279854";
-        consensus.strSporkPubKeyOld = "";
+        consensus.strSporkPubKey = "02b7e691a9166383a2b92a26b15a9b4a61dd4071ca7d4a0e14d6439b4a147a880b";
+        consensus.strSporkPubKeyOld = "02b7e691a9166383a2b92a26b15a9b4a61dd4071ca7d4a0e14d6439b4a147a880b";
         consensus.nTime_EnforceNewSporkKey = 0;
         consensus.nTime_RejectOldSporkKey = 0;
 

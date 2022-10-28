@@ -512,6 +512,18 @@ std::string HelpMessage(HelpMessageMode mode)
     strUsage += HelpMessageOpt("-testnet", _("Use the test network"));
     strUsage += HelpMessageOpt("-litemode=<n>", strprintf(_("Disable all SKYR specific functionality (Masternodes, Zerocoin, Budgeting) (0-1, default: %u)"), 0));
 
+#ifdef ENABLE_WALLET
+    strUsage += HelpMessageGroup(_("Staking options:"));
+    strUsage += HelpMessageOpt("-staking=<n>", strprintf(_("Enable staking functionality (0-1, default: %u)"), 1));
+    strUsage += HelpMessageOpt("-coldstaking=<n>", strprintf(_("Enable cold staking functionality (0-1, default: %u). Disabled if staking=0"), 1));
+    //strUsage += HelpMessageOpt("-minstakesplit=<amt>", strprintf(_("Minimum positive amount (in PIV) allowed by GUI and RPC for the stake split threshold (default: %s)"),
+    //                 FormatMoney(DEFAULT_MIN_STAKE_SPLIT_THRESHOLD)));
+    //if (GetBoolArg("-help-debug", false)) {
+    //    strUsage += HelpMessageOpt("-printstakemodifier", _("Display the stake modifier calculations in the debug.log file."));
+    //    strUsage += HelpMessageOpt("-printcoinstake", _("Display verbose coin stake messages in the debug.log file."));
+    //}
+#endif
+
     strUsage += HelpMessageGroup(_("Masternode options:"));
     strUsage += HelpMessageOpt("-masternode=<n>", strprintf(_("Enable the client to act as a masternode (0-1, default: %u)"), DEFAULT_MASTERNODE));
     strUsage += HelpMessageOpt("-mnconf=<file>", strprintf(_("Specify masternode configuration file (default: %s)"), PIVX_MASTERNODE_CONF_FILENAME));
@@ -1128,11 +1140,13 @@ bool AppInit2()
             threadGroup.create_thread(&ThreadScriptCheck);
     }
 
-    if (mapArgs.count("-sporkkey")) // spork priv key
-    {
-        if (!sporkManager.SetPrivKey(GetArg("-sporkkey", "")))
-            return UIError(_("Unable to sign spork message, wrong key?"));
-    }
+//    Blockchain.height is needed here for bool CSignedMessage::Sign(const CKey& key, const CPubKey& pubKey)
+//    ERROR: NetworkUpgradeActive: Requested state for upgrade PIVX_v3.4 at negative height -1
+//    if (mapArgs.count("-sporkkey")) // spork priv key
+//    {
+//        if (!sporkManager.SetPrivKey(GetArg("-sporkkey", "")))
+//            return UIError(_("Unable to sign spork message, wrong key?"));
+//    }
 
     // Start the lightweight task scheduler thread
     CScheduler::Function serviceLoop = boost::bind(&CScheduler::serviceQueue, &scheduler);
@@ -1636,6 +1650,14 @@ bool AppInit2()
     if (!est_filein.IsNull())
         mempool.ReadFeeEstimates(est_filein);
     fFeeEstimatesInitialized = true;
+
+
+//  ********************************************************* Step 7.1:set sporkkey
+    if (mapArgs.count("-sporkkey")) // spork priv key
+    {
+        if (!sporkManager.SetPrivKey(GetArg("-sporkkey", "")))
+            return UIError(_("Unable to sign spork message, wrong key?"));
+    }
 
 // ********************************************************* Step 8: load wallet
 #ifdef ENABLE_WALLET

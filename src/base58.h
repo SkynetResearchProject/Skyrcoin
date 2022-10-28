@@ -146,7 +146,7 @@ std::string EncodeDestination(const CTxDestination& dest, const CChainParams::Ba
 CTxDestination DecodeDestination(const std::string& str, bool& isStaking);
 CTxDestination DecodeDestination(const std::string& str);
 // Return true if the address is valid without care on the type.
-bool IsValidDestinationString(const std::string& str);
+//bool IsValidDestinationString(const std::string& str);
 // Return true if the address is valid and is following the fStaking flag type (true means that the destination must be a staking address, false the opposite).
 bool IsValidDestinationString(const std::string& str, bool fStaking);
 bool IsValidDestinationString(const std::string& str, bool fStaking, const CChainParams& params);

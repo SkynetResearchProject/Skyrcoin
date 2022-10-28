@@ -114,6 +114,10 @@ public:
     {
          return false;
     }
+    virtual bool CheckColdStake(const CScript& script) const
+    {
+         return false;
+    }
 
     virtual ~BaseSignatureChecker() {}
 };

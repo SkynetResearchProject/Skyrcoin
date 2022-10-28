@@ -3404,8 +3404,8 @@ SKYR es una forma de dinero digital en línea que utiliza la tecnología blockch
     <message>
         <source>
                            &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-                           Newly received SKYR requires 6 confirmations on the network
-                           to become eligible for spending which can take ~6 minutes.
+                           Newly received SKYR requires 7 confirmations on the network
+                           to become eligible for spending which can take ~7 minutes.
                            &lt;/p&gt;&lt;p align="justify"&gt;
                            Your SKYR wallet also needs to be completely synchronized
                            to see and spend balances on the network.
@@ -3413,7 +3413,7 @@ SKYR es una forma de dinero digital en línea que utiliza la tecnología blockch
                          </source>
         <translation>
 &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
-Los SKYR recién recibidos requieren 6 confirmaciones en la red para ser elegibles para gastos que pueden tomar ~6 minutos.
+Los SKYR recién recibidos requieren 7 confirmaciones en la red para ser elegibles para gastos que pueden tomar ~7 minutos.
 &lt;/p&gt;&lt;p align="justify"&gt;
 Tu wallet SKYR también necesita estar completamente sincronizada para que pueda  ver y gastar el saldos en la red.
 &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>

@@ -257,10 +257,10 @@ void ReceiveWidget::onCopyClicked()
 
 void ReceiveWidget::onRequestClicked()
 {
-    showAddressGenerationDialog();
+    showAddressGenerationDialog(true);
 }
 
-void ReceiveWidget::showAddressGenerationDialog()
+void ReceiveWidget::showAddressGenerationDialog(bool isPaymentRequest)
 {
     if (walletModel && !isShowingDialog) {
         WalletModel::UnlockContext ctx(walletModel->requestUnlock());
@@ -273,6 +273,7 @@ void ReceiveWidget::showAddressGenerationDialog()
         showHideOp(true);
         RequestDialog *dialog = new RequestDialog(window);
         dialog->setWalletModel(walletModel);
+        dialog->setPaymentRequest(isPaymentRequest); // pivx 4.2.0
         openDialogWithOpaqueBackgroundY(dialog, window, 3.5, 12);
         if (dialog->res == 1) {
             inform(tr("URI copied to clipboard"));

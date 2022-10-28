@@ -165,6 +165,7 @@ bool ProduceSignature(const BaseSignatureCreator& creator, const CScript& fromPu
     txnouttype whichType;
     solved = SignStep(creator, script, result, whichType, SIGVERSION_BASE, fColdStake);
     CScript subscript;
+//std::cout << "1 solved=" << solved <<"\n"; //***
 
     if (solved && whichType == TX_SCRIPTHASH)
     {
@@ -175,7 +176,7 @@ bool ProduceSignature(const BaseSignatureCreator& creator, const CScript& fromPu
         solved = solved && SignStep(creator, script, result, whichType, SIGVERSION_BASE, fColdStake) && whichType != TX_SCRIPTHASH;
         result.push_back(std::vector<unsigned char>(subscript.begin(), subscript.end()));
     }
-
+//std::cout << "2 solved=" << solved <<"\n"; //***
     sigdata.scriptSig = PushAll(result);
 
     // Test solution
@@ -216,6 +217,8 @@ bool SignSignature(const CKeyStore &keystore, const CTransaction& txFrom, CMutab
     assert(txin.prevout.n < txFrom.vout.size());
     const CTxOut& txout = txFrom.vout[txin.prevout.n];
 
+    //std::cout << "txin " << txin.ToString();
+    //std::cout << "txout " << txout.ToString();
     return SignSignature(keystore, txout.scriptPubKey, txTo, nIn, txout.nValue, nHashType, fColdStake);
 }
 

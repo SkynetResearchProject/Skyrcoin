@@ -75,9 +75,12 @@ void SendChangeAddressDialog::accept()
         QDialog::accept();
     } else {
         // validate address
-        dest = DecodeDestination(ui->lineEditAddress->text().toStdString());
+        bool isStakingAddr;
+        dest = DecodeDestination(ui->lineEditAddress->text().toStdString(), isStakingAddr);
         if (!IsValidDestination(dest)) {
             inform(tr("Invalid address"));
+        } else if (isStakingAddr) {
+                       inform(tr("Cannot use cold staking addresses for change"));
         } else {
             QDialog::accept();
         }

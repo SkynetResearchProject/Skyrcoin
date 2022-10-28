@@ -404,7 +404,7 @@ UniValue getmasternodeoutputs (const JSONRPCRequest& request)
 
     // Find possible candidates
     std::vector<COutput> possibleCoins;
-    pwalletMain->AvailableCoins(&possibleCoins, nullptr, ONLY_10000);
+    pwalletMain->AvailableCoins(&possibleCoins, nullptr, false, false, ONLY_10000);
 
     UniValue ret(UniValue::VARR);
     for (COutput& out : possibleCoins) {
@@ -885,3 +885,4 @@ UniValue relaymasternodebroadcast(const JSONRPCRequest& request)
 
     return strprintf("Masternode broadcast sent (service %s, vin %s)", mnb.addr.ToString(), mnb.vin.ToString());
 }
+
