@@ -370,7 +370,7 @@ public:
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 25);  // byte 37h - префикс перед ripmd160 hash      //dlx = 25
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 28); // byte76h	 				    //dlx = 28
 	base58Prefixes[STAKING_ADDRESS] = std::vector<unsigned char>(1, 63);     // starting with 'S'
-        base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 153);  // byte 77h - префикс перед секретной экспонентой приватного ключа  // dlx = 153
+        base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 153);  // byte 99h - префикс перед секретной экспонентой приватного ключа  // dlx = 153
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x2D)(0x02)(0x31)(0x33).convert_to_container<std::vector<unsigned char> >();  // as is
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x02)(0x21)(0x25)(0x2B).convert_to_container<std::vector<unsigned char> >();
         // BIP44 coin type is from https://github.com/satoshilabs/slips/blob/master/slip-0044.md

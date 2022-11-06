@@ -291,6 +291,7 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
 
             for (const CTxIn& txin : tx.vin) {
                 // Read prev transaction
+
                 if (!view.HaveCoin(txin.prevout)) {
                     // This should never happen; all transactions in the memory
                     // pool should connect to either transactions in the chain
@@ -472,11 +473,11 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
                 return nullptr;
             }
         }
-
+;
         CValidationState state;
         if (!TestBlockValidity(state, *pblock, pindexPrev, false, false)) {
             LogPrintf("CreateNewBlock() : TestBlockValidity failed\n");
-            mempool.clear();
+            //mempool.clear();
             return nullptr;
         }
     }
@@ -592,7 +593,6 @@ void CheckForCoins(CWallet* pwallet, const int minutes, std::vector<COutput>* av
         fStakeableCoins = pwallet->StakeableCoins(availableCoins);
         fMasternodeSync = sporkManager.IsSporkActive(SPORK_106_STAKING_SKIP_MN_SYNC) || !masternodeSync.NotCompleted();
     }
-    //std::cout << "fStakeableCoins=" << fStakeableCoins <<"\n"; //***
 }
 
 void BitcoinMiner(CWallet* pwallet, bool fProofOfStake)

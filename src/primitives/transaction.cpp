@@ -219,6 +219,7 @@ bool CTransaction::CheckColdStake(const CScript& script) const
     // all outputs except first (coinstake marker) and last (masternode payout)
     // have the same pubKeyScript and it matches the script we are spending
     if (vout[1].scriptPubKey != script) return false;
+
     if (vin.size() > 3) {
         for (unsigned int i=2; i<vout.size()-1; i++)
             if (vout[i].scriptPubKey != script) return false;

@@ -94,7 +94,7 @@ bool CheckBlockSignature(const CBlock& block, const bool enableP2PKH)
             pubkey = CPubKey(txin.scriptSig.begin()+start+1, txin.scriptSig.end());
 
             //std::cout<<"-TX_COLDSTAKE-->>>HexStr(pubkey)"<<HexStr(pubkey)<<"\n";
-            CPubKey sig = CPubKey(txin.scriptSig.begin(), txin.scriptSig.end());
+            //CPubKey sig = CPubKey(txin.scriptSig.begin(), txin.scriptSig.end());
             //std::cout<<"--->>>HexStr(pubkey)"<<HexStr(sig)<<"\n";
         }
     }
