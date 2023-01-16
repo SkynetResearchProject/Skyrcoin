@@ -1,5 +1,5 @@
 # Skynet Research Project
-Forked from peony 4.0.0.1.  It's peony wallet with a another name.
+Forked from peony 4.0.0.1.  It's peony wallet with another name.
 
 v2.0.0.9-cs mandatory update. It is highly recommended to update your wallet.
 
