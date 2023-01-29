@@ -586,6 +586,7 @@ void TopBar::loadWalletModel()
     updateDisplayUnit();
 
     refreshStatus();
+    onColdStakingClicked();
 
     isInitializing = false;
 }

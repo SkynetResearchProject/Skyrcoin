@@ -116,11 +116,11 @@ static bool SignStep(const BaseSignatureCreator& creator, const CScript& scriptP
         if (fColdStake) {
             // sign with the cold staker key
             keyID = CKeyID(uint160(vSolutions[0]));
-            LogPrintf("*** sign with the cold staker key\n");
+            //LogPrintf("*** sign with the cold staker key\n");
         } else {
             // sign with the owner key
             keyID = CKeyID(uint160(vSolutions[1]));
-            LogPrintf("*** sign with the owner key\n");
+            //LogPrintf("*** sign with the owner key\n");
         }
         //static bool Sign1(const CKeyID& address, const BaseSignatureCreator& creator, const CScript& scriptCode, std::vector<valtype>& ret, SigVersion sigversion)
         if (!Sign1(keyID, creator, scriptPubKey, ret, sigversion))

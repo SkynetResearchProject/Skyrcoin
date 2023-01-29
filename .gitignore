@@ -4,6 +4,8 @@
 todo.txt
 reset-files.bash
 
+__build_windows.txt
+
 *.tar.gz
 
 *.exe
