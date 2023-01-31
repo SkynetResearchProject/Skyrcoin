@@ -507,8 +507,9 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(WalletModelTransaction& tran
     Q_FOREACH (const SendCoinsRecipient& rcp, transaction.getRecipients()) {
         // Don't touch the address book when we have a payment request
         if (!rcp.paymentRequest.IsInitialized()) {
-            CTxDestination address = DecodeDestination(rcp.address.toStdString());
-            std::string purpose = AddressBook::AddressBookPurpose::SEND;
+            bool isStaking = false;
+            CTxDestination address = DecodeDestination(rcp.address.toStdString(), isStaking);
+            std::string purpose = isStaking ? AddressBook::AddressBookPurpose::COLD_STAKING_SEND : AddressBook::AddressBookPurpose::SEND;
             std::string strLabel = rcp.label.toStdString();
             updateAddressBookLabels(address, strLabel, purpose);
         }
@@ -808,7 +809,10 @@ bool WalletModel::blacklistAddressFromColdStaking(const QString &addressStr)
 
 bool WalletModel::updateAddressBookPurpose(const QString &addressStr, const std::string& purpose)
 {
-    CTxDestination address = DecodeDestination(addressStr.toStdString());
+    bool isStaking = false;
+    CTxDestination address = DecodeDestination(addressStr.toStdString(), isStaking);
+    if (isStaking)
+        return error("Invalid SKYR address, cold staking address");
     CKeyID keyID;
     if (!getKeyId(address, keyID))
         return false;
