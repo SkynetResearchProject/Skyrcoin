@@ -3441,8 +3441,8 @@ Došlo je do greške prilikom spremanja popisa adresa u %1. Molimo pokušajte po
         <translation>2) Zašto se moji SKYR ne mogu potrošiti?</translation>
     </message>
     <message>
-        <source>https://skynresearch.ru/</source>
-        <translation>https://skynresearch.ru/</translation>
+        <source>https://skynet-coin.com/</source>
+        <translation>https://skynet-coin.com/</translation>
     </message>
     <message>
         <source>1</source>

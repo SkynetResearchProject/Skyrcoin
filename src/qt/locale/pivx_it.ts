@@ -3515,8 +3515,8 @@ Si è verificato un errore nel tentativo di salvare l'elenco degli indirizzi in 
         <translation>2) Perché i miei SKYR non sono spendibili?</translation>
     </message>
     <message>
-        <source>https://skynresearch.ru/</source>
-        <translation>https://skynresearch.ru/</translation>
+        <source>https://skynet-coin.com/</source>
+        <translation>https://skynet-coin.com/</translation>
     </message>
     <message>
         <source>1</source>

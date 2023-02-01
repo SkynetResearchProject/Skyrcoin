@@ -3519,8 +3519,8 @@ There was an error trying to save the address list to %1. Please try again.</tra
         <translation>2) Why are my SKYR unspendable?</translation>
     </message>
     <message>
-        <source>https://skynresearch.ru/</source>
-        <translation>https://skynresearch.ru/</translation>
+        <source>https://skynet-coin.com/</source>
+        <translation>https://skynet-coin.com/</translation>
     </message>
     <message>
         <source>1</source>

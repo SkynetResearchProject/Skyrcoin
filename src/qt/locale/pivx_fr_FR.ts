@@ -3512,8 +3512,8 @@ Il y a eu une erreur de sauvegarde de la liste d'adresses vers %1. SVP rééssay
         <translation>2) Pourquoi mes SKYR ne peuvent pas être dépensés?</translation>
     </message>
     <message>
-        <source>https://skynresearch.ru/</source>
-        <translation>https://skynresearch.ru/</translation>
+        <source>https://skynet-coin.com/</source>
+        <translation>https://skynet-coin.com/</translation>
     </message>
     <message>
         <source>1</source>

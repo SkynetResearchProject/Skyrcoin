@@ -3543,8 +3543,8 @@ There was an error trying to save the address list to %1. Please try again.</sou
         <translation>Вы можете прочитать подробнее здесь</translation>
     </message>
     <message>
-        <source>https://skynresearch.ru/</source>
-        <translation>https://skynresearch.ru/</translation>
+        <source>https://skynet-coin.com/</source>
+        <translation>https://skynet-coin.com/</translation>
     </message>
     <message>
         <source>Exit</source>

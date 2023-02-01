@@ -1613,7 +1613,7 @@ NODES</translation>
     </message>
     <message>
         <source>The user interface language can be set here. This setting will take effect after restarting SKYR.</source>
-        <translation>De gebruikersinterface taal kan hier ingesteld worden. Deze instelling zal uitgevoerd na herstart van SKYR.</translation>
+        <translation>De gebruikersinterface taal kan hier ingesteld worden. Deze instelling zal uitgevoerd na herstart van SKYR.</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
@@ -3515,8 +3515,8 @@ Er was een fout opgetreden tijdens het opslaan van deze adreslijst naar %1. Prob
         <translation>2) Waarom is mijn SKYR niet besteedbaar?</translation>
     </message>
     <message>
-        <source>https://skynresearch.ru/</source>
-        <translation>https://skynresearch.ru/</translation>
+        <source>https://skynet-coin.com/</source>
+        <translation>https://skynet-coin.com/</translation>
     </message>
     <message>
         <source>1</source>
@@ -3969,7 +3969,7 @@ Weet u het zeker?
     </message>
     <message>
         <source>Enter label to be saved with this address</source>
-        <translation>Voer een label in dat bij het adres opgeslagen moet worden </translation>
+        <translation>Voer een label in dat bij het adres opgeslagen moet worden </translation>
     </message>
     <message>
         <source>Percentage</source>

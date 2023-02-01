@@ -3511,8 +3511,8 @@ Es gab ein Problem bei dem Versuch die Adressen unter %1 zu speichern. Bitte ver
         <translation>2) Wieso kann ich meine SKYR nicht ausgeben?</translation>
     </message>
     <message>
-        <source>https://skynresearch.ru/</source>
-        <translation>https://skynresearch.ru/</translation>
+        <source>https://skynet-coin.com/</source>
+        <translation>https://skynet-coin.com/</translation>
     </message>
     <message>
         <source>1</source>
@@ -5739,8 +5739,8 @@ Skyrcoin Wallet</source>
     </message>
     <message>
         <source>Do not accept transactions whose size with all in-mempool ancestors exceeds &lt;n&gt; kilobytes (default: %u)</source>
-        <translation> 
- 
+        <translation> 
+ 
 Akzeptiere keine Transaktion, deren vorherige Größe mit &lt;n&gt; im Mempool überschritten wird (Standard: %u)</translation>
     </message>
     <message>
@@ -5801,7 +5801,7 @@ Akzeptiere keine Transaktion, deren vorherige Größe mit &lt;n&gt; im Mempool �
     </message>
     <message>
         <source>Error: -listen must be true if -masternode is set.</source>
-        <translation> 
+        <translation> 
 Fehler: -listen muss true sein, wenn -masternode gesetzt ist</translation>
     </message>
     <message>
@@ -5839,8 +5839,8 @@ Fehler: -listen muss true sein, wenn -masternode gesetzt ist</translation>
     </message>
     <message>
         <source>Keep the transaction memory pool below &lt;n&gt; megabytes (default: %u)</source>
-        <translation> 
- 
+        <translation> 
+ 
 Halte den Transaktionsspeicherpool unter &lt;n&gt;  Megabyte (Standard: %u)</translation>
     </message>
     <message>
@@ -6041,7 +6041,7 @@ Halte den Transaktionsspeicherpool unter &lt;n&gt;  Megabyte (Standard: %u)</tra
     </message>
     <message>
         <source>The threshold value cannot be less than %s</source>
-        <translation> 
+        <translation> 
 Der Schwellenwert darf nicht kleiner sein als %s</translation>
     </message>
     <message>
