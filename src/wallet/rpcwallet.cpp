@@ -131,7 +131,7 @@ UniValue getaddressinfo(const JSONRPCRequest& request)
         return NullUniValue;
     }
 
-    const std::string example_address = "\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\"";
+    const std::string example_address = "\"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\"";
 
     if (request.fHelp || request.params.size() > 1)
         throw std::runtime_error(
@@ -657,9 +657,9 @@ UniValue delegatoradd(const JSONRPCRequest& request)
             "true|false           (boolean) true if successful.\n"
 
             "\nExamples:\n" +
-            HelpExampleCli("delegatoradd", "DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6") +
-            HelpExampleRpc("delegatoradd", "\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\"") +
-            HelpExampleRpc("delegatoradd", "\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\" \"myPaperWallet\""));
+            HelpExampleCli("delegatoradd", "BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat") +
+            HelpExampleRpc("delegatoradd", "\"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\"") +
+            HelpExampleRpc("delegatoradd", "\"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\" \"myPaperWallet\""));
 
 
     bool isStakingAddress = false;
@@ -691,8 +691,8 @@ UniValue delegatorremove(const JSONRPCRequest& request)
             "true|false           (boolean) true if successful.\n"
 
             "\nExamples:\n" +
-            HelpExampleCli("delegatorremove", "DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6") +
-            HelpExampleRpc("delegatorremove", "\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\""));
+            HelpExampleCli("delegatorremove", "BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat") +
+            HelpExampleRpc("delegatorremove", "\"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\""));
 
     bool isStakingAddress = false;
     CTxDestination dest = DecodeDestination(request.params[0].get_str(), isStakingAddress);
@@ -888,7 +888,7 @@ UniValue setlabel(const JSONRPCRequest& request)
             "2. \"label\"         (string, required) The label to assign to the address.\n"
 
             "\nExamples:\n" +
-            HelpExampleCli("setlabel", "\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\" \"tabby\"") + HelpExampleRpc("setlabel", "\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\", \"tabby\""));
+            HelpExampleCli("setlabel", "\"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\" \"tabby\"") + HelpExampleRpc("setlabel", "\"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\", \"tabby\""));
 
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
@@ -946,7 +946,7 @@ UniValue getaccount(const JSONRPCRequest& request)
             "\"accountname\"        (string) the account address\n"
 
             "\nExamples:\n" +
-            HelpExampleCli("getaccount", "\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\"") + HelpExampleRpc("getaccount", "\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\""));
+            HelpExampleCli("getaccount", "\"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\"") + HelpExampleRpc("getaccount", "\"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\""));
 
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
@@ -1060,9 +1060,9 @@ UniValue sendtoaddress(const JSONRPCRequest& request)
             "\"transactionid\"  (string) The transaction id.\n"
 
             "\nExamples:\n" +
-            HelpExampleCli("sendtoaddress", "\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\" 0.1") +
-            HelpExampleCli("sendtoaddress", "\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\" 0.1 \"donation\" \"seans outpost\"") +
-            HelpExampleRpc("sendtoaddress", "\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\", 0.1, \"donation\", \"seans outpost\""));
+            HelpExampleCli("sendtoaddress", "\"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\" 0.1") +
+            HelpExampleCli("sendtoaddress", "\"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\" 0.1 \"donation\" \"seans outpost\"") +
+            HelpExampleRpc("sendtoaddress", "\"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\", 0.1, \"donation\", \"seans outpost\""));
 
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
@@ -1153,11 +1153,11 @@ UniValue signmessage(const JSONRPCRequest& request)
             "\nUnlock the wallet for 30 seconds\n" +
             HelpExampleCli("walletpassphrase", "\"mypassphrase\" 30") +
             "\nCreate the signature\n" +
-            HelpExampleCli("signmessage", "\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\" \"my message\"") +
+            HelpExampleCli("signmessage", "\"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\" \"my message\"") +
             "\nVerify the signature\n" +
-            HelpExampleCli("verifymessage", "\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\" \"signature\" \"my message\"") +
+            HelpExampleCli("verifymessage", "\"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\" \"signature\" \"my message\"") +
             "\nAs json rpc\n" +
-            HelpExampleRpc("signmessage", "\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\", \"my message\""));
+            HelpExampleRpc("signmessage", "\"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\", \"my message\""));
 
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
@@ -1205,13 +1205,13 @@ UniValue getreceivedbyaddress(const JSONRPCRequest& request)
 
             "\nExamples:\n"
             "\nThe amount from transactions with at least 1 confirmation\n" +
-            HelpExampleCli("getreceivedbyaddress", "\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\"") +
+            HelpExampleCli("getreceivedbyaddress", "\"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\"") +
             "\nThe amount including unconfirmed transactions, zero confirmations\n" +
-            HelpExampleCli("getreceivedbyaddress", "\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\" 0") +
+            HelpExampleCli("getreceivedbyaddress", "\"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\" 0") +
             "\nThe amount with at least 6 confirmation, very safe\n" +
-            HelpExampleCli("getreceivedbyaddress", "\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\" 6") +
+            HelpExampleCli("getreceivedbyaddress", "\"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\" 6") +
             "\nAs a json rpc call\n" +
-            HelpExampleRpc("getreceivedbyaddress", "\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\", 6"));
+            HelpExampleRpc("getreceivedbyaddress", "\"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\", 6"));
 
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
@@ -1565,11 +1565,11 @@ UniValue sendfrom(const JSONRPCRequest& request)
 
             "\nExamples:\n"
             "\nSend 0.01 SKYR from the default account to the address, must have at least 1 confirmation\n" +
-            HelpExampleCli("sendfrom", "\"\" \"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\" 0.01") +
+            HelpExampleCli("sendfrom", "\"\" \"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\" 0.01") +
             "\nSend 0.01 from the tabby account to the given address, funds must have at least 6 confirmations\n" +
-            HelpExampleCli("sendfrom", "\"tabby\" \"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\" 0.01 6 \"donation\" \"seans outpost\"") +
+            HelpExampleCli("sendfrom", "\"tabby\" \"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\" 0.01 6 \"donation\" \"seans outpost\"") +
             "\nAs a json rpc call\n" +
-            HelpExampleRpc("sendfrom", "\"tabby\", \"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\", 0.01, 6, \"donation\", \"seans outpost\""));
+            HelpExampleRpc("sendfrom", "\"tabby\", \"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\", 0.01, 6, \"donation\", \"seans outpost\""));
 
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
@@ -1635,11 +1635,11 @@ UniValue sendmany(const JSONRPCRequest& request)
 
             "\nExamples:\n"
             "\nSend two amounts to two different addresses:\n" +
-            HelpExampleCli("sendmany", "\"\" \"{\\\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\\\":0.01,\\\"DAD3Y6ivr8nPQLT1NEPX84DxGCw9jz9Jvg\\\":0.02}\"") +
+            HelpExampleCli("sendmany", "\"\" \"{\\\"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\\\":0.01,\\\"BETGDUdfo3bkEM7JwfwrphNGWSLDiRGhKM\\\":0.02}\"") +
             "\nSend two amounts to two different addresses setting the confirmation and comment:\n" +
-            HelpExampleCli("sendmany", "\"\" \"{\\\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\\\":0.01,\\\"DAD3Y6ivr8nPQLT1NEPX84DxGCw9jz9Jvg\\\":0.02}\" 6 \"testing\"") +
+            HelpExampleCli("sendmany", "\"\" \"{\\\"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\\\":0.01,\\\"BETGDUdfo3bkEM7JwfwrphNGWSLDiRGhKM\\\":0.02}\" 6 \"testing\"") +
             "\nAs a json rpc call\n" +
-            HelpExampleRpc("sendmany", "\"\", \"{\\\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\\\":0.01,\\\"DAD3Y6ivr8nPQLT1NEPX84DxGCw9jz9Jvg\\\":0.02}\", 6, \"testing\"");
+            HelpExampleRpc("sendmany", "\"\", \"{\\\"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\\\":0.01,\\\"BETGDUdfo3bkEM7JwfwrphNGWSLDiRGhKM\\\":0.02}\", 6, \"testing\"");
     } else {
         help_text = "sendmany \"fromaccount\" {\"address\":amount,...} ( minconf \"comment\" includeDelegated)\n"
             "sendmany \"fromaccount\" {\"address\":amount,...} ( minconf \"comment\" includeDelegated)\n"
@@ -1663,11 +1663,11 @@ UniValue sendmany(const JSONRPCRequest& request)
 
             "\nExamples:\n"
             "\nSend two amounts to two different addresses:\n" +
-            HelpExampleCli("sendmany", "\"\" \"{\\\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\\\":0.01,\\\"DAD3Y6ivr8nPQLT1NEPX84DxGCw9jz9Jvg\\\":0.02}\"") +
+            HelpExampleCli("sendmany", "\"\" \"{\\\"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\\\":0.01,\\\"BETGDUdfo3bkEM7JwfwrphNGWSLDiRGhKM\\\":0.02}\"") +
             "\nSend two amounts to two different addresses setting the confirmation and comment:\n" +
-            HelpExampleCli("sendmany", "\"\" \"{\\\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\\\":0.01,\\\"DAD3Y6ivr8nPQLT1NEPX84DxGCw9jz9Jvg\\\":0.02}\" 6 \"testing\"") +
+            HelpExampleCli("sendmany", "\"\" \"{\\\"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\\\":0.01,\\\"BETGDUdfo3bkEM7JwfwrphNGWSLDiRGhKM\\\":0.02}\" 6 \"testing\"") +
             "\nAs a json rpc call\n" +
-            HelpExampleRpc("sendmany", "\"\", \"{\\\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\\\":0.01,\\\"DAD3Y6ivr8nPQLT1NEPX84DxGCw9jz9Jvg\\\":0.02}\", 6, \"testing\"");
+            HelpExampleRpc("sendmany", "\"\", \"{\\\"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\\\":0.01,\\\"BETGDUdfo3bkEM7JwfwrphNGWSLDiRGhKM\\\":0.02}\", 6, \"testing\"");
     }
 
     if (request.fHelp || request.params.size() < 2 || request.params.size() > 5) throw std::runtime_error(help_text);
@@ -1767,9 +1767,9 @@ UniValue addmultisigaddress(const JSONRPCRequest& request)
 
             "\nExamples:\n"
             "\nAdd a multisig address from 2 addresses\n" +
-            HelpExampleCli("addmultisigaddress", "2 \"[\\\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\\\",\\\"DAD3Y6ivr8nPQLT1NEPX84DxGCw9jz9Jvg\\\"]\"") +
+            HelpExampleCli("addmultisigaddress", "2 \"[\\\"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\\\",\\\"BETGDUdfo3bkEM7JwfwrphNGWSLDiRGhKM\\\"]\"") +
             "\nAs json rpc call\n" +
-            HelpExampleRpc("addmultisigaddress", "2, \"[\\\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\\\",\\\"DAD3Y6ivr8nPQLT1NEPX84DxGCw9jz9Jvg\\\"]\""));
+            HelpExampleRpc("addmultisigaddress", "2, \"[\\\"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\\\",\\\"BETGDUdfo3bkEM7JwfwrphNGWSLDiRGhKM\\\"]\""));
 
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
@@ -1978,7 +1978,7 @@ UniValue listreceivedbyaddress(const JSONRPCRequest& request)
             HelpExampleCli("listreceivedbyaddress", "") +
             HelpExampleCli("listreceivedbyaddress", "6 true") +
             HelpExampleRpc("listreceivedbyaddress", "6, true, true") +
-            HelpExampleRpc("listreceivedbyaddress", "6, true, true, \"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\""));
+            HelpExampleRpc("listreceivedbyaddress", "6, true, true, \"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\""));
 
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
@@ -2858,7 +2858,7 @@ UniValue walletlock(const JSONRPCRequest& request)
             "\nSet the passphrase for 2 minutes to perform a transaction\n" +
             HelpExampleCli("walletpassphrase", "\"my pass phrase\" 120") +
             "\nPerform a send (requires passphrase set)\n" +
-            HelpExampleCli("sendtoaddress", "\"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\" 1.0") +
+            HelpExampleCli("sendtoaddress", "\"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\" 1.0") +
             "\nClear the passphrase since we are done before 2 minutes is up\n" +
             HelpExampleCli("walletlock", "") +
             "\nAs json rpc call\n" +
@@ -3995,8 +3995,8 @@ UniValue spendzerocoin(const JSONRPCRequest& request)
             "}\n"
 
             "\nExamples\n" +
-            HelpExampleCli("spendzerocoin", "5000 \"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\"") +
-            HelpExampleRpc("spendzerocoin", "5000 \"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\""));
+            HelpExampleCli("spendzerocoin", "5000 \"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\"") +
+            HelpExampleRpc("spendzerocoin", "5000 \"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\""));
 
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
@@ -4047,8 +4047,8 @@ UniValue spendzerocoinmints(const JSONRPCRequest& request)
             "}\n"
 
             "\nExamples\n" +
-            HelpExampleCli("spendzerocoinmints", "'[\"0d8c16eee7737e3cc1e4e70dc006634182b175e039700931283b202715a0818f\", \"dfe585659e265e6a509d93effb906d3d2a0ac2fe3464b2c3b6d71a3ef34c8ad7\"]' \"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\"") +
-            HelpExampleRpc("spendzerocoinmints", "[\"0d8c16eee7737e3cc1e4e70dc006634182b175e039700931283b202715a0818f\", \"dfe585659e265e6a509d93effb906d3d2a0ac2fe3464b2c3b6d71a3ef34c8ad7\"], \"DMJRSsuU9zfyrvxVaAEFQqK4MxZg6vgeS6\""));
+            HelpExampleCli("spendzerocoinmints", "'[\"0d8c16eee7737e3cc1e4e70dc006634182b175e039700931283b202715a0818f\", \"dfe585659e265e6a509d93effb906d3d2a0ac2fe3464b2c3b6d71a3ef34c8ad7\"]' \"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\"") +
+            HelpExampleRpc("spendzerocoinmints", "[\"0d8c16eee7737e3cc1e4e70dc006634182b175e039700931283b202715a0818f\", \"dfe585659e265e6a509d93effb906d3d2a0ac2fe3464b2c3b6d71a3ef34c8ad7\"], \"BC1muC1Vo173dWa8PJSSxax3Ad7bjAaWat\""));
 
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
