@@ -595,6 +595,37 @@ void CheckForCoins(CWallet* pwallet, const int minutes, std::vector<COutput>* av
     }
 }
 
+uint64_t GetNetworkHashPS()
+{
+    CBlockIndex *pb = chainActive.Tip();
+
+    if (!pb || !pb->nHeight) return 0;
+
+    uint64_t n_blocks = Params().GetConsensus().TargetTimespan(pb->nHeight) / Params().GetConsensus().nTargetSpacing;
+
+    if (pb->nHeight < n_blocks)
+        n_blocks = pb->nHeight;
+
+    CBlockIndex* pb0 = pb;
+    int64_t minTime = pb0->GetBlockTime();
+    int64_t maxTime = minTime;
+    for (int i = 0; i < n_blocks; i++) {
+        pb0 = pb0->pprev;
+        int64_t time = pb0->GetBlockTime();
+        minTime = std::min(time, minTime);
+        maxTime = std::max(time, maxTime);
+    }
+
+    // In case there's a situation where minTime == maxTime, we don't want a divide by zero exception.
+    if (minTime == maxTime)
+        return 0;
+
+    uint256 workDiff = pb->nChainWork - pb0->nChainWork;
+    int64_t timeDiff = maxTime - minTime;
+
+    return (int64_t)(workDiff.getdouble() / timeDiff);
+}
+
 void BitcoinMiner(CWallet* pwallet, bool fProofOfStake)
 {
     LogPrintf("Miner started\n");

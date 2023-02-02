@@ -23,9 +23,12 @@
 
 #include "masternode-sync.h"
 #include "masternodeman.h"
+#include "miner.h"
+#include "util.h"
 #include "wallet/wallet.h"
 
 #include <QPixmap>
+#include <QSettings>
 
 #define REQUEST_UPGRADE_WALLET 1
 
@@ -34,6 +37,9 @@ TopBar::TopBar(PIVXGUI* _mainWindow, QWidget* parent) : PWidget(_mainWindow, par
 {
     ui->setupUi(this);
 
+    //QSettings settings;
+    //fPrivacyMode = settings.value("fPrivacyMode", false).toBool();
+
     // Set parent stylesheet
     this->setStyleSheet(_mainWindow->styleSheet());
     /* Containers */
@@ -41,8 +47,9 @@ TopBar::TopBar(PIVXGUI* _mainWindow, QWidget* parent) : PWidget(_mainWindow, par
     ui->containerTop->setProperty("cssClass", "container-top");
 
     setCssProperty({ui->labelTitle1, ui->labelTitle3, ui->labelTitle4, ui->labelTitle5,
-                       ui->labelTitle6, ui->labelMasternodesTitle, ui->labelTitle8,
-                       ui->labelNextMasternodesTitle, ui->labelTitle9},
+                       ui->labelTitle6, ui->labelMasternodesTitle, ui->labelCollateralTitle,
+                       ui->labelNetworkHashRateTitle, ui->labelWalletHashRateTitle,
+                       ui->labelNextMasternodesTitle, ui->labelRemainingBlocks},
         "text-title-topbar");
 
     // Amount information top
@@ -51,7 +58,8 @@ TopBar::TopBar(PIVXGUI* _mainWindow, QWidget* parent) : PWidget(_mainWindow, par
     setCssProperty({ui->labelAmountTopPiv}, "amount-small-topbar");
     setCssProperty({ui->labelAmountPiv}, "amount-topbar");
     setCssProperty({ui->labelPendingPiv, ui->labelImmaturePiv, ui->labelAvailablePiv,
-                       ui->labelLockedPiv, ui->labelMasternodeCount, ui->labelCollateralPiv,
+                       ui->labelLockedPiv, ui->labelMasternodeCount, ui->labelCollateralValue,
+                       ui->labelNetworkHashRateValue, ui->labelWalletHashRateValue,
                        ui->labelNextCollateralBlocks, ui->labelNextCollateralValue},
         "amount-small-topbar");
 
@@ -144,6 +152,8 @@ TopBar::TopBar(PIVXGUI* _mainWindow, QWidget* parent) : PWidget(_mainWindow, par
     connect(ui->pushButtonSync, &ExpandableButton::Mouse_Pressed, [this]() { window->goToSettingsInfo(); });
     connect(ui->pushButtonConsole, &ExpandableButton::Mouse_Pressed, [this]() { window->goToDebugConsole(); });
     connect(ui->pushButtonConnection, &ExpandableButton::Mouse_Pressed, [this]() { window->showPeers(); });
+
+    //privacyUpdate();
 
     refreshStatus();
 }
@@ -394,6 +404,42 @@ void TopBar::onColdStakingClicked()
     Q_EMIT onShowHideColdStakingChanged(show);
 }
 
+/*
+void TopBar::privacyUpdate()
+{
+    if (fPrivacyMode) {
+        ui->pushButtonPrivacy->setButtonClassStyle("cssClass", "btn-check-privacy-inactive", true);
+        ui->pushButtonPrivacy->setButtonText(tr("Discreet"));
+    } else {
+        ui->pushButtonPrivacy->setButtonClassStyle("cssClass", "btn-check-privacy", true);
+        ui->pushButtonPrivacy->setButtonText(tr("All Visible"));
+    }
+
+    if(QWidget::window() != Q_NULLPTR) {
+        for (auto widget : QWidget::window()->findChildren<PrivateQLabel*>()) {
+            widget->setIsPrivate(fPrivacyMode);
+        }
+
+        auto dashboardList = QWidget::window()->findChildren<DashboardWidget*>();
+
+        if(dashboardList.size()) {
+            auto dashboard = dashboardList[0];
+            dashboard->setPrivacy(fPrivacyMode);
+        }
+    }
+}
+
+void TopBar::onBtnPrivacyClicked()
+{
+    fPrivacyMode = !fPrivacyMode;
+
+    QSettings settings;
+    settings.setValue("fPrivacyMode", fPrivacyMode);
+
+    privacyUpdate();
+}
+*/
+
 TopBar::~TopBar()
 {
     if (timerStakingIcon) {
@@ -435,6 +481,14 @@ void TopBar::updateStakingStatus()
 
     // Taking advantage of this timer to update Tor status if needed.
     updateTorIcon();
+
+    if(fStakingActive && fStakingStatus && pwalletMain->pStakerStatus->GetLastValue() > 100) {
+        const Consensus::Params& consensus = Params().GetConsensus();
+        CBlockIndex* pindexPrev = GetChainTip();
+        ui->labelWalletHashRateValue->setText(GetReadableHashRate((pwalletMain->pStakerStatus->GetLastValue() / 100) / consensus.TimeSlotLength(chainActive.Tip()->nHeight + 1)).c_str());
+    } else {
+        ui->labelWalletHashRateValue->setText("-- H/s");
+    }
 }
 
 void TopBar::setNumConnections(int count)
@@ -653,6 +707,7 @@ void TopBar::refreshMasternodeStatus()
             ui->labelNextCollateralBlocks->setText(tr("%1 Blocks").arg(p.first));
         }
     }
+        ui->labelNetworkHashRateValue->setText(GetReadableHashRate(GetNetworkHashPS()).c_str());
 }
 
 void TopBar::refreshStatus()
@@ -686,7 +741,7 @@ void TopBar::refreshStatus()
     updateStyle(ui->pushButtonLock);
 
     // Collateral
-    ui->labelCollateralPiv->setText(GUIUtil::formatBalance(CMasternode::GetMasternodeNodeCollateral(chainActive.Tip()->nHeight), nDisplayUnit));
+    ui->labelCollateralValue->setText(GUIUtil::formatBalance(CMasternode::GetMasternodeNodeCollateral(chainActive.Tip()->nHeight), nDisplayUnit));
 }
 
 void TopBar::updateDisplayUnit()
@@ -727,7 +782,7 @@ void TopBar::updateBalances(const interfaces::WalletBalances& newBalance)
     refreshMasternodeStatus();
 
     // Collateral
-    ui->labelCollateralPiv->setText(GUIUtil::formatBalance(CMasternode::GetMasternodeNodeCollateral(chainActive.Tip()->nHeight), nDisplayUnit));
+    ui->labelCollateralValue->setText(GUIUtil::formatBalance(CMasternode::GetMasternodeNodeCollateral(chainActive.Tip()->nHeight), nDisplayUnit));
 }
 
 void TopBar::resizeEvent(QResizeEvent* event)

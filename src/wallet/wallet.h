@@ -200,6 +200,7 @@ private:
     int64_t nTime{0};
     int nTries{0};
     int nCoins{0};
+    CAmount nValue{0};
 
 public:
     // Get
@@ -209,6 +210,8 @@ public:
     int GetLastCoins() const { return nCoins; }
     int GetLastTries() const { return nTries; }
     int64_t GetLastTime() const { return nTime; }
+    CAmount GetLastValue() const { return nValue; }
+
     // Set
     void SetLastCoins(const int coins) { nCoins = coins; }
     void SetLastTries(const int tries) { nTries = tries; }
