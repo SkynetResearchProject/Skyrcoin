@@ -861,7 +861,7 @@ It will start automatically as soon as the wallet has enough confirmations on an
     </message>
     <message>
         <source>About Skyrcoin</source>
-        <translation>关于Peony</translation>
+        <translation>关于Skyrcoin</translation>
     </message>
     <message>
         <source>Command-line options</source>
@@ -920,11 +920,11 @@ It will start automatically as soon as the wallet has enough confirmations on an
     </message>
     <message>
         <source>As this is the first time the program is launched, you can choose where Skyrcoin will store its data.</source>
-        <translation>由于这是该程序第一次启动，您可以选择存储Peony 数据的位置。</translation>
+        <translation>由于这是该程序第一次启动，您可以选择存储Skyrcoin 数据的位置。</translation>
     </message>
     <message>
         <source>Skyrcoin will download and store a copy of the SKYR block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>Peony将下载并存储SKYR区块链副本。 至少 %1 GB的数据将存储在此目录中，并且会随着时间的推移而增长。 钱包也将存储在此目录中。</translation>
+        <translation>Skyrcoin将下载并存储SKYR区块链副本。 至少 %1 GB的数据将存储在此目录中，并且会随着时间的推移而增长。 钱包也将存储在此目录中。</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1254,7 +1254,7 @@ this controller wallet (select the Masternode in the list and press "start").
 到剪贴板的远程服务器上。
 
 
-您只需将数据粘贴到peony.conf文件中
+您只需将数据粘贴到skyrcoin.conf文件中
 ，然后使用主节点启动它
 这个控制器钱包(在列表中选择主节点并按“开始”)。
 </translation>
@@ -1395,7 +1395,7 @@ Are you sure?</source>
     </message>
     <message>
         <source>Invalid URI, not starting with "skyrcoin" prefix</source>
-        <translation>无效的URI，不是以“ peony”前缀开头</translation>
+        <translation>无效的URI，不是以“ skyrcoin”前缀开头</translation>
     </message>
 </context>
 <context>
@@ -1785,7 +1785,7 @@ Address: %4
     </message>
     <message>
         <source>Cannot start skyrcoin: click-to-pay handler</source>
-        <translation>无法启动peony:点击支付处理程序</translation>
+        <translation>无法启动skyrcoin:点击支付处理程序</translation>
     </message>
     <message>
         <source>URI cannot be parsed! This can be caused by an invalid SKYR address or malformed URI parameters.</source>
@@ -1943,7 +1943,7 @@ Address: %4
     </message>
     <message>
         <source>Skyrcoin didn't yet exit safely...</source>
-        <translation>Peony心尚未安全退出……</translation>
+        <translation>Skyrcoin心尚未安全退出……</translation>
     </message>
     <message>
         <source>Contact</source>
@@ -3534,7 +3534,7 @@ SKYR使用了一个股权证明(PoS)一致系统算法，
     </message>
     <message>
         <source>Unable to open skyrcoin.conf with default application</source>
-        <translation>无法使用默认应用程序打开peony.conf</translation>
+        <translation>无法使用默认应用程序打开skyrcoin.conf</translation>
     </message>
     <message>
         <source>In:</source>
@@ -4603,7 +4603,7 @@ backup will be created.
         <source>Welcome to
 Skyrcoin Wallet</source>
         <translation>欢迎
-Peony心钱包</translation>
+Skyrcoin心钱包</translation>
     </message>
     <message>
         <source>SKYR is the world’s most innovative Proof of Stake blockchain based technology. Developed by a team of highly experienced developers and cryptographers.</source>
@@ -4654,7 +4654,7 @@ Peony心钱包</translation>
     </message>
     <message>
         <source>Cannot obtain a lock on data directory %s. Skyrcoin is probably already running.</source>
-        <translation>无法获取数据目录%s锁。Peony心可能已经在运行了。</translation>
+        <translation>无法获取数据目录%s锁。Skyrcoin心可能已经在运行了。</translation>
     </message>
     <message>
         <source>Change automatic finalized budget voting behavior. mode=auto: Vote for only exact finalized budget match to my generated budget. (string, default: auto)</source>
@@ -4814,7 +4814,7 @@ Peony心钱包</translation>
     </message>
     <message>
         <source>Unable to bind to %s on this computer. Skyrcoin is probably already running.</source>
-        <translation>无法绑定到此计算机上的%s。Peony心可能已经在运行了。</translation>
+        <translation>无法绑定到此计算机上的%s。Skyrcoin心可能已经在运行了。</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
@@ -4830,7 +4830,7 @@ Peony心钱包</translation>
     </message>
     <message>
         <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong Skyrcoin will not work properly.</source>
-        <translation>注意：请检查您的电脑的日期和时间是否正确！ 如果您的时间设置不正确，Peony将无法正常工作。</translation>
+        <translation>注意：请检查您的电脑的日期和时间是否正确！ 如果您的时间设置不正确，Skyrcoin将无法正常工作。</translation>
     </message>
     <message>
         <source>Warning: The network does not appear to fully agree! Some miners appear to be experiencing issues.</source>
@@ -5038,7 +5038,7 @@ Peony心钱包</translation>
     </message>
     <message>
         <source>Initialization sanity check failed. Skyrcoin is shutting down.</source>
-        <translation>初始化完整性检查失败。Peony心快要关闭了。</translation>
+        <translation>初始化完整性检查失败。Skyrcoin心快要关闭了。</translation>
     </message>
     <message>
         <source>Insufficient funds</source>
@@ -5326,7 +5326,7 @@ Peony心钱包</translation>
     </message>
     <message>
         <source>Please check that your computer's date and time are correct! If your clock is wrong Skyrcoin will not work properly.</source>
-        <translation>请检查您的电脑的日期和时间是否正确!如果你的时间错误，Peony将无法正常工作。</translation>
+        <translation>请检查您的电脑的日期和时间是否正确!如果你的时间错误，Skyrcoin将无法正常工作。</translation>
     </message>
     <message>
         <source>Specify location of debug log file: this can be an absolute path or a path relative to the data directory (default: %s)</source>
@@ -5630,7 +5630,7 @@ Peony心钱包</translation>
     </message>
     <message>
         <source>Wallet needed to be rewritten: restart Skyrcoin to complete</source>
-        <translation>钱包需要重写:重新启动Peony心完成</translation>
+        <translation>钱包需要重写:重新启动Skyrcoin心完成</translation>
     </message>
     <message>
         <source>Wallet options:</source>

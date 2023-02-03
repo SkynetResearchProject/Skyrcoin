@@ -1391,7 +1391,7 @@ Jesteś pewny?</translation>
     </message>
     <message>
         <source>Invalid URI, not starting with "skyrcoin" prefix</source>
-        <translation>Nieprawidłowy identyfikator URI, nie zaczynający się od prefiksu „peony”</translation>
+        <translation>Nieprawidłowy identyfikator URI, nie zaczynający się od prefiksu „skyrcoin”</translation>
     </message>
 </context>
 <context>

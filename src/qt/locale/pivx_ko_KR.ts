@@ -471,7 +471,7 @@ for staking</source>
     </message>
     <message>
         <source>Toggle lock state</source>
-        <translation>토글 잠금상태 </translation>
+        <translation>토글 잠금상태 </translation>
     </message>
     <message>
         <source>Received with label</source>
@@ -912,15 +912,15 @@ It will start automatically as soon as the wallet has enough confirmations on an
     </message>
     <message>
         <source>Welcome to Skyrcoin.</source>
-        <translation>Peony에 오신 것을 환영합니다.</translation>
+        <translation>Skyrcoin에 오신 것을 환영합니다.</translation>
     </message>
     <message>
         <source>As this is the first time the program is launched, you can choose where Skyrcoin will store its data.</source>
-        <translation>이 프로그램이 처음 실행되었으므로 Peony가 데이터를 저장할 위치를 선택할 수 있습니다.</translation>
+        <translation>이 프로그램이 처음 실행되었으므로 Skyrcoin가 데이터를 저장할 위치를 선택할 수 있습니다.</translation>
     </message>
     <message>
         <source>Skyrcoin will download and store a copy of the SKYR block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>Peony는 SKYR 블록체인을 다운로드하여 저장합니다. 최소 %1GB의 데이터가 디렉토리에 저장되며 시간이 지날수록 증가합니다. 또한 지갑도 해당 디렉토리에 저장됩니다.</translation>
+        <translation>Skyrcoin는 SKYR 블록체인을 다운로드하여 저장합니다. 최소 %1GB의 데이터가 디렉토리에 저장되며 시간이 지날수록 증가합니다. 또한 지갑도 해당 디렉토리에 저장됩니다.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1779,7 +1779,7 @@ Address: %4
     </message>
     <message>
         <source>Cannot start skyrcoin: click-to-pay handler</source>
-        <translation>peony을 시작할 수 없습니다: 결제하기 위한 클릭 처리</translation>
+        <translation>skyrcoin을 시작할 수 없습니다: 결제하기 위한 클릭 처리</translation>
     </message>
     <message>
         <source>URI cannot be parsed! This can be caused by an invalid SKYR address or malformed URI parameters.</source>
@@ -1925,7 +1925,7 @@ Address: %4
     </message>
     <message>
         <source>Skyrcoin didn't yet exit safely...</source>
-        <translation>Peony가 아직 안전하게 종료되지 않았습니다....</translation>
+        <translation>Skyrcoin가 아직 안전하게 종료되지 않았습니다....</translation>
     </message>
     <message>
         <source>Contact</source>
@@ -3812,7 +3812,7 @@ Are you sure?
     <name>ShutdownWindow</name>
     <message>
         <source>Skyrcoin is shutting down...</source>
-        <translation>Peony가 종료됩니다...</translation>
+        <translation>Skyrcoin가 종료됩니다...</translation>
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -4312,7 +4312,7 @@ Skyrcoin Wallet</translation>
     </message>
     <message>
         <source>Cannot obtain a lock on data directory %s. Skyrcoin is probably already running.</source>
-        <translation>        &lt;translation&gt;잠겨진 데이터 디렉토리 %s 를 가져올 수 없습니다. Peony는 이미 실행 중입니다.</translation>
+        <translation>        &lt;translation&gt;잠겨진 데이터 디렉토리 %s 를 가져올 수 없습니다. Skyrcoin는 이미 실행 중입니다.</translation>
     </message>
     <message>
         <source>Change automatic finalized budget voting behavior. mode=auto: Vote for only exact finalized budget match to my generated budget. (string, default: auto)</source>
@@ -4452,7 +4452,7 @@ Skyrcoin Wallet</translation>
     </message>
     <message>
         <source>Unable to bind to %s on this computer. Skyrcoin is probably already running.</source>
-        <translation>이 컴퓨터를 %s 로 지정하는것은 불가능합니다. Peony는 이미 실행 중입니다.</translation>
+        <translation>이 컴퓨터를 %s 로 지정하는것은 불가능합니다. Skyrcoin는 이미 실행 중입니다.</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
@@ -4672,7 +4672,7 @@ Skyrcoin Wallet</translation>
     </message>
     <message>
         <source>Initialization sanity check failed. Skyrcoin is shutting down.</source>
-        <translation>초기화 정확성 검사에 실패 했습니다. Peony가 종료됩니다.</translation>
+        <translation>초기화 정확성 검사에 실패 했습니다. Skyrcoin가 종료됩니다.</translation>
     </message>
     <message>
         <source>Insufficient funds</source>
