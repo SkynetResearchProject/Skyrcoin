@@ -43,11 +43,11 @@ const std::string CLIENT_NAME("Skyrcoin");
 #include "obj/build.h"
 #endif
 
-//! git will put "#define GIT_ARCHIVE 1" on the next line inside archives. 
+//! git will put "#define GIT_ARCHIVE 1" on the next line inside archives.
 #define GIT_ARCHIVE 1
 #ifdef GIT_ARCHIVE
-#define GIT_COMMIT_ID "b48cc7c49616164180770da49a956d3b64ce040e"
-#define GIT_COMMIT_DATE "Thu, 13 May 2021 17:02:14 +0100"
+#define GIT_COMMIT_ID "$Format:%H$"
+#define GIT_COMMIT_DATE "$Format:%cD$"
 #endif
 
 #define BUILD_DESC_WITH_SUFFIX(maj, min, rev, build, suffix) \
