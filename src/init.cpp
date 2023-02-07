@@ -1909,7 +1909,8 @@ bool AppInit2()
         pwalletMain->postInitProcess(threadGroup);
 
         // StakeMiner thread disabled by default on regtest
-        if (GetBoolArg("-staking", !Params().IsRegTestNet() && DEFAULT_STAKING)) {
+        fStaking = GetBoolArg("-staking", !Params().IsRegTestNet() && DEFAULT_STAKING);
+        if (fStaking) {
             threadGroup.create_thread(boost::bind(&ThreadStakeMinter));
         }
     }

@@ -32,6 +32,8 @@
 
 #define REQUEST_UPGRADE_WALLET 1
 
+extern  bool fStakingActive;
+
 TopBar::TopBar(PIVXGUI* _mainWindow, QWidget* parent) : PWidget(_mainWindow, parent),
                                                         ui(new Ui::TopBar)
 {
@@ -405,42 +407,6 @@ void TopBar::onColdStakingClicked()
     Q_EMIT onShowHideColdStakingChanged(show);
 }
 
-/*
-void TopBar::privacyUpdate()
-{
-    if (fPrivacyMode) {
-        ui->pushButtonPrivacy->setButtonClassStyle("cssClass", "btn-check-privacy-inactive", true);
-        ui->pushButtonPrivacy->setButtonText(tr("Discreet"));
-    } else {
-        ui->pushButtonPrivacy->setButtonClassStyle("cssClass", "btn-check-privacy", true);
-        ui->pushButtonPrivacy->setButtonText(tr("All Visible"));
-    }
-
-    if(QWidget::window() != Q_NULLPTR) {
-        for (auto widget : QWidget::window()->findChildren<PrivateQLabel*>()) {
-            widget->setIsPrivate(fPrivacyMode);
-        }
-
-        auto dashboardList = QWidget::window()->findChildren<DashboardWidget*>();
-
-        if(dashboardList.size()) {
-            auto dashboard = dashboardList[0];
-            dashboard->setPrivacy(fPrivacyMode);
-        }
-    }
-}
-
-void TopBar::onBtnPrivacyClicked()
-{
-    fPrivacyMode = !fPrivacyMode;
-
-    QSettings settings;
-    settings.setValue("fPrivacyMode", fPrivacyMode);
-
-    privacyUpdate();
-}
-*/
-
 TopBar::~TopBar()
 {
     if (timerStakingIcon) {
@@ -461,7 +427,7 @@ void TopBar::loadClientModel()
 
         timerStakingIcon = new QTimer(ui->pushButtonStack);
         connect(timerStakingIcon, &QTimer::timeout, this, &TopBar::updateStakingStatus);
-        timerStakingIcon->start(50000);
+        timerStakingIcon->start(1000);
         updateStakingStatus();
     }
 }
@@ -476,14 +442,15 @@ void TopBar::setStakingStatusActive(bool fActive)
 }
 void TopBar::updateStakingStatus()
 {
-    setStakingStatusActive(walletModel &&
-                           !walletModel->isWalletLocked() &&
-                           walletModel->isStakingStatusActive());
+    fStakingStatus = walletModel && !walletModel->isWalletLocked(true) &&
+                                     walletModel->isStakingStatusActive();
+
+    setStakingStatusActive(fStakingStatus);
 
     // Taking advantage of this timer to update Tor status if needed.
     updateTorIcon();
 
-    if(fStakingActive && fStakingStatus && pwalletMain->pStakerStatus->GetLastValue() > 100) {
+    if(fStakingStatus && pwalletMain->pStakerStatus->GetLastValue() > 100) {
         const Consensus::Params& consensus = Params().GetConsensus();
         CBlockIndex* pindexPrev = GetChainTip();
         ui->labelWalletHashRateValue->setText(GetReadableHashRate((pwalletMain->pStakerStatus->GetLastValue() / 100) / consensus.TimeSlotLength(chainActive.Tip()->nHeight + 1)).c_str());
@@ -743,6 +710,9 @@ void TopBar::refreshStatus()
 
     // Collateral
     ui->labelCollateralValue->setText(GUIUtil::formatBalance(CMasternode::GetMasternodeNodeCollateral(chainActive.Tip()->nHeight), nDisplayUnit));
+
+    if(!fStaking) ui->pushButtonStack->setVisible(false);
+    ui->widgetStaking->setVisible(fStaking);
 }
 
 void TopBar::updateDisplayUnit()
@@ -852,11 +822,8 @@ void TopBar::onError(QString error, int type)
 
 void TopBar::onStakingBtnClicked()
 {
-    //if(ask( //**debug
-    //    tr("Confirm your choice"),
-    //    tr("Do you really want to %1 staking?").arg(fStakingActive ? "DISABLE" : "ENABLE"))
-    //) {
-        if (!fStakingActive && walletModel && walletModel->isWalletLocked(true)) {
+        fStakingActive = walletModel->isStakingStatusActive();
+        if (walletModel && walletModel->isWalletLocked(true)) {
             openPassPhraseDialog(AskPassphraseDialog::Mode::UnlockAnonymize, AskPassphraseDialog::Context::Unlock_Full);
 
             if(!walletModel->isWalletLocked(true)) {
@@ -865,5 +832,5 @@ void TopBar::onStakingBtnClicked()
         } else {
             fStakingActive ^= true;
         }
-    //}
+        setStakingStatusActive(fStakingActive);
 }
