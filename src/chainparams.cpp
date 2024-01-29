@@ -260,7 +260,7 @@ public:
 
 	// v2 mainnet
 
-        genesis = CreateGenesisBlock(1643650028, 798999, 0x1e0ffff0, 1, 0 * COIN);   //
+        genesis = CreateGenesisBlock(1643650028, 798999, 0x1e0ffff0, 1, 0 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
 
         assert(consensus.hashGenesisBlock == uint256S("0x0000067136024464e0622d0ffdac12d98e14a36e78ad27323c3f5c2c98854a75"));
@@ -270,13 +270,13 @@ public:
         consensus.powLimit   = ~UINT256_ZERO >> 20;   
         consensus.posLimitV1 = ~UINT256_ZERO >> 24;
         consensus.posLimitV2 = ~UINT256_ZERO >> 20;
-        consensus.nBudgetCycleBlocks = 30 * 24 * 60;       // approx. 1 every 30 days
-        consensus.nBudgetFeeConfirmations = 7;   //8   // Number of confirmations for the finalization fee
+        consensus.nBudgetCycleBlocks = 30 * 24 * 60;    // approx. 1 every 30 days
+        consensus.nBudgetFeeConfirmations = 7;          // Number of confirmations for the finalization fee
         consensus.nCoinbaseMaturity = 100;
         consensus.nFutureTimeDriftPoW = 7200;
         consensus.nFutureTimeDriftPoS = 180;
-        consensus.nMasternodeCountDrift = 20;       // num of MN we allow the see-saw payments to be off by
-        consensus.nMaxMoneyOut = 10000000000 * COIN;
+        consensus.nMasternodeCountDrift = 20;           // num of MN we allow the see-saw payments to be off by
+        consensus.nMaxMoneyOut = 100000000 * COIN;      // total num
         consensus.nPoolMaxTransactions = 3;
         consensus.nProposalEstablishmentTime = 60 * 60 * 24;    // must be at least a day old to make it into a budget
         consensus.nStakeMinAge = 60 * 60; // 1h
@@ -313,8 +313,8 @@ public:
         consensus.ZC_MinMintConfirmations = 20;
         consensus.ZC_MinMintFee = 1 * CENT;
         consensus.ZC_MinStakeDepth = 200;
-        consensus.ZC_TimeStart = 1642996263;;        // (GMT): 2022-01-24.03:51:03 GMT
-        consensus.ZC_WrappedSerialsSupply = 0; //4131563 * COIN;   // zerocoin supply at height_last_ZC_WrappedSerials
+        consensus.ZC_TimeStart = 1642996263;        // (GMT): 2022-01-24.03:51:03 GMT
+        consensus.ZC_WrappedSerialsSupply = 0;      // zerocoin supply at height_last_ZC_WrappedSerials
 
         // Network upgrades
         consensus.vUpgrades[Consensus::BASE_NETWORK].nActivationHeight                  = Consensus::NetworkUpgrade::ALWAYS_ACTIVE;
@@ -351,26 +351,14 @@ public:
         pchMessageStart[3] = 0x52;
         nDefaultPort = PORT_MAINNET;
 
-	vFixedSeeds.clear();
+        vFixedSeeds.clear();
         vSeeds.clear();
 
-		/*
-        vSeeds.push_back(CDNSSeedData("seeder", "seeder.skyrcoin.net"));
-	vSeeds.push_back(CDNSSeedData("seed1", "seed1.skyrcoin.net"));
-        vSeeds.push_back(CDNSSeedData("seed2", "seed2.skyrcoin.net"));
-        vSeeds.push_back(CDNSSeedData("seed3", "seed3.skyrcoin.net"));
-        vSeeds.push_back(CDNSSeedData("seed4", "seed4.skyrcoin.net"));
-	vSeeds.push_back(CDNSSeedData("seed5", "seed5.skyrcoin.net"));
-	vSeeds.push_back(CDNSSeedData("seed6", "seed6.skyrcoin.net"));
-	vSeeds.push_back(CDNSSeedData("seed7", "seed7.skyrcoin.net"));
-	vSeeds.push_back(CDNSSeedData("seed8", "seed8.skyrcoin.net"));
-		*/
-		
-		// ???
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 25);  // byte 37h - префикс перед ripmd160 hash      //dlx = 25
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 28); // byte76h	 				    //dlx = 28
-	base58Prefixes[STAKING_ADDRESS] = std::vector<unsigned char>(1, 63);     // starting with 'S'
-        base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 153);  // byte 99h - префикс перед секретной экспонентой приватного ключа  // dlx = 153
+
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 25); // byte 37h - префикс перед ripmd160 hash
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 28); // byte76h
+        base58Prefixes[STAKING_ADDRESS] = std::vector<unsigned char>(1, 63);// starting with 'S'
+        base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 153);    // byte 99h - префикс перед секретной экспонентой приватного ключа
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x2D)(0x02)(0x31)(0x33).convert_to_container<std::vector<unsigned char> >();  // as is
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x02)(0x21)(0x25)(0x2B).convert_to_container<std::vector<unsigned char> >();
         // BIP44 coin type is from https://github.com/satoshilabs/slips/blob/master/slip-0044.md
@@ -480,7 +468,7 @@ public:
         assert(genesis.hashMerkleRoot == uint256S("0xcb69d3038562ace578527296cdedd1205a4dafd09ffefc30ecc96d3e4576d68e"));
 
         consensus.fPowAllowMinDifficultyBlocks = true;
-        consensus.powLimit   = ~UINT256_ZERO >> 20;   // skyrcoin starting difficulty is 1 / 2^12
+        consensus.powLimit   = ~UINT256_ZERO >> 20; // skyrcoin starting difficulty is 1 / 2^12
         consensus.posLimitV1 = ~UINT256_ZERO >> 24;
         consensus.posLimitV2 = ~UINT256_ZERO >> 20;
         consensus.nBudgetCycleBlocks = 144;         // approx 10 cycles per day
@@ -489,7 +477,7 @@ public:
         consensus.nFutureTimeDriftPoW = 7200;
         consensus.nFutureTimeDriftPoS = 180;
         consensus.nMasternodeCountDrift = 4;        // num of MN we allow the see-saw payments to be off by
-        consensus.nMaxMoneyOut = 10000000000 * COIN;
+        consensus.nMaxMoneyOut = 100000000 * COIN;  // total num
         consensus.nPoolMaxTransactions = 2;
         consensus.nProposalEstablishmentTime = 60 * 5;  // at least 5 min old to make it into a budget
         consensus.nStakeMinAge = 60 * 60;
@@ -568,23 +556,12 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
-        /*
-	vSeeds.push_back(CDNSSeedData("tseeder", "tseeder.skyrcoin.net"));
-	vSeeds.push_back(CDNSSeedData("tseed1", "tseed1.skyrcoin.net"));
-        vSeeds.push_back(CDNSSeedData("tseed2", "tseed2.skyrcoin.net"));
-        vSeeds.push_back(CDNSSeedData("tseed3", "tseed3.skyrcoin.net"));
-        vSeeds.push_back(CDNSSeedData("tseed4", "tseed4.skyrcoin.net"));
-	vSeeds.push_back(CDNSSeedData("tseed5", "tseed5.skyrcoin.net"));
-	vSeeds.push_back(CDNSSeedData("tseed6", "tseed6.skyrcoin.net"));
-	vSeeds.push_back(CDNSSeedData("tseed7", "tseed7.skyrcoin.net"));
-	vSeeds.push_back(CDNSSeedData("tseed8", "tseed8.skyrcoin.net"));
-	*/
 		
 		// Testnet  -ok
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 111); // Testnet skyrcoin addresses start with 'x' or 'y'			//=111
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 196);  // Testnet skyrcoin script addresses start with '8' or '9'	//=196
-	base58Prefixes[STAKING_ADDRESS] = std::vector<unsigned char>(1, 73);     // starting with 'W'        
-	base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 239);     // Testnet private keys start with '9' or 'c' (Bitcoin defaults) //= dlx 239
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 111);    // Testnet skyrcoin addresses start with 'x' or 'y'
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 196);    // Testnet skyrcoin script addresses start with '8' or '9'
+	    base58Prefixes[STAKING_ADDRESS] = std::vector<unsigned char>(1, 73);    // starting with 'W'        
+	    base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 239);        // Testnet private keys start with '9' or 'c' (Bitcoin defaults)
         // Testnet skyrcoin BIP32 pubkeys start with 'DRKV'
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x3a)(0x80)(0x61)(0xa0).convert_to_container<std::vector<unsigned char> >();  //as is
         // Testnet skyrcoin BIP32 prvkeys start with 'DRKP'
@@ -632,7 +609,7 @@ public:
 
 
         consensus.fPowAllowMinDifficultyBlocks = true;
-        consensus.powLimit   = ~UINT256_ZERO >> 20;   // skyrcoin starting difficulty is 1 / 2^12
+        consensus.powLimit   = ~UINT256_ZERO >> 20; // skyrcoin starting difficulty is 1 / 2^12
         consensus.posLimitV1 = ~UINT256_ZERO >> 24;
         consensus.posLimitV2 = ~UINT256_ZERO >> 20;
         consensus.nBudgetCycleBlocks = 144;         // approx 10 cycles per day
@@ -641,13 +618,13 @@ public:
         consensus.nFutureTimeDriftPoW = 7200;
         consensus.nFutureTimeDriftPoS = 180;
         consensus.nMasternodeCountDrift = 4;        // num of MN we allow the see-saw payments to be off by
-        consensus.nMaxMoneyOut = 300000001 * COIN; //43199500 * COIN;
-        consensus.nPoolMaxTransactions = 2;
+        consensus.nMaxMoneyOut = 100000000 * COIN;  // total num
+        consensus.nPoolMaxTransactions = 3;
         consensus.nProposalEstablishmentTime = 60 * 5;  // at least 5 min old to make it into a budget
         consensus.nStakeMinAge = 0;
         consensus.nStakeMinDepth = 2;
         consensus.nTargetTimespan = 40 * 60;
-        consensus.nTargetTimespanV2 = 30 * 60;
+        consensus.nTargetTimespanV2 = 600;
         consensus.nTargetSpacing = 1 * 60;
         consensus.nTimeSlotLength = 15;
 
@@ -660,12 +637,12 @@ public:
         consensus.nTime_RejectOldSporkKey = 0;
 
         // height based activations
-        consensus.height_last_ZC_AccumCheckpoint = 310;     // no checkpoints on regtest
-        consensus.height_last_ZC_WrappedSerials = -1;
-        consensus.height_start_InvalidUTXOsCheck = 999999999;
-        consensus.height_start_ZC_InvalidSerials = 999999999;
-        consensus.height_start_ZC_SerialRangeCheck = 300;
-        consensus.height_ZC_RecalcAccumulators = 999999999;
+        consensus.height_last_ZC_AccumCheckpoint    = DISABLED;     // no checkpoints on regtest
+        consensus.height_last_ZC_WrappedSerials     = DISABLED;
+        consensus.height_start_InvalidUTXOsCheck    = DISABLED;
+        consensus.height_start_ZC_InvalidSerials    = DISABLED;
+        consensus.height_start_ZC_SerialRangeCheck  = DISABLED;
+        consensus.height_ZC_RecalcAccumulators      = DISABLED;
 
         // Zerocoin-related params
         consensus.ZC_Modulus = "25195908475657893494027183240048398571429282126204032027777137836043662020707595556264018525880784"
@@ -683,21 +660,18 @@ public:
         consensus.ZC_WrappedSerialsSupply = 0;
 
         // Network upgrades
-        consensus.vUpgrades[Consensus::BASE_NETWORK].nActivationHeight =
-                Consensus::NetworkUpgrade::ALWAYS_ACTIVE;
-        consensus.vUpgrades[Consensus::UPGRADE_TESTDUMMY].nActivationHeight =
-                Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
-        consensus.vUpgrades[Consensus::UPGRADE_POS].nActivationHeight           = 251;
-        consensus.vUpgrades[Consensus::UPGRADE_POS_V2].nActivationHeight        = 251;
-        consensus.vUpgrades[Consensus::UPGRADE_ZC].nActivationHeight            = 300;
-        consensus.vUpgrades[Consensus::UPGRADE_ZC_V2].nActivationHeight         = 300;
-        consensus.vUpgrades[Consensus::UPGRADE_BIP65].nActivationHeight         =
-                Consensus::NetworkUpgrade::ALWAYS_ACTIVE;
-        consensus.vUpgrades[Consensus::UPGRADE_ZC_PUBLIC].nActivationHeight     = 400;
-        consensus.vUpgrades[Consensus::UPGRADE_V3_4].nActivationHeight          = 251;
-        consensus.vUpgrades[Consensus::UPGRADE_V4_0].nActivationHeight          =
-                Consensus::NetworkUpgrade::ALWAYS_ACTIVE;
-        consensus.vUpgrades[Consensus::UPGRADE_V5_DUMMY].nActivationHeight       = 300;
+        consensus.vUpgrades[Consensus::BASE_NETWORK].nActivationHeight                  = Consensus::NetworkUpgrade::ALWAYS_ACTIVE;
+        consensus.vUpgrades[Consensus::UPGRADE_TESTDUMMY].nActivationHeight             = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
+        consensus.vUpgrades[Consensus::UPGRADE_POS].nActivationHeight                   = 251;
+        consensus.vUpgrades[Consensus::UPGRADE_POS_V2].nActivationHeight                = 1441;
+        consensus.vUpgrades[Consensus::UPGRADE_ZC].nActivationHeight                    = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
+        consensus.vUpgrades[Consensus::UPGRADE_ZC_V2].nActivationHeight                 = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
+        consensus.vUpgrades[Consensus::UPGRADE_BIP65].nActivationHeight                 = 1441;
+        consensus.vUpgrades[Consensus::UPGRADE_ZC_PUBLIC].nActivationHeight             = Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
+        consensus.vUpgrades[Consensus::UPGRADE_V3_4].nActivationHeight                  = 1541;
+        consensus.vUpgrades[Consensus::UPGRADE_V4_0].nActivationHeight                  = 1641;
+        consensus.vUpgrades[Consensus::UPGRADE_V5_DUMMY].nActivationHeight              = 1741;
+        consensus.vUpgrades[Consensus::UPGRADE_STAKE_MIN_DEPTH_V2].nActivationHeight    = 5001;
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
