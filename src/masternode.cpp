@@ -361,23 +361,23 @@ CAmount CMasternode::GetBlockValue(int nHeight)
         nSubsidy = 100 * COIN;
     } else if (nHeight > 600000 && nHeight < 800001) {
         nSubsidy = 0.5 * COIN;    
-    } else if (nHeight > 800000) {
+    } else if (nHeight > 800000 && nHeight < 1000000) {
         nSubsidy = 0.5 * COIN;
-    } else if (nHeight > 1000000) {
+    } else if (nHeight >= 1000000 && nHeight < 2000000) {
         nSubsidy = 10 * COIN;
-    } else if (nHeight > 2000000) {
+    } else if (nHeight >= 2000000 && nHeight < 4000000) {
         nSubsidy = 5 * COIN;
-    } else if (nHeight > 4000000) {
+    } else if (nHeight >= 4000000 && nHeight < 6000000) {
         nSubsidy = 2.5 * COIN;
-    } else if (nHeight > 6000000) {
+    } else if (nHeight >= 6000000 && nHeight < 8000000) {
         nSubsidy = 1.25 * COIN;
-    } else if (nHeight > 8000000) {
+    } else if (nHeight >= 8000000 && nHeight < 10000000) {
         nSubsidy = 0.63 * COIN;
-    } else if (nHeight > 10000000) {
+    } else if (nHeight >= 10000000 && nHeight < 12000000) {
         nSubsidy = 0.32 * COIN;
-    } else if (nHeight > 12000000) {
+    } else if (nHeight >= 12000000 && nHeight < 14000000) {
         nSubsidy = 0.16 * COIN;
-    } else if (nHeight > 14000000) {
+    } else if (nHeight >= 14000000) {
         nSubsidy = 0.1 * COIN;
     }
 
