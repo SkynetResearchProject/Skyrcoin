@@ -355,6 +355,7 @@ AC_DEFUN([_BITCOIN_QT_FIND_STATIC_PLUGINS],[
        if test "x$TARGET_OS" = xlinux; then
          PKG_CHECK_MODULES([X11XCB], [x11-xcb], [QT_LIBS="$X11XCB_LIBS $QT_LIBS"])
          PKG_CHECK_MODULES([QTXCBQPA], [Qt5XcbQpa], [QT_LIBS="$QTXCBQPA_LIBS $QT_LIBS"])
+         QT_LIBS="$QT_LIBS  -lexpat -lXau -lXdmcp"
        elif test "x$TARGET_OS" = xdarwin; then
          PKG_CHECK_MODULES([QTCLIPBOARD], [Qt5ClipboardSupport], [QT_LIBS="-lQt5ClipboardSupport $QT_LIBS"])
          PKG_CHECK_MODULES([QTGRAPHICS], [Qt5GraphicsSupport], [QT_LIBS="-lQt5GraphicsSupport $QT_LIBS"])
@@ -385,6 +386,7 @@ AC_DEFUN([_BITCOIN_QT_FIND_STATIC_PLUGINS],[
      fi
    fi
 ])
+
 
 dnl Internal. Find Qt libraries using pkg-config.
 dnl Outputs: All necessary QT_* variables are set.
