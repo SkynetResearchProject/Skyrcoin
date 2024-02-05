@@ -113,7 +113,7 @@ TopBar::TopBar(PIVXGUI* _mainWindow, QWidget* parent) : PWidget(_mainWindow, par
     ui->pushButtonConsole->setButtonText(tr("Debug Console"));
     ui->pushButtonConsole->setChecked(false);
 
-    ui->pushButtonSync->setButtonClassStyle("cssClass", "btn-check-sync");
+    ui->pushButtonSync->setButtonClassStyle("cssClass", "btn-check-sync-inactive");
     ui->pushButtonSync->setButtonText(tr("%54 Synchronizing.."));
 
     ui->pushButtonLock->setButtonClassStyle("cssClass", "btn-check-lock");
@@ -509,6 +509,7 @@ void TopBar::setNumBlocks(int count)
         if (masternodeSync.IsSynced()) {
             // Node synced
             ui->pushButtonSync->setButtonText(tr("Synchronized - Block: %1").arg(QString::number(count)));
+            ui->pushButtonSync->setButtonClassStyle("cssClass", "btn-check-sync", true);
             progressBar->setRange(0, 100);
             progressBar->setValue(100);
             refreshStatus();

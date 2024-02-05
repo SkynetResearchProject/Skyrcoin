@@ -537,7 +537,7 @@ QPushButton[cssClass="btn-check-faq"]:checked {
 }
 
 QPushButton[cssClass="btn-check-sync"] {
-    qproperty-icon: url("://ic-check-sync");
+    qproperty-icon: url("://ic-transaction-mint");
     qproperty-iconSize: 24px 24px;
     background-color:#191e0b;
     color:#ffffff;
@@ -547,7 +547,7 @@ QPushButton[cssClass="btn-check-sync"] {
 }
 
 QPushButton[cssClass="btn-check-sync-inactive"] {
-    qproperty-icon: url("://ic-check-sync-off") ;
+    qproperty-icon: url("://ic-check-sync") ;
     qproperty-iconSize: 24px 24px;
     background-color:#191e0b;
     color:#ffffff;
