@@ -27,6 +27,10 @@ Exsample:
 # Note
 
 libraries were downloaded from dib-files:
-https://packages.debian.org/ru/sid/amd64/libx11-xcb-dev/download
+
+https://packages.ubuntu.com/focal/amd64/libx11-xcb-dev/download
+https://packages.ubuntu.com/focal/amd64/libxcb1-dev/download
+https://packages.ubuntu.com/focal/amd64/libxdmcp-dev/download
+
 https://packages.debian.org/ru/buster/amd64/libx11-dev/download
-...
+
