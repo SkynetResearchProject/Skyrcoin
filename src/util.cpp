@@ -95,7 +95,7 @@ const char * const PIVX_MASTERNODE_CONF_FILENAME = "masternode.conf";
 // Masternode
 bool fMasterNode = false;
 bool fStaking = false;
-bool fStakingActive = false;
+bool fStakingActive = true;
 bool fStakingStatus = false;
 //bool fPrivacyMode = false;
 std::string strMasterNodePrivKey = "";

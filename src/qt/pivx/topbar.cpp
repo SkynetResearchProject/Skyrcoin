@@ -266,7 +266,7 @@ void TopBar::lockDropdownClicked(const StateClicked& state)
             ui->pushButtonLock->setButtonClassStyle("cssClass", "btn-check-status-lock", true);
             // Directly update the staking status icon when the wallet is manually locked here
             // so the feedback is instant (no need to wait for the polling timeout)
-            setStakingStatusActive(false);
+            setStakingStatusActive(fStakingActive);
             break;
         }
         case 1: {
