@@ -4,9 +4,9 @@
 #define MyAppName "Skyrcoin Core"
 #define MyAppVersion "2.0.0.5"
 #define MyAppPublisher "2021 Skyrcoin Core Developers"
-#define MyAppURL "https://skyrcoin.net"
+#define MyAppURL "https://skynet-coin.com"
 #define MyAppExeName "skyrcoin-qt.exe"
-#define MyAppExtraData "---https://explorer.decenomy.net/bootstraps/SKYR/bootstrap.zip"
+#define MyAppExtraData "https://github.com/SkynetResearchProject/Skyrcoin/releases/download/v2.0.1.0/bootstrap-2023.02.18.zip"
 
 #include ReadReg(HKLM, 'Software\WOW6432Node\Mitrich Software\Inno Download Plugin', 'InstallDir') + '\idp.iss'
 
@@ -50,7 +50,7 @@ Name: "custom"; Description: "Custom installation"; Flags: iscustom
 
 [Components]
 Name: app;  Description: "{#MyAppName} {#MyAppVersion}";  Types: full compact custom; Flags: fixed
-Name: bootstrap; Description: "Bootstrap blockchain files";  Types: full; ExtraDiskSpaceRequired: 104857600;
+Name: bootstrap; Description: "Bootstrap blockchain files";  Types: full; ExtraDiskSpaceRequired: 377414707;
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"

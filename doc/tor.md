@@ -47,11 +47,11 @@ versions of Tor see [Section 3](#3-automatically-listen-on-tor).*
 
 	HiddenServiceDir /var/lib/tor/pivx-service/
 	HiddenServiceVersion 2
-	HiddenServicePort 15888 127.0.0.1:15888
+        HiddenServicePort 16888 127.0.0.1:16888
 	HiddenServicePort 61473 127.0.0.1:61473
 
 The directory can be different of course, but (both) port numbers should be equal to
-your pivxd's P2P listen port (15888 by default).
+your pivxd's P2P listen port (16888 by default).
 
 	-externalip=X   You can tell pivx about its publicly reachable address using
 	                this option, and this can be a v2 .onion address (v3 .onion
