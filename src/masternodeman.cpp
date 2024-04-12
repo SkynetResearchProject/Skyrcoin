@@ -214,7 +214,8 @@ bool CMasternodeMan::Add(CMasternode& mn)
         return false;
 
     CMasternode* pmn = Find(mn.vin);
-    if (pmn == NULL) {
+    CMasternode* pmnByAddr = Find(mn.addr);
+    if (pmn == NULL && (sporkManager.IsSporkActive(SPORK_107_ALLOW_DUPLICATE_MN_IPS) || pmnByAddr == NULL)) {
         LogPrint(BCLog::MASTERNODE, "CMasternodeMan: Adding new Masternode %s - count %i now\n", mn.vin.prevout.ToStringShort(), size() + 1);
         vMasternodes.push_back(mn);
         return true;
@@ -473,6 +474,17 @@ CMasternode* CMasternodeMan::Find(const CPubKey& pubKeyMasternode)
 
     for (CMasternode& mn : vMasternodes) {
         if (mn.pubKeyMasternode == pubKeyMasternode)
+            return &mn;
+    }
+    return NULL;
+}
+
+CMasternode* CMasternodeMan::Find(const CService &addr)
+{
+    LOCK(cs);
+
+    for (CMasternode& mn : vMasternodes) {
+        if (mn.addr.ToStringIP() == addr.ToStringIP())
             return &mn;
     }
     return NULL;
