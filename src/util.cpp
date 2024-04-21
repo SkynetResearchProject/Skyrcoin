@@ -89,7 +89,7 @@
 const char * const PIVX_CONF_FILENAME = "skyrcoin.conf";
 const char * const PIVX_PID_FILENAME = "skyrcoin.pid";
 const char * const PIVX_MASTERNODE_CONF_FILENAME = "masternode.conf";
-//const char * const PIVX_ACTIVE_MASTERNODE_CONF_FILENAME = "activemasternode.conf";
+const char * const PIVX_ACTIVE_MASTERNODE_CONF_FILENAME = "activemasternode.conf";
 
 // skyrcoin only features
 // Masternode
@@ -97,9 +97,8 @@ bool fMasterNode = false;
 bool fStaking = false;
 bool fStakingActive = true;
 bool fStakingStatus = false;
-//bool fPrivacyMode = false;
-std::string strMasterNodePrivKey = "";
-std::string strMasterNodeAddr = "";
+bool fPrivacyMode = false;
+
 bool fLiteMode = false;
 
 /** Spork enforcement enabled time */
@@ -426,11 +425,11 @@ fs::path GetMasternodeConfigFile()
     return AbsPathForConfigVal(pathConfigFile);
 }
 
-//fs::path GetActiveMasternodeConfigFile()
-//{
-//    fs::path pathConfigFile(GetArg("-activemnconf", PIVX_ACTIVE_MASTERNODE_CONF_FILENAME));
-//    return AbsPathForConfigVal(pathConfigFile);
-//}
+fs::path GetActiveMasternodeConfigFile()
+{
+    fs::path pathConfigFile(GetArg("-activemnconf", PIVX_ACTIVE_MASTERNODE_CONF_FILENAME));
+    return AbsPathForConfigVal(pathConfigFile);
+}
 
 void ReadConfigFile(std::map<std::string, std::string>& mapSettingsRet,
     std::map<std::string, std::vector<std::string> >& mapMultiSettingsRet)

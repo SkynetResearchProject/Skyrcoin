@@ -48,7 +48,6 @@ extern bool fStakingStatus;
 extern bool fLiteMode;
 //extern bool fPrivacyMode;
 extern int64_t enforceMasternodePaymentsTime;
-extern std::string strMasterNodeAddr;
 extern int keysLoaded;
 extern bool fSucessfullyLoaded;
 extern std::string strBudgetMode;
@@ -85,7 +84,7 @@ const fs::path &ZC_GetParamsDir();
 void ClearDatadirCache();
 fs::path GetConfigFile();
 fs::path GetMasternodeConfigFile();
-//fs::path GetActiveMasternodeConfigFile();
+fs::path GetActiveMasternodeConfigFile();
 #ifndef WIN32
 fs::path GetPidFile();
 void CreatePidFile(const fs::path& path, pid_t pid);
