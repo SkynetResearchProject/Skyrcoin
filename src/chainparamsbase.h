@@ -9,6 +9,7 @@
 
 #define RPCPORT_MAINNET 16890
 #define RPCPORT_TESTNET 26890
+#define RPCPORT_REGTEST 27890
 
 #include <string>
 #include <vector>
