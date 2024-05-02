@@ -941,41 +941,6 @@ void InitLogging()
     LogPrintf("Skyrcoin version %s (%s)\n", version_string, CLIENT_DATE);
 }
 
-bool AppInitActiveMasternode(std::string strAlias, std::string strMasterNodePrivKey)
-{
-    if (strAlias.empty()) {
-        return UIError(_("activemasternode alias cannot be empty"));
-    }
-
-    CActiveMasternode activeMasternode;
-
-    activeMasternode.strAlias = strAlias;
-
-    activeMasternode.strMasterNodePrivKey = strMasterNodePrivKey;
-
-    std::string errorMessage;
-
-    CKey key;
-    CPubKey pubkey;
-
-    if (!CMessageSigner::GetKeysFromSecret(activeMasternode.strMasterNodePrivKey, key, pubkey)) {
-        return UIError(_("Invalid masternodeprivkey. Please see documenation."));
-    }
-
-    activeMasternode.pubKeyMasternode = pubkey;
-
-    amnodeman.Add(activeMasternode);
-
-    return true;
-}
-
-bool AppInitActiveMasternode(CActiveMasternodeConfig::CActiveMasternodeEntry activeMasternodeEntry)
-{
-    return AppInitActiveMasternode(
-        activeMasternodeEntry.strAlias,
-        activeMasternodeEntry.strMasterNodePrivKey
-    );
-}
 
 /** Initialize Skyrcoin.
  *  @pre Parameters should be parsed and config file should be read.
@@ -1829,21 +1794,18 @@ bool AppInit2()
 
     if (fMasterNode) {
         LogPrintf("IS MASTER NODE\n");
-         //legacy
-         if(!GetArg("-masternodeprivkey", "").empty())
-         {
-             if(!AppInitActiveMasternode("legacy", GetArg("-masternodeprivkey", ""))) return false;
-         } else {
-             // multinode
-             std::string strErr;
-             if (!activeMasternodeConfig.read(strErr)) {
-                 return UIError(strprintf(_("Error reading active masternode configuration file: %s"), strErr));
-            }
+
+        std::string strErr;
+        if (!amnodeman.Load(strErr)) {
+            return UIError(strprintf(_("Error reading active masternode configuration file: %s"), strErr));
         }
 
-            for(auto& ame : activeMasternodeConfig.getEntries()) {
-                if(!AppInitActiveMasternode(ame)) return false;
+        // legacy
+        if (amnodeman.Count() == 0 && !GetArg("-masternodeprivkey", "").empty()) {
+            if (!amnodeman.Add("legacy", GetArg("-masternodeprivkey", ""), strErr)) {
+                return UIError(strprintf(_("Error reading masternodeprivkey: %s"), strErr));
             }
+        }
     }
 
     //get the mode of budget voting for this masternode
