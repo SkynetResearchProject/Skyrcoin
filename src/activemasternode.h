@@ -24,8 +24,6 @@
 class CActiveMasternode
 {
 private:
-    /// Ping Masternode
-    bool SendMasternodePing(std::string& errorMessage);
 
     int status;
     std::string notCapableReason;
@@ -58,6 +56,9 @@ public:
 
     /// Enable cold wallet mode (run a Masternode with no funds)
     bool EnableHotColdMasterNode(CTxIn& vin, CService& addr);
+
+    /// Ping Masternode
+    bool SendMasternodePing(std::string& errorMessage);
 };
 
 #endif //ACTIVEMASTERNODE_H
