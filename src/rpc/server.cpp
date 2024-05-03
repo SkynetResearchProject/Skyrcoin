@@ -371,6 +371,7 @@ static const CRPCCommand vRPCCommands[] =
         {"skyrcoin", "createmasternodekey", &createmasternodekey, true },
         {"skyrcoin", "getmasternodeoutputs", &getmasternodeoutputs, true },
         {"skyrcoin", "listmasternodeconf", &listmasternodeconf, true },
+        {"skyrcoin", "getactivemasternodecount", &getactivemasternodecount, true },
         {"skyrcoin", "getmasternodestatus", &getmasternodestatus, true },
         {"skyrcoin", "getmasternodewinners", &getmasternodewinners, true },
         {"skyrcoin", "getmasternodescores", &getmasternodescores, true },
