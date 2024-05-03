@@ -23,6 +23,9 @@ void CActiveMasternodeConfig::add(std::string strAlias, std::string strMasterNod
 
 bool CActiveMasternodeConfig::Load(std::string& strErr)
 {
+    auto backup = vEntries;
+    vEntries.clear();
+
     int linenumber = 1;
     fs::path pathActiveMasternodeConfigFile = GetActiveMasternodeConfigFile();
     fs::ifstream streamConfig(pathActiveMasternodeConfigFile);
@@ -60,6 +63,7 @@ bool CActiveMasternodeConfig::Load(std::string& strErr)
                 strErr = _("Could not parse activemasternode.conf") + "\n" +
                          strprintf(_("Line: %d"), linenumber) + "\n\"" + line + "\"";
                 streamConfig.close();
+                vEntries = backup;
                 return false;
             }
         }
@@ -67,6 +71,7 @@ bool CActiveMasternodeConfig::Load(std::string& strErr)
         if (strAlias.empty()) {
             strErr = _("alias cannot be empty in activemasternode.conf");
             streamConfig.close();
+            vEntries = backup;
             return false;
         }
 
