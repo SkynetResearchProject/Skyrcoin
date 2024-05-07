@@ -1651,6 +1651,9 @@ bool AppInit2()
                                              "Only rebuild the block database if you are sure that your computer's date and time are correct");
                             break;
                         }
+
+                        // Clear the banned adresses to aid the recovery of a possible fork
+                        g_connman->ClearBanned();
                     }
 
                     // Zerocoin must check at level 4
