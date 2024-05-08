@@ -58,6 +58,7 @@
 #include <boost/foreach.hpp>
 #include <atomic>
 #include <queue>
+#include <regex>
 
 
 
@@ -4406,18 +4407,51 @@ bool CVerifyDB::VerifyDB(CCoinsView* coinsview, int nCheckLevel, int nCheckDepth
     return true;
 }
 
-bool RewindBlockIndex(int blocksToRollBack)
+bool RewindBlockIndex(std::string param)
 {
     LOCK(cs_main);
 
-    CValidationState state;
     int nHeight = chainActive.Height();
+    int targetHeight = nHeight;
+    int blocksToRollBack = 0;
+    if (param.size() == 0) {
+        const CBlockIndex* prevCheckPoint;
+        prevCheckPoint = GetLastCheckpoint();
+        const int checkPointHeight = prevCheckPoint ? prevCheckPoint->nHeight : 0;
+        targetHeight = checkPointHeight;
+    } else {
+        // Match a hex number that is 64 digits long.
+        if (std::regex_match(param, std::regex("^[0-9a-fA-F]{64}$"))) {
+            const uint256 hash(uint256S(param));
+            if (!IsBlockHashInChain(hash)) {
+                throw std::runtime_error("Block not found. Unable to rewind the blockchain to the given block.\n");
+                return false;
+            }
 
-    if (blocksToRollBack > nHeight) {
+            CBlockIndex* block;
+            block = LookupBlockIndex(hash);
+
+            targetHeight = block->nHeight;
+        } else if (std::regex_match(param, std::regex("^[0-9]+$"))) {
+            blocksToRollBack = stoi(param);
+            targetHeight = nHeight - blocksToRollBack;
+            if (nHeight < blocksToRollBack || blocksToRollBack < 1) {
+                throw std::runtime_error("Invalid value. Unable to rewind the blockchain by the given number of blocks.\n");
+                return false;
+            }
+        } else {
+            throw std::runtime_error("Incorrect parameter format. Enter a block hash as a 64 char hex string or a decimal number.\n");
+            return false;
+        }
+    }
+
+    CValidationState state;
+
+    if (targetHeight > nHeight) {
         return false;
     }
 
-    int targetHeight = nHeight - blocksToRollBack;
+    blocksToRollBack = nHeight - targetHeight;
 
     double blocksRolledBack = 0;
     // Iterate to start removing blocks
