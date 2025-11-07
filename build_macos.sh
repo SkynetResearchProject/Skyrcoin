@@ -8,10 +8,10 @@ fi
 
 # Clone code from official Github repository
     rm -rf skyrcoin
-    git clone https://github.com/SkyrcoinTeam/skyrcoin
+    git clone https://github.com/SkynetResearchProject/Skyrcoin.git
 
 # Entering directory
-    cd skyrcoin
+    cd Skyrcoin
 
 # Compile dependencies
     cd depends
@@ -31,6 +31,6 @@ fi
     cd ..
 
 # Create zip file of binaries
-    cp skyrcoin/src/skyrcoind skyrcoin/src/skyrcoin-cli skyrcoin/src/skyrcoin-tx skyrcoin/src/qt/skyrcoin-qt skyrcoin/skyrcoin-Core.dmg .
+    cp Skyrcoin/src/skyrcoind Skyrcoin/src/skyrcoin-cli Skyrcoin/src/skyrcoin-tx Skyrcoin/src/qt/skyrcoin-qt Skyrcoin/skyrcoin-Core.dmg .
     zip SKYR-MacOS.zip skyrcoind skyrcoin-cli skyrcoin-tx skyrcoin-qt skyrcoin-Core.dmg
     rm -f skyrcoind skyrcoin-cli skyrcoin-tx skyrcoin-qt skyrcoin-Core.dmg

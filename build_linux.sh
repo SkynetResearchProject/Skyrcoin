@@ -8,14 +8,14 @@ fi
 
 # Upgrade the system and install required dependencies
 	sudo apt update
-	sudo apt install git zip unzip build-essential libtool bsdmainutils autotools-dev autoconf pkg-config automake python3 libqt5svg5-dev -y
+	sudo apt install git zip unzip build-essential libtool bsdmainutils autotools-dev autoconf pkg-config automake python3 libqt5svg5-dev libxdmcp-dev -y
 
 # Clone code from official Github repository
-	rm -rf skyrcoin
-	git clone https://github.com/SkyrcoinTeam/skyrcoin
+	rm -rf Skyrcoin
+	git clone https://github.com/SkynetResearchProject/Skyrcoin.git
 
 # Entering directory
-	cd skyrcoin
+	cd Skyrcoin
 
 # Compile dependencies
 	cd depends
@@ -29,6 +29,6 @@ fi
 	cd ..
 
 # Create zip file of binaries
-	cp skyrcoin/src/skyrcoind skyrcoin/src/skyrcoin-cli skyrcoin/src/skyrcoin-tx skyrcoin/src/qt/skyrcoin-qt .
+	cp Skyrcoin/src/skyrcoind Skyrcoin/src/skyrcoin-cli Skyrcoin/src/skyrcoin-tx Skyrcoin/src/qt/skyrcoin-qt .
 	zip SKYR-$(git describe --abbrev=0 --tags | sed s/v//)-Linux.zip skyrcoind skyrcoin-cli skyrcoin-tx skyrcoin-qt
 	rm -f skyrcoind skyrcoin-cli skyrcoin-tx skyrcoin-qt

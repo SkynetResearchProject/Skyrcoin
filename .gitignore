@@ -1,10 +1,8 @@
-.gitignore
+#.gitignore
 *.sublime-project
 *.sublime-workspace
 todo.txt
 reset-files.bash
-
-__build_windows.txt
 
 *.tar.gz
 
