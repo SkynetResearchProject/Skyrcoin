@@ -193,6 +193,7 @@ extern UniValue DoZpivSpend(const CAmount nAmount, std::vector<CZerocoinMint>& v
 
 extern UniValue getconnectioncount(const JSONRPCRequest& request); // in rpc/net.cpp
 extern UniValue getpeerinfo(const JSONRPCRequest& request);
+extern UniValue getnodeblockcount(const JSONRPCRequest& request); // in rpc/net.cpp
 extern UniValue ping(const JSONRPCRequest& request);
 extern UniValue addnode(const JSONRPCRequest& request);
 extern UniValue disconnectnode(const JSONRPCRequest& request);

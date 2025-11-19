@@ -21,6 +21,56 @@
 
 #include <univalue.h>
 
+UniValue getnodeblockcount(const JSONRPCRequest& request)
+{
+    std::string strNode;
+    if (request.params.size() == 1)
+        strNode = request.params[0].get_str();
+    if (request.fHelp || request.params.size() != 1)
+        throw std::runtime_error(
+            "getnodeblockcount \"node\"\n"
+            "\nReturns the number of blocks in the longest block chain from specified node.\n"
+
+            "\nArguments:\n"
+            "1. \"node\"     (string, required) The node (see getpeerinfo for nodes)\n"
+
+            "\nResult:\n"
+            "n    (numeric) The current block count\n"
+
+            "\nExamples:\n" +
+            HelpExampleCli("getnodeblockcount", "\"150.241.115.196:16888\"") + HelpExampleRpc("getblockcount", "\"150.241.115.196\""));
+
+    if(!g_connman)
+        throw JSONRPCError(RPC_CLIENT_P2P_DISABLED, "Error: Peer-to-peer functionality missing or disabled");
+
+    bool fAdd;
+    fAdd = g_connman->AddNode(strNode);
+    // If you have a limit on the number of peers, then delete the node.
+
+    std::vector<CNodeStats> vstats;
+    g_connman->GetNodeStats(vstats);
+
+    std::string hostOut, nodeaddr;
+    int portOut = -1;
+    SplitHostPort(strNode, portOut, nodeaddr);
+    //std::printf("nodeaddr= %s\n", nodeaddr.c_str());
+	int nHeight=-1;
+	for (const CNodeStats& stats : vstats) {
+        CNodeStateStats statestats;
+		SplitHostPort(stats.addrName, portOut, hostOut);
+		//std::printf("hostOut= %s\n", hostOut.c_str());
+		if (nodeaddr == hostOut){
+			bool fStateStats = GetNodeStateStats(stats.nodeid, statestats);
+			if (fStateStats) {
+				nHeight = statestats.nSyncHeight;
+			}
+			break;
+		}
+	}
+
+    return nHeight;
+};
+
 
 UniValue getconnectioncount(const JSONRPCRequest& request)
 {
