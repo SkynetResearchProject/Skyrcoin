@@ -677,6 +677,40 @@ UniValue logging(const JSONRPCRequest& request)
     return result;
 }
 
+UniValue gethexaddress(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() != 1)
+        throw std::runtime_error(
+            "gethexaddress \"SKYRaddress\"\n"
+            "\nConverts a base58 pubkeyhash address to a hex address for use in smart contracts.\n"
+
+            "\nArguments:\n"
+            "1. \"SKYRaddress\"     (string, required) The SKYR base58 address to convert\n"
+
+            "\nResult:\n"
+	    "\"hexaddress\" : \"hex\", (string) The raw hex pubkeyhash address for use in smart contracts\n"
+
+            "\nExamples:\n" +
+            HelpExampleCli("gethexaddress", "\"BQahFGZkZDeDbPEd5zhH9f2uP2YPUyzykz\""));
+
+#ifdef ENABLE_WALLET
+    LOCK2(cs_main, pwalletMain ? &pwalletMain->cs_wallet : nullptr);
+#else
+    LOCK(cs_main);
+#endif
+
+    CTxDestination dest = DecodeDestination(request.params[0].get_str());
+    bool isValid = IsValidDestination(dest);
+
+    if (!isValid) {
+       throw std::runtime_error("Invalid SKYR address.");
+    } else {
+           std::vector<unsigned char> vch;
+           bool rc58 = DecodeBase58Check(request.params[0].get_str(), vch);
+           return HexStr(vch.begin()+1, vch.end());
+    }
+}
+
 #ifdef ENABLE_WALLET
 UniValue getstakingstatus(const JSONRPCRequest& request)
 {
