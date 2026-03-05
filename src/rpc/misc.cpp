@@ -747,6 +747,48 @@ UniValue getfromhexaddress(const JSONRPCRequest& request)
 	return res;
 }
 
+UniValue decodebase58(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() != 1)
+        throw std::runtime_error(
+            "decodebase58 \"SKYRaddress\"\n"
+            "\nConverts a base58 pubkeyhash address to a hex ripemd160 hash. The address is not checked for validity.\n"
+
+            "\nArguments:\n"
+            "1. \"SKYRaddress\"     (string, required) The SKYR base58 address to convert\n"
+
+            "\nResult:\n"
+	    "{\n"
+            "\"version\"       : \"hex\", (string) The byte of base58 address version\n" 
+            "\"ripemd160hash\" : \"hex\", (string) The ripemd160 hash (raw hex pubkeyhash address)\n"
+            "\"checksum\"      : \"hex\", (string) The ripemd160 hash checksum\n"
+            "\"fullhash\"      : \"hex\", (string) The full ripemd160 hash with address version byte and checksum bytes\n"
+            "}\n"
+            "\nExamples:\n" +
+            HelpExampleCli("decodebase58", "\"BQahFGZkZDeDbPEd5zhH9f2uP2YPUyzykz\""));
+
+#ifdef ENABLE_WALLET
+    LOCK2(cs_main, pwalletMain ? &pwalletMain->cs_wallet : nullptr);
+#else
+    LOCK(cs_main);
+#endif
+
+    if (request.params[0].get_str().size() < 26)
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid base58 address size (should be 26-35 base58 characters)");
+
+    CTxDestination dest = DecodeDestination(request.params[0].get_str());
+
+    std::vector<unsigned char> vch;
+    bool rc58 = DecodeBase58(request.params[0].get_str(), vch);
+
+    UniValue ret(UniValue::VOBJ);
+    ret.push_back(Pair("version", HexStr(vch.begin(), vch.begin()+1)));
+    ret.push_back(Pair("ripemd160hash", HexStr(vch.begin()+1, vch.end()-4 )));
+    ret.push_back(Pair("checksum", HexStr(vch.end()-4, vch.end() )));
+    ret.push_back(Pair("fullhash", HexStr(vch.begin(), vch.end() )));
+    return ret;
+}
+
 #ifdef ENABLE_WALLET
 UniValue getstakingstatus(const JSONRPCRequest& request)
 {
