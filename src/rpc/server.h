@@ -314,6 +314,7 @@ extern UniValue verifymessage(const JSONRPCRequest& request);
 extern UniValue setmocktime(const JSONRPCRequest& request);
 extern UniValue getstakingstatus(const JSONRPCRequest& request);
 extern UniValue gethexaddress(const JSONRPCRequest& request);
+extern UniValue getfromhexaddress(const JSONRPCRequest& request);
 
 bool StartRPC();
 void InterruptRPC();

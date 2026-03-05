@@ -711,6 +711,42 @@ UniValue gethexaddress(const JSONRPCRequest& request)
     }
 }
 
+UniValue getfromhexaddress(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() != 1)
+        throw std::runtime_error(
+            "getfromhexaddress \"hexaddress\"\n"
+            "\nConverts a raw hex smart contract address (ripemd160 hash) to a base58 pubkeyhash address\n"
+
+            "\nArguments:\n"
+	    "1. \"hexaddress\" : \"hex\", (string, required) The raw hex pubkeyhash address for use in smart contracts\n"
+
+            "\nResult:\n"
+            "\"SKYRaddress\"     (string) The SKYR base58 pubkeyhash address\n"
+
+            "\nExamples:\n" +
+            HelpExampleCli("getfromhexaddress", "\"dcd32b87270aeb980333213da2549c9907e09e94\""));
+
+	LOCK(cs_main);
+
+	std::string hexaddr = request.params[0].get_str();
+        if (hexaddr.size() != 40)
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid pubkeyhash hex size (should be 40 hex characters)");
+
+	if(!IsHex(hexaddr))
+	    throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid pubkeyhash hex digit(s)");
+
+	std::vector<unsigned char> data = Params().Base58Prefix(CChainParams::PUBKEY_ADDRESS);
+	std::vector<unsigned char> vch(ParseHex(hexaddr));
+	size_t size = (size_t)(sizeof(unsigned char)*data.size() + sizeof(unsigned char)*vch.size());
+	data.resize(size);
+
+	memcpy(data.data()+1, vch.data(), sizeof(unsigned char)*vch.size());
+	std::string res = EncodeBase58Check(data);
+	memory_cleanse((void*)data.data(), data.size());
+	return res;
+}
+
 #ifdef ENABLE_WALLET
 UniValue getstakingstatus(const JSONRPCRequest& request)
 {
